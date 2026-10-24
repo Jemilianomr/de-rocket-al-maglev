@@ -90,7 +90,7 @@ Para probar en local abre `docs/index.html` en el navegador. Las pruebas automá
 
 ## Historial
 
-Los cambios de cada versión están en [`CHANGELOG.md`](CHANGELOG.md). En el historial de commits, la v1.0 y la v2.0 son commits separados, así que se puede comparar una con otra. Las ideas y correcciones pendientes pueden registrarse en *Issues*.
+Los cambios de cada versión están en [`CHANGELOG.md`](CHANGELOG.md) y cada versión tiene su publicación en [*Releases*](https://github.com/Jemilianomr/de-rocket-al-maglev/releases) (`v1.0.0`, `v2.0.0`), con un enlace para comparar una con otra. Las ideas y correcciones pendientes pueden registrarse en *Issues*.
 
 ## Licencia
 
