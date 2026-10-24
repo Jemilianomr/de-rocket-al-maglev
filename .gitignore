@@ -1,0 +1,8 @@
+# compilados locales y dependencias de prueba
+dist/
+vendor/
+test/out/
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
