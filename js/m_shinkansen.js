@@ -1,7 +1,7 @@
 /* JNR Serie 0 Shinkansen (1964) — unidad eléctrica 25 kV 60 Hz, todos los ejes motorizados (185 kW) */
 (function () {
   const { T, Kit, G, wheelset, loft, stations } = TB;
-  const { Model, diamondPanto } = MB;
+  const { Model, diamondPanto, pantoSparks } = MB;
 
   MODELS.shinkansen = function () {
     const M = new Model('shinkansen', {
@@ -158,7 +158,13 @@
     M.flow([[xPan, wire, 0], [xPan, yT + 0.4, 0], [xPan - 1.6, yT + 0.1, 0.4], [-12.9, 2.0, 0.4], [-12.9, 1.0, 0]], cY, { r: 0.06 });
     M.flow([[-12.9, 0.8, 0.5], [-16.6, 0.8, 0.5]], '#ffb347', { r: 0.05 });
     M.flow([[-16.6, 0.95, 0.4], [-11, 1.0, 0.6], [-0.4, 1.0, 0.6], [10.6, 0.95, 0.6], [13.6, 0.9, 0.6]], '#ff9f43', { r: 0.05 });
-    for (const xc of [...B21, ...B26]) M.flow([[xc > 0 ? 13.6 : -16.6, 0.95, 0.3], [xc, 0.9, 0.3], [xc - 0.62, R + 0.12, 0.1], [xc + 0.62, R + 0.12, 0.1]], '#ffd166', { r: 0.04 });
+    for (const xc of [...B21, ...B26]) {
+      M.flow([[xc > 0 ? 13.6 : -16.6, 0.95, 0.3], [xc, 0.9, 0.3], [xc - 0.62, R + 0.12, 0.1], [xc + 0.62, R + 0.12, 0.1]], '#ffd166', { r: 0.04 });
+      const xr = Math.abs(xc - 7.6) < Math.abs(xc + 7.5) ? 7.6 : -7.5;
+      M.bflow([[xc - 0.62, R + 0.12, -0.3], [xc, 0.95, -0.3], [xr, 0.95, -0.3], [xr, 0.6, -0.3]], '#ff6b4a', { r: 0.045 });
+    }
+    M.brakeType = 'rheo';
+    pantoSparks(M, pP.group, [[xPan, wire, 0]]);
 
     M.finalize();
     M.frame = [-6, 25.2];

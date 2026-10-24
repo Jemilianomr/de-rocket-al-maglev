@@ -7,11 +7,11 @@ TRAINS.push({
   summary: 'Unidad de cabina de 1 500 hp con motor de dos tiempos 16-567B, generador de corriente continua y cuatro motores de tracción. Se fabricaron unas 3 850 unidades A y B; su producción en serie terminó con la era del vapor en Estados Unidos.',
   sky: ['#26364c', '#b8744a', '#efc07a'],
   stage: { tile: { ground: ['#c49a62', '#b08050', '#d0b080'], side: ['#b06a40', '#8a4e30', '#6a3a24'], hills: 4 }, props: 'west', fog: '#6b4a3a', sun: '#ffd9a8', sunI: 1.8, sky: '#f0dcc0', groundLight: '#7a5030' },
-  cutX: -1.5,
+  cutX: -1.36,
   partsIntro: 'Ocho conjuntos. En una diésel-eléctrica el motor no mueve las ruedas: mueve un generador. Sigue el flujo de energía desde el tanque hasta los ejes.',
   partOrder: ['motor', 'generador', 'traccion', 'bogies', 'dinamico', 'refrigeracion', 'cabina', 'chasis'],
   parts: {
-    motor: { name: 'Motor 16-567B', kicker: 'V16 de dos tiempos a 45°', cutMode: 'T', cutX: -1.5,
+    motor: { name: 'Motor 16-567B', kicker: 'V16 de dos tiempos a 45°', cutMode: 'T', cutX: -1.36,
       fn: 'Quema gasóleo y entrega 1 500 hp a 800 rpm al generador principal. El maquinista elige un “punto” del controlador y el regulador mantiene las revoluciones correspondientes, entre 275 y 800 rpm.',
       design: 'Dos tiempos con barrido por soplador Roots: cada carrera descendente es de trabajo, así que un motor relativamente compacto da mucha potencia. 567 pulgadas cúbicas por cilindro (9,29 L), 148,7 L en total.',
       make: 'Bloque soldado de acero, no fundido: se fabricaba en serie con plantillas, una idea traída de la industria automotriz de General Motors.',

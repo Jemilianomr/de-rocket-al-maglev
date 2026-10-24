@@ -1,7 +1,7 @@
 /* LNER A4 4468 "Mallard" (Doncaster, 1938) — 4-6-2 de tres cilindros, carenado aerodinámico, escape doble Kylchap */
 (function () {
   const { T, Kit, G, wheelset, rod, placeRod, loft, ringOpen, stations, ease } = TB;
-  const { Model, sliderCrank, pinPos } = MB;
+  const { Model, sliderCrank, pinPos, steamCyl, puff, fireFx, fireLight } = MB;
 
   function circ2(P, r1, Q, r2, pickLow) { // intersección de circunferencias; devuelve el punto inferior (o superior)
     const dx = Q[0] - P[0], dy = Q[1] - P[1], d = Math.hypot(dx, dy);
@@ -111,6 +111,11 @@
     // 4 — Tres cilindros 18½ × 26 in con bielas
     const pY = M.part('cilindros', { explode: [0.6, 0, 1.7] });
     const cyls = [];
+    const P = M.addParticles(pK.group, { count: 1400, c0: '#f1f0ec', c1: '#7f7d79', grow: 3.2, rise: 0.7, opacity: 0.5 });
+    const tops = [[2.55, 3.95, 0], [3.2, 3.95, 0]];
+    let tk = 0;
+    const perBeat = () => Math.max(2, Math.min(8, Math.round(54 / Math.max(1, M.vNow / (Math.PI * 2 * R) * 6))));
+    M.initSteam({ pB: 17.2, cut: 0.25, Rw: R, onBeat: () => { tk = (tk + 1) % 2; puff(P, tops[tk], M.vNow, M.tSim, { n: perBeat(), up: 3.0 + M.vNow * 0.1, life: 2.2, size: 0.4, rx: 0.3, rz: 0.25 }); } });
     function makeCyl(grp, A, u, L, pr, z, phase, d0, d1, shell) {
       const k = new Kit();
       const c0 = [A[0] + u[0] * d0, A[1] + u[1] * d0], c1 = [A[0] + u[0] * d1, A[1] + u[1] * d1];
@@ -124,7 +129,10 @@
       const ck = new Kit(); ck.box(pY.m('steel'), 0.32, 0.26, 0.16, 0, 0, 0); ck.box(pY.m('steel'), 0.06, 0.32, 0.06, 0.05, -0.28, 0);
       const cross = new T.Group(); ck.build(cross); cross.rotation.z = Math.atan2(u[1], u[0]); cross.position.z = z; grp.add(cross);
       const mrod = rod(pY.m('steel'), L, 0.16, 0.07, 0.12, pY.m('iron')); mrod.position.z = z + Math.sign(z || 1) * 0.07; grp.add(mrod);
-      cyls.push({ A, u, L, pr, piston, cross, mrod, phase });
+      if (!cyls.length) { piston.name = 'M.piston'; cross.name = 'M.cross'; mrod.name = 'M.biela'; } else if (z === 0) piston.name = 'M.pistonI';
+      const c = { A, u, L, pr, piston, cross, mrod, phase };
+      cyls.push(c);
+      steamCyl(M, grp, { src: c, A, u, L, r, pr, pt: 0.05, d0, d1, bore: 0.235, z });
     }
     for (const s of [1, -1]) makeCyl(pY.group, A2, uo, Lo, pro, s * zRod, s > 0 ? PH.R : PH.L, 4.15, 5.0, true);
     makeCyl(pY.group, A1, ui, Li, pri, 0.0, PH.I, 2.58, 3.42, false);
@@ -132,11 +140,13 @@
     // 5 — Distribución Walschaerts (exterior) y conjugada Gresley 2:1 (interior)
     const pV = M.part('valvulas', { explode: [0.4, 0.7, 2.4] });
     const vg = [];
-    const P = [1.05, 1.95], lf = 0.42, dDie = 0.12, re = 0.23;
+    const PV = [1.05, 1.95], lf = 0.42, re = 0.23; let dDie = 0.12;
+    M.onCutoff = (c) => { dDie = 0.035 + 0.23 * c; };
+    M.onCutoff(0.25);
     const yT = 1.256 + 0.55, aL = 0.14, xB0 = 0.25;
-    const Le = Math.hypot(P[0] - A2[0], P[1] - lf - A2[1]);
+    const Le = Math.hypot(PV[0] - A2[0], PV[1] - lf - A2[1]);
     const xC0 = A2[0] + Lo * uo[0];
-    const xT0 = 2.86, Lr = (xT0 - aL / 1.0 * 0) - (P[0]);
+    const xT0 = 2.86, Lr = (xT0 - aL / 1.0 * 0) - (PV[0]);
     const yRp = yT - aL, yB = 1.256 - 0.06 - 0.3, bL = yRp - yB;
     const vx0 = 3.66; // centro de la caja de válvulas
     {
@@ -146,13 +156,13 @@
         const k = new Kit();
         // caja de válvulas (sobre el cilindro) y soporte del sector
         k.seg(pV.m('blue', { shell: true }), [3.25, yT, s * zRod], [4.1, yT, s * zRod], 0.16, 20);
-        k.box(pV.m('iron'), 0.12, 0.7, 0.1, P[0], P[1] - 0.05, z - s * 0.08);
+        k.box(pV.m('iron'), 0.12, 0.7, 0.1, PV[0], PV[1] - 0.05, z - s * 0.08);
         k.build(grp);
         const mk = (len, h, t) => { const o = rod(pV.m('steel'), len, h, t, h * 0.6); o.position.z = z; grp.add(o); return o; };
         const link = new T.Group(); const lk = new Kit();
         lk.add(G.torus(1.9, 0.03, 6, 10, 0.34), pV.m('steel'), [-1.9, 0, 0], [0, 0, -0.17]);
         lk.cyl(pV.m('iron'), 0.05, 0.12, 'z', 0, 0, 0, 12);
-        lk.build(link); link.position.set(P[0], P[1], z); grp.add(link);
+        lk.build(link); link.position.set(PV[0], PV[1], z); grp.add(link);
         const eccRod = mk(Le, 0.07, 0.035);
         const radRod = mk(Lr, 0.06, 0.035);
         const comb = mk(1.0, 0.06, 0.035);
@@ -160,7 +170,10 @@
         const spindle = new T.Group(); const sk = new Kit(); sk.cyl(pV.m('steel'), 0.025, 0.9, 'x', 0.45, 0, 0, 8); sk.cyl(pV.m('steel'), 0.13, 0.08, 'x', 0.9, 0, 0, 16); sk.cyl(pV.m('steel'), 0.13, 0.08, 'x', 1.2, 0, 0, 16); sk.cyl(pV.m('steel'), 0.025, 1.25, 'x', 1.6, 0, 0, 8);
         sk.build(spindle); spindle.position.set(0, yT, s * zRod); grp.add(spindle);
         const ret = new T.Group(); const rk = new Kit(); rk.box(pV.m('steel'), re + 0.06, 0.08, 0.05, (re) / 2, 0, 0); rk.build(ret); ret.position.z = z - s * 0.06; grp.add(ret);
-        vg.push({ s, z, link, eccRod, radRod, comb, union, spindle, ret, phase: s > 0 ? PH.R : PH.L, dx: 0 });
+        const die = new T.Group(); const dk = new Kit(); dk.box(pV.m('brass'), 0.07, 0.11, 0.07, 0, 0, 0); dk.build(die); grp.add(die);
+        // válvula de pistón dentro de la caja (visible con rayos X o corte)
+        if (s > 0) { die.name = 'M.die'; comb.name = 'M.comb'; eccRod.name = 'M.ecc'; radRod.name = 'M.radius'; }
+        vg.push({ s, z, link, eccRod, radRod, comb, union, spindle, ret, die, phase: s > 0 ? PH.R : PH.L, dx: 0 });
       }
       // conjugada 2:1 (delante de las cajas de válvulas, plano horizontal)
       const xf = 5.5, yc = yT;
@@ -173,6 +186,7 @@
       // válvula interior
       const vi = new T.Group(); const vk = new Kit(); vk.seg(pV.m('iron'), [3.0, yT + 0.05, 0], [4.0, yT + 0.05, 0], 0.15, 18); vk.build(vi); cg.add(vi);
       const ivalve = new T.Group(); const ik = new Kit(); ik.cyl(pV.m('steel'), 0.12, 0.08, 'x', 0, 0, 0, 16); ik.cyl(pV.m('steel'), 0.12, 0.08, 'x', 0.3, 0, 0, 16); ik.cyl(pV.m('steel'), 0.025, 2.0, 'x', 1.0, 0, 0, 8); ik.build(ivalve); ivalve.position.set(3.35, yT + 0.05, 0); cg.add(ivalve);
+      lever21.name = 'M.conj'; ivalve.name = 'M.ivalve';
       M._conj = { lever21, lever11, ivalve, xf, yc };
     }
 
@@ -197,7 +211,7 @@
         const ph = s > 0 ? PH.R : PH.L;
         const a = rod(pW.m('steel'), XD[0] - XD[1], 0.13, 0.06, 0.1); a.position.z = s * (zRod - 0.0); pW.group.add(a);
         const b = rod(pW.m('steel'), XD[1] - XD[2], 0.13, 0.06, 0.1); b.position.z = s * (zRod - 0.0); pW.group.add(b);
-        cpl.push({ a, b, ph });
+        cpl.push({ a, b, ph }); if (s > 0) a.name = 'M.acopl';
       }
     }
 
@@ -253,6 +267,7 @@
       cyls.forEach((c, i) => {
         const pin = pinPos(c.A, r, th + c.phase);
         const xc = sliderCrank(c.A, c.u, pin, c.L);
+        c.xc = xc; c.phi = th + c.phase;
         const C = [c.A[0] + c.u[0] * xc, c.A[1] + c.u[1] * xc];
         c.cross.position.x = C[0]; c.cross.position.y = C[1];
         c.piston.position.x = c.A[0] + c.u[0] * (xc + c.pr); c.piston.position.y = c.A[1] + c.u[1] * (xc + c.pr);
@@ -268,10 +283,11 @@
         const pin = pinPos(A2, r, th + v.phase);
         const E = pinPos(A2, re, th + v.phase - Math.PI / 2);
         v.ret.position.x = pin[0]; v.ret.position.y = pin[1]; v.ret.rotation.z = Math.atan2(E[1] - pin[1], E[0] - pin[0]);
-        const F = circ2(P, lf, E, Le, true);
-        const psi = Math.atan2(F[0] - P[0], -(F[1] - P[1]));
+        const F = circ2(PV, lf, E, Le, true);
+        const psi = Math.atan2(F[0] - PV[0], -(F[1] - PV[1]));
         v.link.rotation.z = psi;
-        const D = [P[0] - dDie * Math.sin(psi), P[1] + dDie * Math.cos(psi)];
+        const D = [PV[0] - dDie * Math.sin(psi), PV[1] + dDie * Math.cos(psi)];
+        if (v.die) { v.die.position.set(D[0], D[1], v.z); v.die.rotation.z = psi; }
         placeRod(v.eccRod, E, F);
         const C = cross[i];
         const xB = C[0] + xB0, Rp = [D[0] + Lr, yRp];
@@ -291,6 +307,8 @@
     });
     M.update(0, 0);
 
+    fireFx(M, [pB.m('fire')], fireLight(M, [-3.5, 2.0, 0], 3.2), 1.3);
+    { let acc = 0; M.fx.push((t, dt, v) => { if (!M.powered || dt <= 0) return; acc += dt * 6; while (acc > 1) { acc--; const tp = tops[Math.random() < 0.5 ? 0 : 1]; P.emit([tp[0] + (Math.random() - 0.5) * 0.2, tp[1], (Math.random() - 0.5) * 0.2], [-v * 0.95, 1.0 + Math.random() * 0.8, (Math.random() - 0.5) * 0.3], 2.6, 0.3, t); } }); }
     M.flow([[-3.5, 1.8, 0], [-3.5, 2.6, 0], [-2.2, yb - 0.2, 0], [2.3, yb - 0.2, 0], [2.85, yb - 0.6, 0], [2.85, 4.4, 0]], '#ff8a3d', { r: 0.07 });
     M.flow([[-2.0, yb + 0.6, 0], [2.1, yb + 0.5, 0], [3.8, yb + 0.5, 0.2], [3.8, 1.6, 0.6], [3.66, 1.8, zRod], [3.66, 1.25, zRod], [2.9, yb - 0.5, 0.3], [2.9, 4.3, 0]], '#bfe6ff', { r: 0.05, speed: 1.4 });
 

@@ -1,7 +1,7 @@
 /* SBB Ce 6/8 II "Krokodil" (SLM/MFO, 1919) — (1'C)(C1'), 15 kV 16⅔ Hz, accionamiento por eje ciego y bielas */
 (function () {
   const { T, Kit, G, wheelset, rod } = TB;
-  const { Model, diamondPanto } = MB;
+  const { Model, diamondPanto, pantoSparks } = MB;
 
   MODELS.croc = function () {
     const M = new Model('croc', {
@@ -40,6 +40,10 @@
       // interruptor principal en aceite
       k.cyl(pX.m('dark'), 0.25, 0.7, 'y', -1.3, 2.2, 0.3, 16);
       k.build(pX.group);
+      // aguja del conmutador: recorre las 22 posiciones según la demanda
+      const ndl = new T.Group(); ndl.position.set(1.25, 2.35, 0.34);
+      const kn = new Kit(); kn.box(pX.m('copper'), 0.36, 0.04, 0.03, 0.18, 0, 0); kn.cyl(pX.m('steel'), 0.05, 0.05, 'z', 0, 0, 0, 14); kn.build(ndl);
+      pX.group.add(ndl); M._needle = ndl;
     }
 
     // 3 — Motores de tracción (4 × monofásicos serie de 12 polos)
@@ -97,6 +101,7 @@
       k.bar(st, a2, jj, 0.05, 0.11); k.bar(st, jj, a3, 0.05, 0.11);
       for (const p of [a1, a2, a3, jj]) k.cyl(pB.m('dark'), 0.1, 0.09, 'z', p[0], p[1], p[2], 18);
       k.build(grp);
+      if (h > 0 && s > 0) grp.name = 'K.rig';
       rigs.push({ grp, phase: s > 0 ? 0 : Math.PI / 2 });
     }
 
@@ -183,6 +188,7 @@
       const th = -s / R;
       jacks.forEach(j => (j.rotation.z = th));
       armatures.forEach(a => (a.ag.rotation.z = -th * a.ratio));
+      if (M._needle) { const n = Math.min(1, (M.vNow || 0) / 18 + (M.powered ? 0.12 : 0)); const pos = Math.round(n * 21); M._needle.rotation.z = -2.2 + pos * 0.21; M.notch = pos + 1; }
       for (const rg of rigs) { rg.grp.position.x = Math.cos(th + rg.phase) * cr; rg.grp.position.y = Math.sin(th + rg.phase) * cr; }
     });
     M.update(0, 0);
@@ -193,6 +199,8 @@
     M.flow([[-1.75, wire, 0], [-1.75, 4.3, 0], [-1.3, 4.0, 0.3], [-1.3, 2.9, 0.3], [-0.4, 3.0, 0], [0, 2.6, 0]], c1, { r: 0.05 });
     for (const h of [1, -1]) M.flow([[0.6 * h, 2.4, 0], [1.25 * h, 2.3, -0.2], [2.6 * h, 2.0, -0.3], [h * (XJ - 0.61), YJ + 0.61, -0.3], [h * (XJ + 0.61), YJ + 0.61, -0.3]], '#ffb347', { r: 0.045 });
     M.flow([[XJ, YJ, 0.4], [AX[1], R, 0.4], [AX[1], 0.05, 0.75], [AX[1] + 2, 0.02, 0.75]], '#5aa9e6', { r: 0.035, speed: 0.8 });
+    M.brakeType = 'regen';
+    pantoSparks(M, pP.group, [[-1.75, wire, 0], [1.75, wire, 0]]);
 
     M.finalize();
     M.len = 19.4; M.center = 0;

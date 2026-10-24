@@ -11,20 +11,31 @@
 
   // ---------- Plano de corte compartido y uniformes globales ----------
   const SECTION = new T.Plane(new T.Vector3(0, 0, -1), 50);
-  const GU = { uCut: { value: 0 } };
+  const GU = { uCut: { value: 0 }, uPScale: { value: 600 } };
 
+  // Realce: contorno luminoso (rim) por material + rayado en superficies cortadas
+  const HLC = new T.Color('#ffc65a');
   function patchCut(m, interior) {
+    m.userData.uHL = { value: 0 };
+    m.userData.uHLc = { value: HLC };
     m.onBeforeCompile = (sh) => {
       sh.uniforms.uCut = GU.uCut;
+      sh.uniforms.uHL = m.userData.uHL;
+      sh.uniforms.uHLc = m.userData.uHLc;
       const inj = interior
         ? `if (uCut > 0.5 && !gl_FrontFacing) { gl_FragColor.rgb *= 0.5; }`
         : `if (uCut > 0.5 && !gl_FrontFacing) {
           float h = step(0.5, fract((gl_FragCoord.x + gl_FragCoord.y) / 10.0));
           gl_FragColor = vec4(mix(vec3(0.86, 0.36, 0.24), vec3(0.64, 0.22, 0.15), h), gl_FragColor.a);
         }`;
-      sh.fragmentShader = 'uniform float uCut;\n' + sh.fragmentShader.replace('#include <dithering_fragment>', '#include <dithering_fragment>\n' + inj);
+      const rim = `if (uHL > 0.001) {
+          vec3 nn = normalize(normal); vec3 vv = normalize(vViewPosition);
+          float rr = 1.0 - abs(dot(nn, vv)); rr = rr * rr * (3.0 - 2.0 * rr);
+          gl_FragColor.rgb += uHLc * (0.10 + 1.25 * pow(rr, 1.6)) * uHL;
+        }`;
+      sh.fragmentShader = 'uniform float uCut;\nuniform float uHL;\nuniform vec3 uHLc;\n' + sh.fragmentShader.replace('#include <dithering_fragment>', '#include <dithering_fragment>\n' + rim + '\n' + inj);
     };
-    m.customProgramCacheKey = () => interior ? 'cutInt1' : 'cutHatch1';
+    m.customProgramCacheKey = () => interior ? 'cutInt2' : 'cutHatch2';
   }
 
   function mat(color, o = {}) {
@@ -138,6 +149,23 @@
       const dir = Bv.clone().sub(A).normalize();
       const q = new T.Quaternion().setFromUnitVectors(new T.Vector3(1, 0, 0), dir);
       return this.addMtx(g, m, new T.Matrix4().compose(mid, q, new T.Vector3(1, 1, 1)));
+    }
+    // fila de remaches entre a y b (esferas aplanadas de baja resolución)
+    rivets(m, a, b, n, r = 0.012) {
+      for (let i = 0; i < n; i++) {
+        const t = n === 1 ? 0.5 : i / (n - 1);
+        this.add(G.sph(r, 6, 4), m, [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]);
+      }
+      return this;
+    }
+    // anillo de remaches alrededor de un eje (axis x) en el centro c con radio R
+    rivetRing(m, c, R, n, r = 0.012, axis = 'x') {
+      for (let i = 0; i < n; i++) {
+        const a = i / n * TAU, u = Math.cos(a) * R, v = Math.sin(a) * R;
+        const p = axis === 'x' ? [c[0], c[1] + u, c[2] + v] : axis === 'z' ? [c[0] + u, c[1] + v, c[2]] : [c[0] + u, c[1], c[2] + v];
+        this.add(G.sph(r, 6, 4), m, p);
+      }
+      return this;
     }
     build(parent, opts = {}) {
       const meshes = [];
@@ -689,5 +717,93 @@
     return mesh;
   }
 
-  window.TB = { T, TAU, SECTION, GU, mat, sceneMat, G, Kit, merge, loft, ringOpen, stations, widthAt, pchip, stAt, surf, surfPatch, onSurf, ease, ringPoint, wheel, wheelset, zRod, rod, placeRod, noiseTex, fbm, hexTile, track, scatter, inHex, randPts, catenary, flowLine, flowMats, axisRot };
+
+  // ---------- Partículas en GPU: humo, vapor, chispas ----------
+  // La posición se calcula en el shader a partir de nacimiento, velocidad y deriva; la CPU sólo escribe las nuevas.
+  class Particles {
+    constructor(o = {}) {
+      const N = this.N = o.count ?? 600;
+      this.kind = o.kind || 'smoke';
+      const geo = new T.BufferGeometry();
+      this.a = {
+        p0: new Float32Array(N * 3), v: new Float32Array(N * 3), t0: new Float32Array(N).fill(-1e4),
+        life: new Float32Array(N).fill(1), size: new Float32Array(N), seed: new Float32Array(N),
+      };
+      geo.setAttribute('position', new T.BufferAttribute(this.a.p0, 3));
+      geo.setAttribute('aV', new T.BufferAttribute(this.a.v, 3));
+      geo.setAttribute('aT0', new T.BufferAttribute(this.a.t0, 1));
+      geo.setAttribute('aLife', new T.BufferAttribute(this.a.life, 1));
+      geo.setAttribute('aSize', new T.BufferAttribute(this.a.size, 1));
+      geo.setAttribute('aSeed', new T.BufferAttribute(this.a.seed, 1));
+      for (const k of ['position', 'aV', 'aT0', 'aLife', 'aSize', 'aSeed']) geo.attributes[k].setUsage(T.DynamicDrawUsage);
+      geo.boundingSphere = new T.Sphere(new T.Vector3(), 1e4);
+      const spark = this.kind === 'spark';
+      this.mat = new T.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0 }, uScale: { value: 600 },
+          uC0: { value: new T.Color(o.c0 || '#f2f2ee') }, uC1: { value: new T.Color(o.c1 || '#8b8f94') },
+          uGrow: { value: o.grow ?? 2.2 }, uRise: { value: o.rise ?? 0.6 }, uOpacity: { value: o.opacity ?? 0.55 }, uGrav: { value: o.grav ?? 0 },
+        },
+        vertexShader: `
+          attribute vec3 aV; attribute float aT0, aLife, aSize, aSeed;
+          uniform float uTime, uScale, uGrow, uRise, uGrav;
+          varying float vK; varying float vSeed;
+          void main() {
+            float age = uTime - aT0; float k = age / aLife; vK = k; vSeed = aSeed;
+            vec3 p = position + aV * age + vec3(0.0, uRise * age * age * 0.5 - uGrav * age * age * 0.5, 0.0);
+            float wob = sin(aSeed * 40.0 + age * 2.3) * 0.08 * age;
+            p.x += wob; p.z += cos(aSeed * 31.0 + age * 1.9) * 0.08 * age;
+            vec4 mv = modelViewMatrix * vec4(p, 1.0);
+            gl_Position = projectionMatrix * mv;
+            float alive = step(0.0, age) * step(k, 1.0);
+            float sz = aSize * (1.0 + uGrow * k);
+            gl_PointSize = alive * clamp(sz * uScale / max(0.1, -mv.z), 0.0, 420.0);
+          }`,
+        fragmentShader: `
+          uniform vec3 uC0, uC1; uniform float uOpacity;
+          varying float vK; varying float vSeed;
+          void main() {
+            vec2 q = gl_PointCoord - 0.5; float d = length(q) * 2.0;
+            if (d > 1.0) discard;
+            ${spark ? 'float a = (1.0 - d) * (1.0 - vK); vec3 c = mix(uC0, uC1, vK); gl_FragColor = vec4(c * 1.6, a);' :
+            `float n = sin(q.x * 13.0 + vSeed * 20.0) * sin(q.y * 11.0 - vSeed * 17.0) * 0.18;
+            float a = smoothstep(1.0, 0.25, d + n) * pow(1.0 - vK, 1.35) * uOpacity * smoothstep(0.0, 0.06, vK);
+            vec3 c = mix(uC0, uC1, smoothstep(0.0, 0.8, vK)) * (0.9 + 0.2 * (1.0 - d));
+            gl_FragColor = vec4(c, a);`}
+          }`,
+        transparent: true, depthWrite: false, blending: spark ? T.AdditiveBlending : T.NormalBlending,
+      });
+      this.points = new T.Points(geo, this.mat);
+      this.points.frustumCulled = false; this.points.renderOrder = 5;
+      this.i = 0; this.dirty = [];
+    }
+    emit(p, v, life, size, t) {
+      const i = this.i; this.i = (this.i + 1) % this.N; const a = this.a;
+      a.p0[i * 3] = p[0]; a.p0[i * 3 + 1] = p[1]; a.p0[i * 3 + 2] = p[2];
+      a.v[i * 3] = v[0]; a.v[i * 3 + 1] = v[1]; a.v[i * 3 + 2] = v[2];
+      a.t0[i] = t; a.life[i] = life; a.size[i] = size; a.seed[i] = Math.random();
+      this.dirty.push(i);
+    }
+    flush() {
+      if (!this.dirty.length) return;
+      const g = this.points.geometry;
+      for (const k of ['position', 'aV', 'aT0', 'aLife', 'aSize', 'aSeed']) g.attributes[k].needsUpdate = true;
+      this.dirty.length = 0;
+    }
+    reset() { this.a.t0.fill(-1e4); this.points.geometry.attributes.aT0.needsUpdate = true; }
+  }
+
+  // Material de cámara de vapor (color = presión) — sin iluminar, con corte
+  function chamberMat() {
+    return new T.MeshBasicMaterial({ color: '#4a7fa8', clippingPlanes: [SECTION], side: T.DoubleSide, toneMapped: false });
+  }
+  // Mapa de color de presión normalizada (0 = escape, 1 = vapor vivo)
+  const PC = [new T.Color('#3f6f96'), new T.Color('#c84a2e'), new T.Color('#ffb347'), new T.Color('#fff2c4')];
+  function pressureColor(c, x) {
+    x = Math.max(0, Math.min(1, x));
+    const f = x * 3, i = Math.min(2, Math.floor(f));
+    return c.copy(PC[i]).lerp(PC[i + 1], f - i);
+  }
+
+  window.TB = { T, TAU, SECTION, GU, mat, sceneMat, G, Kit, merge, loft, ringOpen, stations, widthAt, pchip, stAt, surf, surfPatch, onSurf, ease, ringPoint, wheel, wheelset, zRod, rod, placeRod, noiseTex, fbm, hexTile, track, scatter, inHex, randPts, catenary, flowLine, flowMats, axisRot, Particles, chamberMat, pressureColor, HLC };
 })();

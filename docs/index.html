@@ -209,6 +209,99 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 .tbl td:first-child { font-family: var(--f-body); font-weight: 600; color: var(--fg); }
 .nd { color: var(--muted); }
 
+
+/* ---------- v2: recorrido, estudio, p–V ---------- */
+.cta { position: absolute; z-index: 3; top: 12px; right: max(12px, env(safe-area-inset-right, 0px)); display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 11px; border-radius: 18px; border: 1px solid var(--brass); background: linear-gradient(180deg, #2c2616, #1d1a10); color: var(--brass-hi); font-weight: 600; font-size: 13px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+.cta svg { width: 14px; height: 14px; }
+.cta:hover { background: linear-gradient(180deg, #3a3119, #262011); }
+.cta[hidden] { display: none; }
+.tourbtn { margin-top: 12px; }
+.tourbtn svg { width: 13px; height: 13px; }
+.tool:disabled { opacity: .4; cursor: not-allowed; }
+
+.tour { position: absolute; z-index: 4; left: max(12px, env(safe-area-inset-left, 0px)); bottom: 12px; width: min(470px, calc(100% - 24px)); border-radius: 12px; border: 1px solid var(--brass-lo); background: rgba(12,21,29,.94); backdrop-filter: blur(8px); padding: 12px 14px 12px; box-shadow: 0 14px 36px rgba(0,0,0,.45); }
+.tour[hidden] { display: none; }
+.tour .tkr { display: flex; align-items: center; gap: 8px; }
+.tour .tk { flex: 1; font: 500 11px var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--brass); }
+.tmin { width: 26px; height: 22px; border: 1px solid var(--line-2); border-radius: 6px; background: transparent; color: var(--muted); display: grid; place-items: center; padding: 0; }
+.tmin svg { width: 14px; height: 14px; transition: transform .15s; }
+.tour.min .tmin svg { transform: rotate(180deg); }
+.tour.min .td, .tour.min .tf { display: none; }
+.tour h3 { margin: 4px 0 6px; font: 800 25px/1.02 var(--f-display); letter-spacing: .02em; text-transform: uppercase; text-wrap: balance; }
+.tour .td { margin: 0; color: var(--fg-2); font-size: 13.5px; line-height: 1.5; max-height: 26vh; overflow-y: auto; }
+.tour .td b { color: var(--fg); }
+.tour .tf { margin-top: 8px; padding: 6px 9px; border-radius: 7px; background: var(--panel-2); border: 1px solid var(--line); font: 500 12px/1.5 var(--f-mono); color: var(--brass-hi); overflow-wrap: anywhere; }
+.tour .tf[hidden] { display: none; }
+.tour .tf sub, .tour .tf sup { font-size: 70%; }
+.dots { display: flex; gap: 4px; margin: 11px 0 9px; }
+.dots button { flex: 1; height: 14px; border: 0; padding: 0; background: transparent; position: relative; }
+.dots button::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 4px; border-radius: 2px; background: var(--line-2); }
+.dots button.done::before { background: var(--brass-lo); }
+.dots button.on::before { background: var(--brass); }
+.tc { display: flex; gap: 6px; align-items: center; }
+.tc .spacer { flex: 1; }
+.tc .btn { padding: 6px 11px; }
+.tc .btn:disabled { opacity: .4; cursor: default; }
+.tc .play { width: 32px; height: 32px; }
+
+.vp.study { background: radial-gradient(ellipse at 50% 38%, #18364f 0%, #0d1f30 62%, #081320 100%) !important; }
+.vp.study::before { background-image: linear-gradient(rgba(120,190,240,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120,190,240,.07) 1px, transparent 1px), linear-gradient(rgba(120,190,240,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(120,190,240,.035) 1px, transparent 1px); }
+.studybar { position: absolute; z-index: 4; top: 12px; right: max(12px, env(safe-area-inset-right, 0px)); display: flex; align-items: center; gap: 10px; padding: 5px 6px 5px 14px; border-radius: 20px; border: 1px solid #3e7fb0; background: rgba(8,22,36,.92); font-size: 12px; color: #b9d9ef; white-space: nowrap; max-width: min(600px, calc(100% - 470px)); box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+.studybar[hidden] { display: none; }
+.studybar .k { font: 500 10.5px var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: #79b6e0; }
+.studybar b { font: 700 15px var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: #e3f2fd; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.studybar .g { font: 11px var(--f-mono); color: #79b6e0; }
+.studybar .sb { border: 1px solid #3e7fb0; background: transparent; color: #cfe6f7; border-radius: 14px; padding: 3px 10px; font-size: 12px; }
+.studybar .sb[aria-pressed="true"] { background: #2d6a96; border-color: #8cc8f0; }
+.studybar .sb:hover { border-color: #8cc8f0; }
+.cchip { position: absolute; left: 0; top: 0; pointer-events: auto; display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 9px 0 3px; border-radius: 11px; border: 1px solid #3e7fb0; background: rgba(7,19,31,.9); color: #dcefff; font-size: 12px; font-weight: 500; white-space: nowrap; }
+.cchip b { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: #8cc8f0; color: #06121c; font: 700 10px var(--f-mono); }
+.cchip.hot { border-color: var(--brass-hi); background: #1d2c18; }
+#sLayer.compact .cchip { padding: 0 3px; }
+#sLayer.compact .cchip span { display: none; }
+.cchip.hot b { background: var(--brass-hi); }
+.sline { stroke: #8cc8f0; stroke-width: 1; opacity: .85; }
+.sline.hot { stroke: var(--brass-hi); stroke-width: 1.6; opacity: 1; }
+.sdot { fill: #8cc8f0; stroke: #06121c; stroke-width: 1; }
+.sdot.hot { fill: var(--brass-hi); }
+.diml { stroke: #f0cd84; stroke-width: 1.2; }
+.dimx { stroke: #f0cd84; stroke-width: .8; opacity: .65; stroke-dasharray: 3 2; }
+.dim text { fill: #f6dfa6; font: 600 12px var(--f-mono); paint-order: stroke; stroke: #07131f; stroke-width: 4px; stroke-linejoin: round; }
+.comps { list-style: none; margin: 0; padding: 0 !important; }
+.comps li { display: flex; gap: 10px; padding: 7px 6px; border-top: 1px solid var(--line); border-radius: 6px; transition: background .15s; }
+.comps li b { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #8cc8f0; color: #06121c; font: 700 11px var(--f-mono); margin-top: 1px; }
+.comps li.hot, .comps li.flash { background: var(--panel-3); }
+.comps li.hot b { background: var(--brass-hi); }
+.comps .cn { display: block; font-weight: 600; color: var(--fg); font-size: 13px; }
+.comps .cd { display: block; color: var(--fg-2); font-size: 12.5px; }
+.snote { font-size: 12.5px; color: var(--fg-2); margin-top: 8px !important; }
+.hintp { font-size: 12px; color: var(--muted) !important; margin: 4px 0 0 !important; }
+
+.pv { position: absolute; z-index: 3; right: max(12px, env(safe-area-inset-right, 0px)); top: 58px; width: 324px; border-radius: 12px; border: 1px solid var(--line-2); background: rgba(12,21,29,.93); backdrop-filter: blur(8px); padding: 10px 12px 10px; box-shadow: 0 12px 30px rgba(0,0,0,.4); }
+.pv[hidden] { display: none; }
+.pv-h { display: flex; align-items: center; gap: 8px; }
+.pv-h b { font: 700 14px var(--f-display); letter-spacing: .1em; text-transform: uppercase; color: var(--brass); }
+.pv-h .spacer { flex: 1; }
+.pv-h button { border: 0; background: transparent; color: var(--muted); font-size: 16px; line-height: 1; padding: 2px 6px; }
+.pv-k { display: flex; gap: 12px; font-size: 11px; color: var(--muted); margin: 2px 0 2px; }
+.pv-k i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 0; }
+.pv .cut { display: flex; align-items: center; gap: 8px; font: 12px var(--f-mono); color: var(--muted); margin: 4px 0 2px; }
+.pv .cut input { flex: 1; width: auto; }
+.pv .cut input:disabled { opacity: .45; }
+.pv .cut b { color: var(--fg); min-width: 42px; text-align: right; }
+.pv-n { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin-top: 6px; }
+.pv-n div { background: var(--panel-2); border: 1px solid var(--line); border-radius: 7px; padding: 3px 6px; min-width: 0; }
+.pv-n b { display: block; font: 500 13px var(--f-mono); color: var(--fg); white-space: nowrap; }
+.pv-n span { display: block; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pv .note2 { font-size: 11px; color: var(--muted); margin: 6px 0 0; }
+
+.hud-x { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 0; }
+.hud-x:empty { display: none; }
+.chipb { border: 1px solid var(--line-2); background: var(--panel-2); color: var(--fg-2); border-radius: 13px; padding: 3px 10px; font-size: 11.5px; font-weight: 500; }
+.chipb:hover { border-color: var(--brass-lo); color: var(--fg); }
+.chipb[aria-pressed="true"] { border-color: var(--brass); background: rgba(42,37,22,.95); color: var(--brass-hi); }
+.hstate { font: 11px var(--f-mono); color: var(--muted); margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
 /* ---------- Responsivo ---------- */
 @media (max-width: 1100px) { :root { --panel-w: 380px; } .brand p { display: none; } }
 @media (max-width: 860px) {
@@ -234,6 +327,23 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
   .tool { height: 34px; }
   .subctl { flex-wrap: wrap; max-width: calc(100vw - 80px); }
   .subctl input[type=range] { width: 96px; }
+
+  .cta { top: 8px; right: 8px; height: 34px; padding: 0 11px 0 9px; font-size: 12px; }
+  .tour { left: 8px; bottom: 8px; width: calc(100% - 16px); padding: 10px 11px; }
+  .tour h3 { font-size: 18px; margin: 2px 0 4px; }
+  .tour .td { font-size: 12.5px; max-height: 13vh; }
+  .tour .tf { font-size: 11px; padding: 4px 7px; margin-top: 6px; }
+  .dots { margin: 8px 0 6px; }
+  .vp.study .readouts { display: none; }
+  .pv .pv-k, .pv .note2 { display: none; }
+  .pv svg { max-height: 128px; }
+  .studybar { top: auto; bottom: 8px; right: 8px; left: auto; max-width: calc(100% - 16px); gap: 6px; padding-left: 10px; }
+  .vp.study .hud { bottom: 52px; }
+  .studybar .g, .studybar .k { display: none; }
+  .pv { right: 8px; top: 50px; width: min(300px, calc(100% - 64px)); padding: 8px 9px; }
+  .vp.study .pv { top: 92px; }
+  .hstate { display: none; }
+  .cchip { font-size: 11px; height: 20px; }
 }
 @media (max-width: 520px) { .brand h1 { font-size: 21px; } .top .btn .lb { display: none; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -280,6 +390,26 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
         <div class="seg" role="group" aria-label="Escala de tiempo"><button type="button" data-ts="1" aria-pressed="false">1×</button><button type="button" data-ts="0.25" aria-pressed="false">¼×</button><button type="button" data-ts="0.0625" aria-pressed="true">1⁄16×</button></div>
       </div>
       <div class="readouts" id="ro"></div>
+      <div class="hud-x" id="hudX"></div>
+    </div>
+    <button class="cta" id="btnTour" type="button" hidden><svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>Cómo funciona</button>
+    <div class="layer" id="sLayer" hidden><svg id="sSvg" aria-hidden="true"><defs><marker id="arw" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,1.5 L10,5 L0,8.5 z" fill="#f0cd84"/></marker></defs></svg></div>
+    <div class="studybar" id="studyBar" hidden><span class="k">Estudio</span><b id="studyName"></b><span class="g" id="studyGrid"></span><button class="sb" id="sRot" type="button" aria-pressed="true">Girar</button><button class="sb" id="sExit" type="button">Salir</button></div>
+    <div class="pv" id="pv" hidden role="region" aria-label="Diagrama presión–volumen">
+      <div class="pv-h"><b>Diagrama indicado p–V</b><span class="spacer"></span><button id="pvClose" type="button" aria-label="Cerrar diagrama">×</button></div>
+      <div class="pv-k"><span><i style="background:#d9573b"></i>cámara lado manivela</span><span><i style="background:#4fb3d9"></i>cámara lado tapa</span></div>
+      <svg class="chart" id="pvSvg" viewBox="0 0 300 176" role="img" aria-label="Lazo presión contra volumen del cilindro izquierdo"></svg>
+      <div class="cut"><label for="pvCut">Corte</label><input type="range" id="pvCut" min="10" max="85" value="35"><b id="pvCutV">35 %</b></div>
+      <div class="pv-n" id="pvNums"></div>
+      <p class="note2" id="pvNote"></p>
+    </div>
+    <div class="tour" id="tour" hidden role="region" aria-label="Recorrido guiado" aria-live="polite">
+      <div class="tkr"><div class="tk" id="tourK"></div><button class="tmin" id="tourMin" type="button" aria-expanded="true" aria-label="Contraer explicación"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6l4 4 4-4"/></svg></button></div>
+      <h3 id="tourT"></h3>
+      <div class="td" id="tourD"></div>
+      <div class="tf" id="tourF" hidden></div>
+      <div class="dots" id="tourDots"></div>
+      <div class="tc"><button class="btn" id="tourPrev" type="button">← Anterior</button><button class="play" id="tourPlay" type="button" aria-label="Pausar"></button><span class="spacer"></span><button class="btn" id="tourExit" type="button">Salir</button><button class="btn primary" id="tourNext" type="button">Siguiente →</button></div>
     </div>
     <div class="hint">Arrastra para orbitar · rueda o pellizco para acercar · clic en una pieza</div>
     <div class="tip" id="tip" hidden></div>
@@ -331,20 +461,31 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 
   // ---------- Plano de corte compartido y uniformes globales ----------
   const SECTION = new T.Plane(new T.Vector3(0, 0, -1), 50);
-  const GU = { uCut: { value: 0 } };
+  const GU = { uCut: { value: 0 }, uPScale: { value: 600 } };
 
+  // Realce: contorno luminoso (rim) por material + rayado en superficies cortadas
+  const HLC = new T.Color('#ffc65a');
   function patchCut(m, interior) {
+    m.userData.uHL = { value: 0 };
+    m.userData.uHLc = { value: HLC };
     m.onBeforeCompile = (sh) => {
       sh.uniforms.uCut = GU.uCut;
+      sh.uniforms.uHL = m.userData.uHL;
+      sh.uniforms.uHLc = m.userData.uHLc;
       const inj = interior
         ? `if (uCut > 0.5 && !gl_FrontFacing) { gl_FragColor.rgb *= 0.5; }`
         : `if (uCut > 0.5 && !gl_FrontFacing) {
           float h = step(0.5, fract((gl_FragCoord.x + gl_FragCoord.y) / 10.0));
           gl_FragColor = vec4(mix(vec3(0.86, 0.36, 0.24), vec3(0.64, 0.22, 0.15), h), gl_FragColor.a);
         }`;
-      sh.fragmentShader = 'uniform float uCut;\n' + sh.fragmentShader.replace('#include <dithering_fragment>', '#include <dithering_fragment>\n' + inj);
+      const rim = `if (uHL > 0.001) {
+          vec3 nn = normalize(normal); vec3 vv = normalize(vViewPosition);
+          float rr = 1.0 - abs(dot(nn, vv)); rr = rr * rr * (3.0 - 2.0 * rr);
+          gl_FragColor.rgb += uHLc * (0.10 + 1.25 * pow(rr, 1.6)) * uHL;
+        }`;
+      sh.fragmentShader = 'uniform float uCut;\nuniform float uHL;\nuniform vec3 uHLc;\n' + sh.fragmentShader.replace('#include <dithering_fragment>', '#include <dithering_fragment>\n' + rim + '\n' + inj);
     };
-    m.customProgramCacheKey = () => interior ? 'cutInt1' : 'cutHatch1';
+    m.customProgramCacheKey = () => interior ? 'cutInt2' : 'cutHatch2';
   }
 
   function mat(color, o = {}) {
@@ -458,6 +599,23 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       const dir = Bv.clone().sub(A).normalize();
       const q = new T.Quaternion().setFromUnitVectors(new T.Vector3(1, 0, 0), dir);
       return this.addMtx(g, m, new T.Matrix4().compose(mid, q, new T.Vector3(1, 1, 1)));
+    }
+    // fila de remaches entre a y b (esferas aplanadas de baja resolución)
+    rivets(m, a, b, n, r = 0.012) {
+      for (let i = 0; i < n; i++) {
+        const t = n === 1 ? 0.5 : i / (n - 1);
+        this.add(G.sph(r, 6, 4), m, [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]);
+      }
+      return this;
+    }
+    // anillo de remaches alrededor de un eje (axis x) en el centro c con radio R
+    rivetRing(m, c, R, n, r = 0.012, axis = 'x') {
+      for (let i = 0; i < n; i++) {
+        const a = i / n * TAU, u = Math.cos(a) * R, v = Math.sin(a) * R;
+        const p = axis === 'x' ? [c[0], c[1] + u, c[2] + v] : axis === 'z' ? [c[0] + u, c[1] + v, c[2]] : [c[0] + u, c[1], c[2] + v];
+        this.add(G.sph(r, 6, 4), m, p);
+      }
+      return this;
     }
     build(parent, opts = {}) {
       const meshes = [];
@@ -1009,7 +1167,95 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     return mesh;
   }
 
-  window.TB = { T, TAU, SECTION, GU, mat, sceneMat, G, Kit, merge, loft, ringOpen, stations, widthAt, pchip, stAt, surf, surfPatch, onSurf, ease, ringPoint, wheel, wheelset, zRod, rod, placeRod, noiseTex, fbm, hexTile, track, scatter, inHex, randPts, catenary, flowLine, flowMats, axisRot };
+
+  // ---------- Partículas en GPU: humo, vapor, chispas ----------
+  // La posición se calcula en el shader a partir de nacimiento, velocidad y deriva; la CPU sólo escribe las nuevas.
+  class Particles {
+    constructor(o = {}) {
+      const N = this.N = o.count ?? 600;
+      this.kind = o.kind || 'smoke';
+      const geo = new T.BufferGeometry();
+      this.a = {
+        p0: new Float32Array(N * 3), v: new Float32Array(N * 3), t0: new Float32Array(N).fill(-1e4),
+        life: new Float32Array(N).fill(1), size: new Float32Array(N), seed: new Float32Array(N),
+      };
+      geo.setAttribute('position', new T.BufferAttribute(this.a.p0, 3));
+      geo.setAttribute('aV', new T.BufferAttribute(this.a.v, 3));
+      geo.setAttribute('aT0', new T.BufferAttribute(this.a.t0, 1));
+      geo.setAttribute('aLife', new T.BufferAttribute(this.a.life, 1));
+      geo.setAttribute('aSize', new T.BufferAttribute(this.a.size, 1));
+      geo.setAttribute('aSeed', new T.BufferAttribute(this.a.seed, 1));
+      for (const k of ['position', 'aV', 'aT0', 'aLife', 'aSize', 'aSeed']) geo.attributes[k].setUsage(T.DynamicDrawUsage);
+      geo.boundingSphere = new T.Sphere(new T.Vector3(), 1e4);
+      const spark = this.kind === 'spark';
+      this.mat = new T.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0 }, uScale: { value: 600 },
+          uC0: { value: new T.Color(o.c0 || '#f2f2ee') }, uC1: { value: new T.Color(o.c1 || '#8b8f94') },
+          uGrow: { value: o.grow ?? 2.2 }, uRise: { value: o.rise ?? 0.6 }, uOpacity: { value: o.opacity ?? 0.55 }, uGrav: { value: o.grav ?? 0 },
+        },
+        vertexShader: `
+          attribute vec3 aV; attribute float aT0, aLife, aSize, aSeed;
+          uniform float uTime, uScale, uGrow, uRise, uGrav;
+          varying float vK; varying float vSeed;
+          void main() {
+            float age = uTime - aT0; float k = age / aLife; vK = k; vSeed = aSeed;
+            vec3 p = position + aV * age + vec3(0.0, uRise * age * age * 0.5 - uGrav * age * age * 0.5, 0.0);
+            float wob = sin(aSeed * 40.0 + age * 2.3) * 0.08 * age;
+            p.x += wob; p.z += cos(aSeed * 31.0 + age * 1.9) * 0.08 * age;
+            vec4 mv = modelViewMatrix * vec4(p, 1.0);
+            gl_Position = projectionMatrix * mv;
+            float alive = step(0.0, age) * step(k, 1.0);
+            float sz = aSize * (1.0 + uGrow * k);
+            gl_PointSize = alive * clamp(sz * uScale / max(0.1, -mv.z), 0.0, 420.0);
+          }`,
+        fragmentShader: `
+          uniform vec3 uC0, uC1; uniform float uOpacity;
+          varying float vK; varying float vSeed;
+          void main() {
+            vec2 q = gl_PointCoord - 0.5; float d = length(q) * 2.0;
+            if (d > 1.0) discard;
+            ${spark ? 'float a = (1.0 - d) * (1.0 - vK); vec3 c = mix(uC0, uC1, vK); gl_FragColor = vec4(c * 1.6, a);' :
+            `float n = sin(q.x * 13.0 + vSeed * 20.0) * sin(q.y * 11.0 - vSeed * 17.0) * 0.18;
+            float a = smoothstep(1.0, 0.25, d + n) * pow(1.0 - vK, 1.35) * uOpacity * smoothstep(0.0, 0.06, vK);
+            vec3 c = mix(uC0, uC1, smoothstep(0.0, 0.8, vK)) * (0.9 + 0.2 * (1.0 - d));
+            gl_FragColor = vec4(c, a);`}
+          }`,
+        transparent: true, depthWrite: false, blending: spark ? T.AdditiveBlending : T.NormalBlending,
+      });
+      this.points = new T.Points(geo, this.mat);
+      this.points.frustumCulled = false; this.points.renderOrder = 5;
+      this.i = 0; this.dirty = [];
+    }
+    emit(p, v, life, size, t) {
+      const i = this.i; this.i = (this.i + 1) % this.N; const a = this.a;
+      a.p0[i * 3] = p[0]; a.p0[i * 3 + 1] = p[1]; a.p0[i * 3 + 2] = p[2];
+      a.v[i * 3] = v[0]; a.v[i * 3 + 1] = v[1]; a.v[i * 3 + 2] = v[2];
+      a.t0[i] = t; a.life[i] = life; a.size[i] = size; a.seed[i] = Math.random();
+      this.dirty.push(i);
+    }
+    flush() {
+      if (!this.dirty.length) return;
+      const g = this.points.geometry;
+      for (const k of ['position', 'aV', 'aT0', 'aLife', 'aSize', 'aSeed']) g.attributes[k].needsUpdate = true;
+      this.dirty.length = 0;
+    }
+    reset() { this.a.t0.fill(-1e4); this.points.geometry.attributes.aT0.needsUpdate = true; }
+  }
+
+  // Material de cámara de vapor (color = presión) — sin iluminar, con corte
+  function chamberMat() {
+    return new T.MeshBasicMaterial({ color: '#4a7fa8', clippingPlanes: [SECTION], side: T.DoubleSide, toneMapped: false });
+  }
+  // Mapa de color de presión normalizada (0 = escape, 1 = vapor vivo)
+  const PC = [new T.Color('#3f6f96'), new T.Color('#c84a2e'), new T.Color('#ffb347'), new T.Color('#fff2c4')];
+  function pressureColor(c, x) {
+    x = Math.max(0, Math.min(1, x));
+    const f = x * 3, i = Math.min(2, Math.floor(f));
+    return c.copy(PC[i]).lerp(PC[i + 1], f - i);
+  }
+
+  window.TB = { T, TAU, SECTION, GU, mat, sceneMat, G, Kit, merge, loft, ringOpen, stations, widthAt, pchip, stAt, surf, surfPatch, onSurf, ease, ringPoint, wheel, wheelset, zRod, rod, placeRod, noiseTex, fbm, hexTile, track, scatter, inHex, randPts, catenary, flowLine, flowMats, axisRot, Particles, chamberMat, pressureColor, HLC };
 })();
 
 /* models_base.js — clase Model común a los 8 trenes */
@@ -1022,8 +1268,15 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       this.root = new T.Group(); this.root.name = id;
       this.parts = {}; this.order = [];
       this.flows = []; this.flowGroup = new T.Group(); this.flowGroup.visible = false; this.root.add(this.flowGroup);
-      this.anim = []; this.s = 0;
+      this.anim = []; this.s = 0; this.tSim = 0;
+      this.fx = []; this.particles = []; this.steam = null; this.lights = [];
+      this.modes = {}; this.brakeFlows = []; this.brake = false; this.irregular = false;
     }
+    // sistema de partículas anclado a un grupo (sigue la explosión de la pieza)
+    addParticles(group, o) { const P = new TB.Particles(o); P.mat.uniforms.uScale = TB.GU.uPScale; group.add(P.points); this.particles.push(P); return P; }
+    // simulación de vapor (presión en cámaras de cilindro y golpes de escape)
+    initSteam(o) { this.steam = { cyls: [], pB: o.pB, cut: o.cut ?? 0.35, clr: o.clr ?? 0.08, pex: o.pex ?? 0.08, Rw: o.Rw, onBeat: o.onBeat || null, pAssumed: !!o.pAssumed }; setValveEvents(this.steam); return this.steam; }
+    setCutoff(c) { if (!this.steam) return; this.steam.cut = c; setValveEvents(this.steam); if (this.onCutoff) this.onCutoff(c); this.update(0, 0); }
     part(id, o = {}) {
       const g = new T.Group(); g.userData.partId = id; this.root.add(g);
       const self = this;
@@ -1044,7 +1297,16 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       this.parts[id] = p; this.order.push(id);
       return p;
     }
-    flow(points, color, opt) { const m = TB.flowLine(points, color, opt); this.flowGroup.add(m); this.flows.push(m); return m; }
+    flow(points, color, opt = {}) { const m = TB.flowLine(points, color, opt); m.userData.sp = opt.speed ?? 1; m.userData.c0 = color; this.flowGroup.add(m); this.flows.push(m); return m; }
+    // flujo que sólo aparece en modo freno (energía hacia resistencias)
+    bflow(points, color, opt = {}) { const m = TB.flowLine(points, color, opt); m.userData.sp = opt.speed ?? 1; m.visible = false; this.flowGroup.add(m); this.brakeFlows.push(m); return m; }
+    setBrake(on) {
+      this.brake = !!on;
+      // regenerativo: el flujo se invierte y se tiñe de verde (energía devuelta a la red)
+      if (this.brakeType === 'regen') this.flows.forEach(f => { if (f.userData.noRev) return; const u = f.material.uniforms; u.uSpeed.value = Math.abs(f.userData.sp) * (on ? -1 : 1); if (u.uC) u.uC.value.set(on ? '#7bd389' : f.userData.c0); });
+      if (this.brakeType === 'rheo') { this.flows.forEach(f => (f.visible = !on || !!f.userData.keep)); this.brakeFlows.forEach(f => (f.visible = !!on)); }
+      if (this.onBrake) this.onBrake(on);
+    }
     finalize() {
       const box = new T.Box3();
       for (const id of this.order) {
@@ -1059,7 +1321,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       this.bbox = new T.Box3().setFromObject(this.root);
     }
     setExplode(k) { for (const id of this.order) { const p = this.parts[id]; p.group.position.copy(p.explode).multiplyScalar(k); } }
-    update(dt, v) { this.s += v * dt; for (const f of this.anim) f(this.s, dt, v); }
+    update(dt, v) {
+      this.s += v * dt; this.tSim += dt; this.vNow = v;
+      for (const f of this.anim) f(this.s, dt, v);
+      if (this.steam) updateSteam(this, dt);
+      for (const f of this.fx) f(this.tSim, dt, v);
+      for (const P of this.particles) { P.mat.uniforms.uTime.value = this.tSim; P.flush(); }
+    }
   }
 
   // Cinemática biela-manivela con eje de deslizamiento por el centro del eje
@@ -1152,7 +1420,113 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     return { group: g, set };
   }
 
-  window.MB = { Model, sliderCrank, pinPos, diamondPanto, singleArmPanto };
+  // ---------- Ciclo ideal de vapor ----------
+  // x: posición del pistón medida desde la tapa de la cámara (0 = volumen mínimo), fracción de la carrera.
+  function setValveEvents(st) {
+    const c = st.cut;
+    st.rel = Math.min(0.96, 0.72 + 0.3 * c);            // escape anticipado
+    st.comp = 0.08 + 0.3 * Math.max(0, 0.75 - c);        // compresión (fracción de carrera que falta)
+    st.lead = 0.015;
+  }
+  function chamberP(x, power, st) {
+    const c = st.clr, n = 1.3, pb = st.pex;
+    if (power) {
+      const pa = 1 - 0.05 * Math.min(x, st.cut);
+      if (x <= st.cut) return pa;
+      const p1 = pa * Math.pow((c + st.cut) / (c + Math.min(x, st.rel)), n);
+      if (x <= st.rel) return p1;
+      return p1 + (pb - p1) * Math.min(1, (x - st.rel) / Math.max(0.02, 1 - st.rel) * 1.35);
+    }
+    if (x >= st.comp) return pb;
+    const pc = pb * Math.pow((c + st.comp) / (c + Math.max(0, x)), n);
+    if (x > st.lead) return Math.min(1, pc);
+    return Math.min(1, pc + (1 - pc) * (1 - x / st.lead));
+  }
+  // diagrama indicado (lazo cerrado) y presión media efectiva
+  function indicator(st, N = 120) {
+    const pts = [];
+    for (let i = 0; i <= N; i++) { const x = i / N; pts.push([st.clr + x, chamberP(x, true, st)]); }
+    for (let i = N; i >= 0; i--) { const x = i / N; pts.push([st.clr + x, chamberP(x, false, st)]); }
+    let W = 0; for (let i = 1; i < pts.length; i++) W += (pts[i][0] - pts[i - 1][0]) * (pts[i][1] + pts[i - 1][1]) / 2;
+    return { pts, mep: W };
+  }
+  // cámara de vapor ligada a un cilindro: src es el objeto de la animación del modelo, que escribe xc y phi
+  function steamCyl(M, grp, o) {
+    const geo = new T.CylinderGeometry(o.bore * 0.96, o.bore * 0.96, 1, 28, 1, false);
+    const mA = new T.Mesh(geo, TB.chamberMat()), mB = new T.Mesh(geo, TB.chamberMat());
+    const rz = Math.atan2(o.u[1], o.u[0]) - Math.PI / 2;
+    for (const m of [mA, mB]) { m.rotation.z = rz; m.position.z = o.z; m.userData.chamber = true; grp.add(m); }
+    const c = { ...o, mA, mB, prev: [0, 0], pA: 0, pBv: 0, xA: 0, xB: 0, powA: false, powB: false };
+    M.steam.cyls.push(c);
+    return c;
+  }
+  const _c = new T.Color();
+  function placeSeg(m, A, u, a, b) {
+    const L = Math.max(0.002, b - a), mid = (a + b) / 2;
+    m.position.x = A[0] + u[0] * mid; m.position.y = A[1] + u[1] * mid; m.scale.set(1, L, 1);
+  }
+  function updateSteam(M, dt) {
+    const st = M.steam;
+    for (const c of st.cyls) {
+      const src = c.src; if (src.xc == null) continue;
+      const xc = src.xc, f = (xc - (c.L - c.r)) / (2 * c.r);
+      const pinF = pinPos(src.A || c.A, c.r, src.phi - 0.02);
+      const xcF = sliderCrank(c.A, c.u, pinF, c.L);
+      const inc = xcF > xc; // la posición f crecerá en marcha adelante
+      const xp = xc + c.pr;
+      placeSeg(c.mA, c.A, c.u, c.d0 + 0.005, xp - c.pt);        // cámara del lado de la manivela
+      placeSeg(c.mB, c.A, c.u, xp + c.pt, c.d1 - 0.005);        // cámara del lado de la tapa
+      const xA = Math.min(1, Math.max(0, f)), xB = 1 - xA;
+      const pA = chamberP(xA, inc, st), pBv = chamberP(xB, !inc, st);
+      c.xA = xA; c.xB = xB; c.pA = pA; c.pBv = pBv; c.powA = inc; c.powB = !inc;
+      c.mA.material.color.copy(TB.pressureColor(_c, pA));
+      c.mB.material.color.copy(TB.pressureColor(_c, pBv));
+      if (dt > 0) {
+        // golpe de escape: la cámara en carrera motriz cruza el punto de escape
+        if (inc && c.prev[0] < st.rel && xA >= st.rel && st.onBeat) st.onBeat(c, dt);
+        if (!inc && c.prev[1] < st.rel && xB >= st.rel && st.onBeat) st.onBeat(c, dt);
+      }
+      c.prev[0] = xA; c.prev[1] = xB;
+    }
+  }
+
+  // emisor de bocanadas de vapor/humo en la chimenea
+  function puff(P, at, v, t, o = {}) {
+    const n = o.n ?? 8, up = o.up ?? 4.5, spread = o.spread ?? 0.6, life = o.life ?? 2.4, size = o.size ?? 0.35;
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2, r = Math.random() * spread;
+      P.emit([at[0] + (Math.random() - 0.5) * (o.rx ?? 0.15), at[1], at[2] + (Math.random() - 0.5) * (o.rz ?? 0.15)],
+        [Math.cos(a) * r - v * (0.85 + Math.random() * 0.25), up * (0.65 + Math.random() * 0.6), Math.sin(a) * r], life * (0.7 + Math.random() * 0.6), size * (0.7 + Math.random() * 0.6), t);
+    }
+  }
+  // llama del hogar: parpadeo de emisivo y luz puntual
+  function fireFx(M, mats, light, base = 1.3) {
+    let ph = 0;
+    M.fx.push((t, dt, v) => {
+      ph += dt * (6 + v * 0.3);
+      const fl = 0.75 + 0.25 * Math.sin(ph * 2.1) * Math.sin(ph * 3.7 + 1.3) + 0.12 * Math.sin(ph * 11.0);
+      const k = M.powered ? 1 : 0.55;
+      mats.forEach(m => { if (m) m.emissiveIntensity = base * k * (0.8 + 0.5 * fl); });
+      if (light) light.intensity = (M.powered ? 3.2 : 1.2) * (0.75 + 0.35 * fl);
+    });
+  }
+  // chispas en el contacto pantógrafo–hilo
+  function pantoSparks(M, group, pts) {
+    const PK = M.addParticles(group, { kind: 'spark', count: 220, c0: '#e9f6ff', c1: '#6fb7ff', grow: -0.7, rise: 0, grav: 6 });
+    let acc = 0;
+    M.fx.push((t, dt, v) => {
+      if (!M.powered || dt <= 0 || v < 1) return;
+      acc += dt * (0.6 + v * 0.05);
+      while (acc > 1) { acc--; const p = pts[Math.floor(Math.random() * pts.length)];
+        for (let i = 0; i < 7; i++) PK.emit([p[0] + (Math.random() - 0.5) * 0.1, p[1], p[2] + (Math.random() - 0.5) * 0.9], [-v * 0.15 + (Math.random() - 0.5) * 3, Math.random() * 2.5, (Math.random() - 0.5) * 3], 0.25 + Math.random() * 0.3, 0.035, t); }
+    });
+    return PK;
+  }
+  function fireLight(M, pos, dist = 2.6) {
+    const L = new T.PointLight('#ff8a3a', 1.2, dist, 2); L.position.set(...pos); M.root.add(L); M.lights.push(L); return L;
+  }
+
+  window.MB = { Model, sliderCrank, pinPos, diamondPanto, singleArmPanto, chamberP, indicator, steamCyl, puff, fireFx, fireLight, setValveEvents, pantoSparks };
   window.MODELS = {};
 })();
 
@@ -1383,7 +1757,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 /* Stephenson's Rocket (1829) — 0-2-2, dimensiones del cuaderno de J. U. Rastrick (5 oct 1829) */
 (function () {
   const { T, Kit, G, wheelset, rod, placeRod } = TB;
-  const { Model, sliderCrank, pinPos } = MB;
+  const { Model, sliderCrank, pinPos, steamCyl, puff, fireFx, fireLight } = MB;
 
   MODELS.rocket = function () {
     const M = new Model('rocket', {
@@ -1402,7 +1776,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     {
       const k = new Kit(), ks = new Kit();
       ks.add(G.cyl(rb, bx1 - bx0, 40, rb, true), pB.m('yellow', { shell: true }), [(bx0 + bx1) / 2, yb, 0], [0, 0, Math.PI / 2]);
-      for (const x of [bx0 + 0.25, (bx0 + bx1) / 2, bx1 - 0.22]) ks.add(G.torus(rb + 0.004, 0.012, 6, 40), pB.m('yellow', { shell: true }), [x, yb, 0], [0, Math.PI / 2, 0]);
+      for (const x of [bx0 + 0.25, (bx0 + bx1) / 2, bx1 - 0.22]) { ks.add(G.torus(rb + 0.004, 0.012, 6, 40), pB.m('yellow', { shell: true }), [x, yb, 0], [0, Math.PI / 2, 0]); ks.rivetRing(pB.m('yellow', { shell: true }), [x + 0.035, yb, 0], rb + 0.004, 36, 0.009); }
       // placas tubulares
       for (const x of [bx0, bx1]) k.cyl(pB.m('plate'), rb - 0.005, 0.02, 'x', x, yb, 0, 40);
       // 25 tubos de cobre de 3 in (76 mm)
@@ -1438,6 +1812,9 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       k.add(G.sph(0.24, 12, 8), pF.m('fire'), [(fx0 + fx1) / 2, fy0 + 0.2, 0], [0, 0, 0], [1, 0.45, 1.4]);
       // puerta del hogar
       k.box(pF.m('iron'), 0.03, 0.26, 0.3, fx0 - 0.02, fy0 + 0.42, 0);
+      // remaches de la camisa exterior
+      const rv = pF.m('copper', { shell: true });
+      for (const sz of [1, -1]) { ks.rivets(rv, [fx0 + 0.03, fy0 + 0.04, sz * (fw / 2 + 0.012)], [fx1 - 0.03, fy0 + 0.04, sz * (fw / 2 + 0.012)], 9, 0.011); ks.rivets(rv, [fx0 + 0.03, fy0 + 0.06, sz * (fw / 2 + 0.012)], [fx0 + 0.03, fy1 - 0.04, sz * (fw / 2 + 0.012)], 8, 0.011); }
       k.build(pF.group); ks.build(pF.group);
     }
 
@@ -1469,6 +1846,11 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     const r = 0.4191 / 2, L = 1.25, pistonRod = 0.58, cyl0 = 1.5, cyl1 = 2.1;
     const zRod = TB.zRod(g, 0.09);
     const sides = [];
+    // Rocket trabajaba casi a plena admisión: su distribución de excéntricas no permitía variar el corte
+    const P = M.addParticles(pE.group, { count: 1100, c0: '#f3f2ee', c1: '#a19e98', grow: 2.8, rise: 0.9, opacity: 0.5 });
+    M.initSteam({ pB: 3.45, cut: 0.85, Rw: R, fixedCut: true, onBeat: (c, dt) => puff(P, [1.03, 4.62, 0], M.vNow, M.tSim, { n: beatN(), up: 3.2 + M.vNow * 0.15, life: 2.6, size: 0.3 }) });
+    M.steam.fixedCut = true;
+    const beatN = () => Math.max(2, Math.min(9, Math.round(40 / Math.max(1, M.vNow / (Math.PI * 2 * R) * 4))));
     {
       for (const s of [1, -1]) {
         const grp = new T.Group(); pC.group.add(grp);
@@ -1494,7 +1876,10 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
         const ck = new Kit(); ck.box(pC.m('steel'), 0.12, 0.13, 0.08, 0, 0, 0);
         const cross = new T.Group(); ck.build(cross); cross.rotation.z = Math.atan2(u[1], u[0]); cross.position.z = s * zRod; grp.add(cross);
         const crod = rod(pC.m('iron'), L, 0.075, 0.045, 0.065, pC.m('brass')); crod.position.z = s * (zRod + 0.06); grp.add(crod);
-        sides.push({ s, piston, cross, crod, phase: s > 0 ? 0 : Math.PI / 2 });
+        if (s > 0) { piston.name = 'R.piston'; cross.name = 'R.cross'; crod.name = 'R.biela'; }
+        const sd = { s, piston, cross, crod, phase: s > 0 ? 0 : Math.PI / 2, A };
+        sides.push(sd);
+        steamCyl(M, grp, { src: sd, A, u, L, r, pr: pistonRod, pt: 0.035, d0: cyl0, d1: cyl1, bore: 0.1015, z: s * zRod });
       }
     }
 
@@ -1549,6 +1934,17 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       k.build(pV.group);
     }
 
+    // vapor que escapa de la válvula de seguridad (“pluma”) y humo de coque
+    const PS = M.addParticles(pV.group, { count: 200, c0: '#ffffff', c1: '#d8dde2', grow: 2.0, rise: 0.4, opacity: 0.32 });
+    { let acc = 0, accS = 0;
+      M.fx.push((t, dt, v) => {
+        if (!M.powered || dt <= 0) return;
+        accS += dt * 5; while (accS > 1) { accS--; PS.emit([-0.45 + (Math.random() - 0.5) * 0.04, yb + rb + 0.2, (Math.random() - 0.5) * 0.04], [-v * 0.9 + (Math.random() - 0.5) * 0.3, 1.6 + Math.random(), (Math.random() - 0.5) * 0.3], 1.6, 0.12, t); }
+        acc += dt * 4; while (acc > 1) { acc--; P.emit([1.03 + (Math.random() - 0.5) * 0.1, 4.6, (Math.random() - 0.5) * 0.1], [-v * 0.95, 1.2 + Math.random() * 0.6, (Math.random() - 0.5) * 0.3], 3.0, 0.28, t); }
+      });
+    }
+    fireFx(M, [pF.m('fire')], fireLight(M, [-0.93, 1.05, 0], 2.2), 1.4);
+
     // 8 — Ténder
     const pT = M.part('tender', { explode: [-1.2, 0, 0] });
     const tWheels = [];
@@ -1585,6 +1981,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       for (const sd of sides) {
         const pin = pinPos(A, r, th + sd.phase);
         const xc = sliderCrank(A, u, pin, L);
+        sd.xc = xc; sd.phi = th + sd.phase;
         const C = [A[0] + u[0] * xc, A[1] + u[1] * xc];
         sd.cross.position.x = C[0]; sd.cross.position.y = C[1];
         sd.piston.position.x = A[0] + u[0] * (xc + pistonRod); sd.piston.position.y = A[1] + u[1] * (xc + pistonRod);
@@ -1609,7 +2006,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 /* W&A "General" (Rogers, Ketchum & Grosvenor, 1855) — 4-4-0 "American", vía de 5 ft */
 (function () {
   const { T, Kit, G, wheelset, rod, placeRod } = TB;
-  const { Model, sliderCrank, pinPos } = MB;
+  const { Model, sliderCrank, pinPos, steamCyl, puff, fireFx, fireLight } = MB;
 
   MODELS.general = function () {
     const M = new Model('general', {
@@ -1632,38 +2029,51 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     // 1 — Bogie delantero (truck de Jervis con pivote central)
     const pT = M.part('bogie', { explode: [0.6, -0.3, 1.3] });
     const truckWheels = [];
+    const truckFrame = new T.Group();
     {
       const k = new Kit(); const ir = pT.m('iron');
       for (const x of [xT1, xT2]) {
         const w = wheelset({ R: Rt, gauge: g, tread: 0.12, type: 'spoke', spokes: 8, hubR: 0.08, m: { tyre: pT.m('tyre'), body: pT.m('red'), hub: pT.m('iron'), axle: ir } });
         w.group.position.set(x, Rt, 0); pT.group.add(w.group); truckWheels.push(w.group);
       }
+      const xc = (xT1 + xT2) / 2;
       for (const s of [1, -1]) {
-        k.box(ir, 2.2, 0.08, 0.08, (xT1 + xT2) / 2, 0.62, s * 0.62);
-        k.box(ir, 2.0, 0.06, 0.08, (xT1 + xT2) / 2, 0.42, s * 0.62);
-        for (const x of [xT1, xT2]) k.box(ir, 0.24, 0.3, 0.12, x, 0.45, s * 0.62);
+        k.box(ir, 2.2, 0.08, 0.08, 0, 0.62 - Rt, s * 0.62);
+        k.box(ir, 2.0, 0.06, 0.08, 0, 0.42 - Rt, s * 0.62);
+        for (const x of [xT1, xT2]) k.box(ir, 0.24, 0.3, 0.12, x - xc, 0.45 - Rt, s * 0.62);
+        k.rivets(ir, [-1.0, 0.66 - Rt, s * 0.665], [1.0, 0.66 - Rt, s * 0.665], 9, 0.012);
       }
-      k.box(ir, 0.25, 0.12, 1.36, (xT1 + xT2) / 2, 0.68, 0);
-      k.cyl(pT.m('steel'), 0.12, 0.25, 'y', (xT1 + xT2) / 2, 0.82, 0, 16);
-      k.build(pT.group);
+      k.box(ir, 0.25, 0.12, 1.36, 0, 0.68 - Rt, 0);
+      k.build(truckFrame); truckFrame.position.set(xc, Rt, 0); pT.group.add(truckFrame);
+      const kp = new Kit(); kp.cyl(pT.m('steel'), 0.12, 0.25, 'y', xc, 0.82, 0, 16); kp.build(pT.group);
     }
 
     // 2 — Bastidor de barras, ballestas y balancines compensadores (Harrison)
     const pS = M.part('bastidor', { explode: [0, -0.55, 0] });
+    const equalizers = [], springs = [];
     {
       const k = new Kit(); const ir = pS.m('iron'), st = pS.m('steel');
       for (const s of [1, -1]) {
         k.box(ir, 6.6, 0.1, 0.09, -1.0, 1.02, s * 0.5);
         k.box(ir, 2.6, 0.08, 0.09, -2.93, 0.62, s * 0.5);
-        for (const x of [xD1, xD2]) {
-          k.box(ir, 0.26, 0.42, 0.14, x, 0.85, s * 0.5);
-          for (let i = 0; i < 7; i++) k.box(st, 0.95 - i * 0.11, 0.025, 0.1, x, 1.14 + i * 0.027, s * 0.5);
-        }
-        // balancín compensador entre ejes motrices y su fulcro
-        k.box(pS.m('red'), xD1 - xD2 - 0.9, 0.08, 0.06, (xD1 + xD2) / 2, 1.38, s * 0.5);
-        k.cyl(st, 0.05, 0.16, 'z', (xD1 + xD2) / 2, 1.38, s * 0.5, 12);
+        // fulcro del balancín (fijo al bastidor)
+        k.cyl(st, 0.05, 0.2, 'z', (xD1 + xD2) / 2, 1.38, s * 0.5, 12);
         k.seg(ir, [(xD1 + xD2) / 2, 1.38, s * 0.5], [(xD1 + xD2) / 2, 1.06, s * 0.5], 0.03, 6);
-        for (const x of [xD1 + 0.45, xD2 - 0.45, xD1 - 0.45, xD2 + 0.45]) k.seg(ir, [x, 1.14, s * 0.5], [x, 1.38, s * 0.5], 0.02, 6);
+        k.rivets(ir, [-4.2, 1.075, s * 0.548], [2.2, 1.075, s * 0.548], 26, 0.011);
+        // balancín compensador (gira sobre el fulcro)
+        const eq = new T.Group(); eq.position.set((xD1 + xD2) / 2, 1.38, s * 0.5);
+        const ke = new Kit(); ke.box(pS.m('red'), xD1 - xD2 - 0.9, 0.08, 0.06, 0, 0, 0); ke.cyl(pS.m('red'), 0.045, 0.08, 'z', (xD1 - xD2 - 0.9) / 2, 0, 0, 10); ke.cyl(pS.m('red'), 0.045, 0.08, 'z', -(xD1 - xD2 - 0.9) / 2, 0, 0, 10); ke.build(eq);
+        pS.group.add(eq); equalizers.push(eq);
+        // ballestas sobre cada eje motriz (se mueven con el eje) y tirantes al balancín
+        for (const [x, w] of [[xD1, 1], [xD2, 2]]) {
+          const sp = new T.Group(); sp.position.set(x, 0, s * 0.5);
+          const ks = new Kit(); ks.box(ir, 0.26, 0.42, 0.14, 0, 0.85, 0);
+          for (let i = 0; i < 7; i++) ks.box(st, 0.95 - i * 0.11, 0.025, 0.1, 0, 1.14 + i * 0.027, 0);
+          ks.seg(ir, [w === 1 ? -0.45 : 0.45, 1.14, 0], [w === 1 ? -0.45 : 0.45, 1.38, 0], 0.02, 6);
+          ks.build(sp); pS.group.add(sp); springs.push({ sp, w });
+        }
+        k.seg(ir, [xD1 + 0.45, 1.14, s * 0.5], [xD1 + 0.45, 1.06, s * 0.5], 0.02, 6);
+        k.seg(ir, [xD2 - 0.45, 1.14, s * 0.5], [xD2 - 0.45, 1.06, s * 0.5], 0.02, 6);
       }
       // estribo y piso
       k.box(pS.m('wood'), 0.5, 0.06, 2.0, 1.25, 1.12, 0);
@@ -1693,6 +2103,15 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     // 4 — Cilindros, distribución de Stephenson y bielas motrices
     const pY = M.part('cilindros', { explode: [0, 0.35, 1.2] });
     const sides = [];
+    const P = M.addParticles(pC.group, { count: 1100, c0: '#e9e4da', c1: '#76706a', grow: 3.0, rise: 0.8, opacity: 0.55 });
+    const PK = M.addParticles(pC.group, { kind: 'spark', count: 260, c0: '#ffd27a', c1: '#ff4d12', grow: -0.6, rise: 0, grav: 4.5 });
+    const top = [1.95, yb + rb - 0.05 + 2.2, 0];
+    const perBeat = () => Math.max(2, Math.min(9, Math.round(44 / Math.max(1, M.vNow / (Math.PI * 2 * R) * 4))));
+    M.initSteam({ pB: 6.9, cut: 0.35, Rw: R, pAssumed: true, onBeat: (c) => {
+      puff(P, top, M.vNow, M.tSim, { n: perBeat(), up: 2.6 + M.vNow * 0.12, life: 3.0, size: 0.36, rx: 0.4, rz: 0.4 });
+      // el parachispas retiene casi todas: sólo escapan algunas brasas
+      if (Math.random() < 0.55) for (let i = 0; i < 2; i++) PK.emit([top[0] + (Math.random() - 0.5) * 0.4, top[1], (Math.random() - 0.5) * 0.4], [-M.vNow * 0.8 + (Math.random() - 0.5), 2.5 + Math.random() * 2.5, (Math.random() - 0.5) * 1.2], 1.1 + Math.random() * 0.6, 0.05, M.tSim);
+    } });
     const ecc = [];
     {
       for (const s of [1, -1]) {
@@ -1715,7 +2134,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
         const ck = new Kit(); ck.box(pY.m('steel'), 0.2, 0.18, 0.12, 0, 0, 0);
         const cross = new T.Group(); ck.build(cross); cross.rotation.z = Math.atan2(u[1], u[0]); cross.position.z = s * zRod; grp.add(cross);
         const mrod = rod(pY.m('iron'), L, 0.11, 0.05, 0.085, pY.m('brass')); mrod.position.z = s * (zRod + 0.07); grp.add(mrod);
-        sides.push({ s, piston, cross, mrod, phase: s > 0 ? 0 : Math.PI / 2 });
+        if (s > 0) { piston.name = 'G.piston'; cross.name = 'G.cross'; mrod.name = 'G.biela'; }
+        const sd = { s, piston, cross, mrod, phase: s > 0 ? 0 : Math.PI / 2, A: [A[0], A[1]] };
+        sides.push(sd);
+        steamCyl(M, grp, { src: sd, A, u, L, r, pr, pt: 0.04, d0: 3.0, d1: 3.85, bore: 0.1905, z: s * zRod });
+        // corredera en D dentro de la caja de válvulas
+        const sv = new T.Group(); const kv = new Kit(); kv.box(pY.m('brass'), 0.26, 0.1, 0.2, 0, 0, 0); kv.box(pY.m('steel'), 0.9, 0.02, 0.02, -0.55, 0, 0); kv.build(sv);
+        sv.position.set((c0[0] + c1[0]) / 2, c0[1] + 0.3, s * zRod); grp.add(sv); sd.valve = sv; if (s > 0) sv.name = 'G.valve'; sd.vx0 = (c0[0] + c1[0]) / 2;
         // excéntricas (dentro del bastidor, sobre el eje motriz delantero) y barras al sector
         const eg = new T.Group(); eg.position.set(A[0], A[1], s * 0.3); grp.add(eg);
         const ek = new Kit(); ek.cyl(pY.m('steel'), 0.17, 0.06, 'z', 0.07, 0, -0.04, 20); ek.cyl(pY.m('steel'), 0.17, 0.06, 'z', -0.07, 0.03, 0.04, 20); ek.build(eg);
@@ -1739,39 +2164,43 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       }
       for (const s of [1, -1]) {
         const cr = rod(pW.m('steel'), xD1 - xD2, 0.09, 0.045, 0.075);
-        cr.position.z = s * (zRod + 0.0); pW.group.add(cr); cRods.push({ cr, s, phase: s > 0 ? 0 : Math.PI / 2 });
+        cr.position.z = s * (zRod + 0.0); pW.group.add(cr); cRods.push({ cr, s, phase: s > 0 ? 0 : Math.PI / 2 }); if (s > 0) cr.name = 'G.acopl';
       }
     }
 
     // 6 — Caldera, hogar, domos y 130 tubos de humo
     const pB = M.part('caldera', { explode: [0, 0.95, 0] });
+    let FX = -2.66;
     {
       const k = new Kit(), ks = new Kit();
       const sh = pB.m('russia', { shell: true }), br = pB.m('brass');
-      const bx0 = -3.2, bx1 = 1.42;
+      // tubos de 11 ft entre placas: la placa trasera queda delante del hogar, entre los ejes motrices
+      const bx0 = 1.42 - 3.353, bx1 = 1.42;
       ks.add(G.cyl(rb, bx1 - bx0, 40, rb, true), sh, [(bx0 + bx1) / 2, yb, 0], [0, 0, Math.PI / 2]);
-      for (let x = bx0 + 0.4; x < bx1; x += 0.95) ks.add(G.torus(rb + 0.006, 0.015, 6, 40), pB.m('brass', { shell: true }), [x, yb, 0], [0, Math.PI / 2, 0]);
-      // hogar alto ("wagon top") entre bastidores
-      const fx0 = -4.6, fx1 = -3.2;
+      for (let x = bx0 + 0.35; x < bx1; x += 0.95) { ks.add(G.torus(rb + 0.006, 0.015, 6, 40), pB.m('brass', { shell: true }), [x, yb, 0], [0, Math.PI / 2, 0]); }
+      // hogar alto ("wagon top") entre los bastidores, sobre el eje motriz trasero
+      const fx0 = bx0 - 1.45, fx1 = bx0;
       ks.box(sh, fx1 - fx0, 1.6, 0.02, (fx0 + fx1) / 2, 1.75, 0.48);
       ks.box(sh, fx1 - fx0, 1.6, 0.02, (fx0 + fx1) / 2, 1.75, -0.48);
       ks.add(G.cyl(0.62, fx1 - fx0, 32, 0.62, true), sh, [(fx0 + fx1) / 2, 2.5, 0], [0, 0, Math.PI / 2], [1, 0.62, 0.78]);
       ks.box(sh, 0.02, 1.6, 0.96, fx0, 1.75, 0);
       k.box(pB.m('iron'), fx1 - fx0 - 0.2, 0.03, 0.8, (fx0 + fx1) / 2, 1.05, 0);
       k.add(G.sph(0.35, 10, 8), pB.m('fire'), [(fx0 + fx1) / 2, 1.2, 0], [0, 0, 0], [1.4, 0.45, 0.9]);
+      ks.rivets(sh, [fx0 + 0.04, 0.98, 0.495], [fx1 - 0.04, 0.98, 0.495], 12, 0.012); ks.rivets(sh, [fx0 + 0.04, 0.98, -0.495], [fx1 - 0.04, 0.98, -0.495], 12, 0.012);
+      FX = (fx0 + fx1) / 2;
       // tubos: 130 × 2 in × 11 ft
       for (let i = 0; i < 13; i++) for (let j = 0; j < 10; j++) {
         const z = -0.39 + i * 0.065, y = yb - 0.36 + j * 0.065;
         if (z * z + (y - yb) * (y - yb) > 0.44 * 0.44) continue;
-        k.cyl(pB.m('tube'), 0.0254, bx1 - bx0 - 0.1, 'x', (bx0 + bx1) / 2, y, z, 6, 0.0254, true);
+        k.cyl(pB.m('tube'), 0.0254, bx1 - bx0 - 0.04, 'x', (bx0 + bx1) / 2, y, z, 6, 0.0254, true);
       }
       for (const x of [bx0, bx1]) k.cyl(pB.m('iron'), rb - 0.01, 0.02, 'x', x, yb, 0, 40);
       // domo de vapor y arenero (latón)
-      k.add(G.lathe([[0.001, 0], [0.32, 0], [0.32, 0.45], [0.3, 0.55], [0.22, 0.66], [0.001, 0.72]], 28), br, [-1.6, yb + rb - 0.08, 0]);
+      k.add(G.lathe([[0.001, 0], [0.32, 0], [0.32, 0.45], [0.3, 0.55], [0.22, 0.66], [0.001, 0.72]], 28), br, [-0.95, yb + rb - 0.08, 0]);
       k.add(G.lathe([[0.001, 0], [0.26, 0], [0.26, 0.32], [0.18, 0.44], [0.001, 0.48]], 28), br, [0.25, yb + rb - 0.08, 0]);
       // válvulas de seguridad y silbato
-      k.cyl(br, 0.05, 0.3, 'y', -3.9, 3.0, 0.12, 12); k.cyl(br, 0.05, 0.3, 'y', -3.9, 3.0, -0.12, 12);
-      k.cyl(br, 0.04, 0.35, 'y', -3.5, 3.0, 0, 12);
+      k.cyl(br, 0.05, 0.3, 'y', fx0 + 0.45, 3.0, 0.12, 12); k.cyl(br, 0.05, 0.3, 'y', fx0 + 0.45, 3.0, -0.12, 12);
+      k.cyl(br, 0.04, 0.35, 'y', fx0 + 0.15, 3.0, 0, 12);
       k.build(pB.group); ks.build(pB.group);
     }
 
@@ -1828,6 +2257,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       for (const s of [1, -1]) k.box(rd, tx1 - tx0 - 0.3, 1.1, 0.5, (tx0 + tx1) / 2 - 0.15, ty + 0.65, s * 0.9);
       k.box(rd, 0.9, 1.1, 2.3, tx0 + 0.6, ty + 0.65, 0);
       k.box(pR.m('brass'), tx1 - tx0 - 0.3, 0.05, 0.52, (tx0 + tx1) / 2 - 0.15, ty + 1.22, 0.9);
+      for (const sz of [1, -1]) for (const yy of [ty + 0.18, ty + 1.12]) k.rivets(rd, [tx0 + 0.1, yy, sz * 1.152], [tx1 - 0.35, yy, sz * 1.152], 30, 0.012);
       k.box(pR.m('brass'), tx1 - tx0 - 0.3, 0.05, 0.52, (tx0 + tx1) / 2 - 0.15, ty + 1.22, -0.9);
       // leños
       for (let i = 0; i < 46; i++) {
@@ -1845,24 +2275,49 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       kk.build(pR.group);
     }
 
+    // Vía irregular: una cuña sobre ambos rieles avanza bajo la locomotora (altura exagerada ×3)
+    const BH = 0.06, BW = 1.1, BP = 26;
+    const bump = new T.Group(); bump.visible = false; M.root.add(bump);
+    { const k = new Kit(); const mb = TB.sceneMat('#d9573b', { r: 0.6 });
+      const prof = []; for (let i = 0; i <= 16; i++) { const t = i / 16, x = (t - 0.5) * BW; prof.push([x, BH * 0.5 * (1 + Math.cos(Math.PI * (t - 0.5) * 2))]); }
+      prof.push([BW / 2, 0], [-BW / 2, 0]);
+      for (const sz of [1, -1]) k.add(G.extrude(prof, 0.08), mb, [0, 0, sz * (g / 2 + 0.036)]);
+      k.build(bump, { cast: false }); }
+    M.modes.irregular = true;
+    const lift = (xa, xb) => { const d = Math.abs(xa - xb), w = BW / 2 + R * 0.35; return d < w ? BH * 0.5 * (1 + Math.cos(Math.PI * d / w)) : 0; };
     M.anim.push((s) => {
       const th = -s / R;
+      let xb = 1e3;
+      if (M.irregular) { xb = 6 - (((s % BP) + BP) % BP); bump.position.x = xb; }
+      bump.visible = M.irregular;
+      const d1 = lift(xD1, xb), d2 = lift(xD2, xb), t1 = lift(xT1, xb), t2 = lift(xT2, xb);
+      drivers[0].position.y = R + d1; drivers[1].position.y = R + d2;
       drivers.forEach(d => (d.rotation.z = th));
+      truckWheels[0].position.y = Rt + t1; truckWheels[1].position.y = Rt + t2;
+      truckFrame.position.y = Rt + (t1 + t2) / 2; truckFrame.rotation.z = Math.atan2(t1 - t2, xT1 - xT2);
       truckWheels.forEach(w => (w.rotation.z = -s / Rt));
-      tWheels.forEach(w => (w.rotation.z = -s / Rt));
+      tWheels.forEach((w, i) => { w.rotation.z = -s / Rt; w.position.y = Rt + lift([-6.7, -8.0, -8.85, -10.15][i], xb); });
+      // el balancín gira para que ambos ejes sigan cargados
+      for (const e of equalizers) e.rotation.z = Math.atan2(d1 - d2, xD1 - xD2 - 0.9);
+      for (const sp of springs) sp.sp.position.y = sp.w === 1 ? d1 : d2;
       for (const sd of sides) {
-        const pin = pinPos(A, r, th + sd.phase);
+        const Ac = [xD1, R + d1];
+        const pin = pinPos(Ac, r, th + sd.phase);
         const xc = sliderCrank(A, u, pin, L);
+        sd.xc = xc; sd.phi = th + sd.phase; sd.A = Ac;
         const C = [A[0] + u[0] * xc, A[1] + u[1] * xc];
         sd.cross.position.x = C[0]; sd.cross.position.y = C[1];
         sd.piston.position.x = A[0] + u[0] * (xc + pr); sd.piston.position.y = A[1] + u[1] * (xc + pr);
         placeRod(sd.mrod, pin, C);
+        // corredera: movimiento armónico adelantado ~90° + avance; amplitud según el corte
+        const cut = M.steam ? M.steam.cut : 0.35, a = 0.025 + 0.06 * cut;
+        if (sd.valve) sd.valve.position.x = sd.vx0 + a * Math.cos(sd.phi + Math.PI / 2 + 0.45);
       }
-      for (const c of cRods) { const a = pinPos([xD2, R], r, th + c.phase); const b = pinPos([xD1, R], r, th + c.phase); placeRod(c.cr, a, b); }
+      for (const c of cRods) { const a = pinPos([xD2, R + d2], r, th + c.phase); const b = pinPos([xD1, R + d1], r, th + c.phase); placeRod(c.cr, a, b); }
       for (const e of ecc) {
-        e.eg.rotation.z = th;
+        e.eg.rotation.z = th; e.eg.position.y = R + d1;
         const lead = e.s > 0 ? 0 : Math.PI / 2;
-        const p1 = pinPos(A, 0.07, th + lead + Math.PI / 2 + 0.5), p2 = pinPos(A, 0.07, th + lead - Math.PI / 2 - 0.5);
+        const p1 = pinPos([xD1, R + d1], 0.07, th + lead + Math.PI / 2 + 0.5), p2 = pinPos([xD1, R + d1], 0.07, th + lead - Math.PI / 2 - 0.5);
         const lx = e.link.position.x;
         placeRod(e.eRod1, p1, [lx - 0.02, A[1] + 0.25]); placeRod(e.eRod2, p2, [lx - 0.02, A[1] - 0.15]);
         e.link.rotation.z = Math.sin(th + lead) * 0.05;
@@ -1870,9 +2325,10 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     });
     M.update(0, 0);
 
+    fireFx(M, [pB.m('fire')], fireLight(M, [FX, 1.35, 0], 2.6), 1.3);
     // flujos: gases calientes y vapor
-    M.flow([[-3.9, 1.25, 0], [-3.9, 1.8, 0], [-3.2, 1.95, 0], [1.4, 1.95, 0], [1.95, 2.2, 0], [1.95, 4.3, 0]], '#ff8a3d', { r: 0.06 });
-    M.flow([[-1.6, yb + rb + 0.4, 0], [-1.6, yb + 0.3, 0], [1.6, yb + 0.1, 0], [1.6, 1.42, 0.6], [1.6, 1.42, zRod], [1.95, 1.3, zRod], [1.95, yb - 0.2, 0.2], [1.95, 4.0, 0]], '#bfe6ff', { r: 0.04, speed: 1.4 });
+    M.flow([[FX, 1.25, 0], [FX, 1.8, 0], [FX + 0.72, 1.95, 0], [1.4, 1.95, 0], [1.95, 2.2, 0], [1.95, 4.3, 0]], '#ff8a3d', { r: 0.06 });
+    M.flow([[-0.95, yb + rb + 0.4, 0], [-0.95, yb + 0.3, 0], [1.6, yb + 0.1, 0], [1.6, 1.42, 0.6], [1.6, 1.42, zRod], [1.95, 1.3, zRod], [1.95, yb - 0.2, 0.2], [1.95, 4.0, 0]], '#bfe6ff', { r: 0.04, speed: 1.4 });
 
     M.finalize();
     M.len = 15.45; M.center = -3.35;
@@ -1886,7 +2342,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 /* SBB Ce 6/8 II "Krokodil" (SLM/MFO, 1919) — (1'C)(C1'), 15 kV 16⅔ Hz, accionamiento por eje ciego y bielas */
 (function () {
   const { T, Kit, G, wheelset, rod } = TB;
-  const { Model, diamondPanto } = MB;
+  const { Model, diamondPanto, pantoSparks } = MB;
 
   MODELS.croc = function () {
     const M = new Model('croc', {
@@ -1925,6 +2381,10 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       // interruptor principal en aceite
       k.cyl(pX.m('dark'), 0.25, 0.7, 'y', -1.3, 2.2, 0.3, 16);
       k.build(pX.group);
+      // aguja del conmutador: recorre las 22 posiciones según la demanda
+      const ndl = new T.Group(); ndl.position.set(1.25, 2.35, 0.34);
+      const kn = new Kit(); kn.box(pX.m('copper'), 0.36, 0.04, 0.03, 0.18, 0, 0); kn.cyl(pX.m('steel'), 0.05, 0.05, 'z', 0, 0, 0, 14); kn.build(ndl);
+      pX.group.add(ndl); M._needle = ndl;
     }
 
     // 3 — Motores de tracción (4 × monofásicos serie de 12 polos)
@@ -1982,6 +2442,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       k.bar(st, a2, jj, 0.05, 0.11); k.bar(st, jj, a3, 0.05, 0.11);
       for (const p of [a1, a2, a3, jj]) k.cyl(pB.m('dark'), 0.1, 0.09, 'z', p[0], p[1], p[2], 18);
       k.build(grp);
+      if (h > 0 && s > 0) grp.name = 'K.rig';
       rigs.push({ grp, phase: s > 0 ? 0 : Math.PI / 2 });
     }
 
@@ -2068,6 +2529,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       const th = -s / R;
       jacks.forEach(j => (j.rotation.z = th));
       armatures.forEach(a => (a.ag.rotation.z = -th * a.ratio));
+      if (M._needle) { const n = Math.min(1, (M.vNow || 0) / 18 + (M.powered ? 0.12 : 0)); const pos = Math.round(n * 21); M._needle.rotation.z = -2.2 + pos * 0.21; M.notch = pos + 1; }
       for (const rg of rigs) { rg.grp.position.x = Math.cos(th + rg.phase) * cr; rg.grp.position.y = Math.sin(th + rg.phase) * cr; }
     });
     M.update(0, 0);
@@ -2078,6 +2540,8 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     M.flow([[-1.75, wire, 0], [-1.75, 4.3, 0], [-1.3, 4.0, 0.3], [-1.3, 2.9, 0.3], [-0.4, 3.0, 0], [0, 2.6, 0]], c1, { r: 0.05 });
     for (const h of [1, -1]) M.flow([[0.6 * h, 2.4, 0], [1.25 * h, 2.3, -0.2], [2.6 * h, 2.0, -0.3], [h * (XJ - 0.61), YJ + 0.61, -0.3], [h * (XJ + 0.61), YJ + 0.61, -0.3]], '#ffb347', { r: 0.045 });
     M.flow([[XJ, YJ, 0.4], [AX[1], R, 0.4], [AX[1], 0.05, 0.75], [AX[1] + 2, 0.02, 0.75]], '#5aa9e6', { r: 0.035, speed: 0.8 });
+    M.brakeType = 'regen';
+    pantoSparks(M, pP.group, [[-1.75, wire, 0], [1.75, wire, 0]]);
 
     M.finalize();
     M.len = 19.4; M.center = 0;
@@ -2092,7 +2556,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 /* LNER A4 4468 "Mallard" (Doncaster, 1938) — 4-6-2 de tres cilindros, carenado aerodinámico, escape doble Kylchap */
 (function () {
   const { T, Kit, G, wheelset, rod, placeRod, loft, ringOpen, stations, ease } = TB;
-  const { Model, sliderCrank, pinPos } = MB;
+  const { Model, sliderCrank, pinPos, steamCyl, puff, fireFx, fireLight } = MB;
 
   function circ2(P, r1, Q, r2, pickLow) { // intersección de circunferencias; devuelve el punto inferior (o superior)
     const dx = Q[0] - P[0], dy = Q[1] - P[1], d = Math.hypot(dx, dy);
@@ -2202,6 +2666,11 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     // 4 — Tres cilindros 18½ × 26 in con bielas
     const pY = M.part('cilindros', { explode: [0.6, 0, 1.7] });
     const cyls = [];
+    const P = M.addParticles(pK.group, { count: 1400, c0: '#f1f0ec', c1: '#7f7d79', grow: 3.2, rise: 0.7, opacity: 0.5 });
+    const tops = [[2.55, 3.95, 0], [3.2, 3.95, 0]];
+    let tk = 0;
+    const perBeat = () => Math.max(2, Math.min(8, Math.round(54 / Math.max(1, M.vNow / (Math.PI * 2 * R) * 6))));
+    M.initSteam({ pB: 17.2, cut: 0.25, Rw: R, onBeat: () => { tk = (tk + 1) % 2; puff(P, tops[tk], M.vNow, M.tSim, { n: perBeat(), up: 3.0 + M.vNow * 0.1, life: 2.2, size: 0.4, rx: 0.3, rz: 0.25 }); } });
     function makeCyl(grp, A, u, L, pr, z, phase, d0, d1, shell) {
       const k = new Kit();
       const c0 = [A[0] + u[0] * d0, A[1] + u[1] * d0], c1 = [A[0] + u[0] * d1, A[1] + u[1] * d1];
@@ -2215,7 +2684,10 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       const ck = new Kit(); ck.box(pY.m('steel'), 0.32, 0.26, 0.16, 0, 0, 0); ck.box(pY.m('steel'), 0.06, 0.32, 0.06, 0.05, -0.28, 0);
       const cross = new T.Group(); ck.build(cross); cross.rotation.z = Math.atan2(u[1], u[0]); cross.position.z = z; grp.add(cross);
       const mrod = rod(pY.m('steel'), L, 0.16, 0.07, 0.12, pY.m('iron')); mrod.position.z = z + Math.sign(z || 1) * 0.07; grp.add(mrod);
-      cyls.push({ A, u, L, pr, piston, cross, mrod, phase });
+      if (!cyls.length) { piston.name = 'M.piston'; cross.name = 'M.cross'; mrod.name = 'M.biela'; } else if (z === 0) piston.name = 'M.pistonI';
+      const c = { A, u, L, pr, piston, cross, mrod, phase };
+      cyls.push(c);
+      steamCyl(M, grp, { src: c, A, u, L, r, pr, pt: 0.05, d0, d1, bore: 0.235, z });
     }
     for (const s of [1, -1]) makeCyl(pY.group, A2, uo, Lo, pro, s * zRod, s > 0 ? PH.R : PH.L, 4.15, 5.0, true);
     makeCyl(pY.group, A1, ui, Li, pri, 0.0, PH.I, 2.58, 3.42, false);
@@ -2223,11 +2695,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     // 5 — Distribución Walschaerts (exterior) y conjugada Gresley 2:1 (interior)
     const pV = M.part('valvulas', { explode: [0.4, 0.7, 2.4] });
     const vg = [];
-    const P = [1.05, 1.95], lf = 0.42, dDie = 0.12, re = 0.23;
+    const PV = [1.05, 1.95], lf = 0.42, re = 0.23; let dDie = 0.12;
+    M.onCutoff = (c) => { dDie = 0.035 + 0.23 * c; };
+    M.onCutoff(0.25);
     const yT = 1.256 + 0.55, aL = 0.14, xB0 = 0.25;
-    const Le = Math.hypot(P[0] - A2[0], P[1] - lf - A2[1]);
+    const Le = Math.hypot(PV[0] - A2[0], PV[1] - lf - A2[1]);
     const xC0 = A2[0] + Lo * uo[0];
-    const xT0 = 2.86, Lr = (xT0 - aL / 1.0 * 0) - (P[0]);
+    const xT0 = 2.86, Lr = (xT0 - aL / 1.0 * 0) - (PV[0]);
     const yRp = yT - aL, yB = 1.256 - 0.06 - 0.3, bL = yRp - yB;
     const vx0 = 3.66; // centro de la caja de válvulas
     {
@@ -2237,13 +2711,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
         const k = new Kit();
         // caja de válvulas (sobre el cilindro) y soporte del sector
         k.seg(pV.m('blue', { shell: true }), [3.25, yT, s * zRod], [4.1, yT, s * zRod], 0.16, 20);
-        k.box(pV.m('iron'), 0.12, 0.7, 0.1, P[0], P[1] - 0.05, z - s * 0.08);
+        k.box(pV.m('iron'), 0.12, 0.7, 0.1, PV[0], PV[1] - 0.05, z - s * 0.08);
         k.build(grp);
         const mk = (len, h, t) => { const o = rod(pV.m('steel'), len, h, t, h * 0.6); o.position.z = z; grp.add(o); return o; };
         const link = new T.Group(); const lk = new Kit();
         lk.add(G.torus(1.9, 0.03, 6, 10, 0.34), pV.m('steel'), [-1.9, 0, 0], [0, 0, -0.17]);
         lk.cyl(pV.m('iron'), 0.05, 0.12, 'z', 0, 0, 0, 12);
-        lk.build(link); link.position.set(P[0], P[1], z); grp.add(link);
+        lk.build(link); link.position.set(PV[0], PV[1], z); grp.add(link);
         const eccRod = mk(Le, 0.07, 0.035);
         const radRod = mk(Lr, 0.06, 0.035);
         const comb = mk(1.0, 0.06, 0.035);
@@ -2251,7 +2725,10 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
         const spindle = new T.Group(); const sk = new Kit(); sk.cyl(pV.m('steel'), 0.025, 0.9, 'x', 0.45, 0, 0, 8); sk.cyl(pV.m('steel'), 0.13, 0.08, 'x', 0.9, 0, 0, 16); sk.cyl(pV.m('steel'), 0.13, 0.08, 'x', 1.2, 0, 0, 16); sk.cyl(pV.m('steel'), 0.025, 1.25, 'x', 1.6, 0, 0, 8);
         sk.build(spindle); spindle.position.set(0, yT, s * zRod); grp.add(spindle);
         const ret = new T.Group(); const rk = new Kit(); rk.box(pV.m('steel'), re + 0.06, 0.08, 0.05, (re) / 2, 0, 0); rk.build(ret); ret.position.z = z - s * 0.06; grp.add(ret);
-        vg.push({ s, z, link, eccRod, radRod, comb, union, spindle, ret, phase: s > 0 ? PH.R : PH.L, dx: 0 });
+        const die = new T.Group(); const dk = new Kit(); dk.box(pV.m('brass'), 0.07, 0.11, 0.07, 0, 0, 0); dk.build(die); grp.add(die);
+        // válvula de pistón dentro de la caja (visible con rayos X o corte)
+        if (s > 0) { die.name = 'M.die'; comb.name = 'M.comb'; eccRod.name = 'M.ecc'; radRod.name = 'M.radius'; }
+        vg.push({ s, z, link, eccRod, radRod, comb, union, spindle, ret, die, phase: s > 0 ? PH.R : PH.L, dx: 0 });
       }
       // conjugada 2:1 (delante de las cajas de válvulas, plano horizontal)
       const xf = 5.5, yc = yT;
@@ -2264,6 +2741,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       // válvula interior
       const vi = new T.Group(); const vk = new Kit(); vk.seg(pV.m('iron'), [3.0, yT + 0.05, 0], [4.0, yT + 0.05, 0], 0.15, 18); vk.build(vi); cg.add(vi);
       const ivalve = new T.Group(); const ik = new Kit(); ik.cyl(pV.m('steel'), 0.12, 0.08, 'x', 0, 0, 0, 16); ik.cyl(pV.m('steel'), 0.12, 0.08, 'x', 0.3, 0, 0, 16); ik.cyl(pV.m('steel'), 0.025, 2.0, 'x', 1.0, 0, 0, 8); ik.build(ivalve); ivalve.position.set(3.35, yT + 0.05, 0); cg.add(ivalve);
+      lever21.name = 'M.conj'; ivalve.name = 'M.ivalve';
       M._conj = { lever21, lever11, ivalve, xf, yc };
     }
 
@@ -2288,7 +2766,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
         const ph = s > 0 ? PH.R : PH.L;
         const a = rod(pW.m('steel'), XD[0] - XD[1], 0.13, 0.06, 0.1); a.position.z = s * (zRod - 0.0); pW.group.add(a);
         const b = rod(pW.m('steel'), XD[1] - XD[2], 0.13, 0.06, 0.1); b.position.z = s * (zRod - 0.0); pW.group.add(b);
-        cpl.push({ a, b, ph });
+        cpl.push({ a, b, ph }); if (s > 0) a.name = 'M.acopl';
       }
     }
 
@@ -2344,6 +2822,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       cyls.forEach((c, i) => {
         const pin = pinPos(c.A, r, th + c.phase);
         const xc = sliderCrank(c.A, c.u, pin, c.L);
+        c.xc = xc; c.phi = th + c.phase;
         const C = [c.A[0] + c.u[0] * xc, c.A[1] + c.u[1] * xc];
         c.cross.position.x = C[0]; c.cross.position.y = C[1];
         c.piston.position.x = c.A[0] + c.u[0] * (xc + c.pr); c.piston.position.y = c.A[1] + c.u[1] * (xc + c.pr);
@@ -2359,10 +2838,11 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
         const pin = pinPos(A2, r, th + v.phase);
         const E = pinPos(A2, re, th + v.phase - Math.PI / 2);
         v.ret.position.x = pin[0]; v.ret.position.y = pin[1]; v.ret.rotation.z = Math.atan2(E[1] - pin[1], E[0] - pin[0]);
-        const F = circ2(P, lf, E, Le, true);
-        const psi = Math.atan2(F[0] - P[0], -(F[1] - P[1]));
+        const F = circ2(PV, lf, E, Le, true);
+        const psi = Math.atan2(F[0] - PV[0], -(F[1] - PV[1]));
         v.link.rotation.z = psi;
-        const D = [P[0] - dDie * Math.sin(psi), P[1] + dDie * Math.cos(psi)];
+        const D = [PV[0] - dDie * Math.sin(psi), PV[1] + dDie * Math.cos(psi)];
+        if (v.die) { v.die.position.set(D[0], D[1], v.z); v.die.rotation.z = psi; }
         placeRod(v.eccRod, E, F);
         const C = cross[i];
         const xB = C[0] + xB0, Rp = [D[0] + Lr, yRp];
@@ -2382,6 +2862,8 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     });
     M.update(0, 0);
 
+    fireFx(M, [pB.m('fire')], fireLight(M, [-3.5, 2.0, 0], 3.2), 1.3);
+    { let acc = 0; M.fx.push((t, dt, v) => { if (!M.powered || dt <= 0) return; acc += dt * 6; while (acc > 1) { acc--; const tp = tops[Math.random() < 0.5 ? 0 : 1]; P.emit([tp[0] + (Math.random() - 0.5) * 0.2, tp[1], (Math.random() - 0.5) * 0.2], [-v * 0.95, 1.0 + Math.random() * 0.8, (Math.random() - 0.5) * 0.3], 2.6, 0.3, t); } }); }
     M.flow([[-3.5, 1.8, 0], [-3.5, 2.6, 0], [-2.2, yb - 0.2, 0], [2.3, yb - 0.2, 0], [2.85, yb - 0.6, 0], [2.85, 4.4, 0]], '#ff8a3d', { r: 0.07 });
     M.flow([[-2.0, yb + 0.6, 0], [2.1, yb + 0.5, 0], [3.8, yb + 0.5, 0.2], [3.8, 1.6, 0.6], [3.66, 1.8, zRod], [3.66, 1.25, zRod], [2.9, yb - 0.5, 0.3], [2.9, 4.3, 0]], '#bfe6ff', { r: 0.05, speed: 1.4 });
 
@@ -2447,30 +2929,31 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 
     // 1 — Motor diésel 16-567B (V16 a 45°, dos tiempos, soplador Roots)
     const pE = M.part('motor', { anchor: [-1.6, 2.5, 0.6], explode: [0, 1.6, 1.8] });
-    const pist = []; let crank;
+    const pist = [], roots = []; let crank;
     const EX0 = -3.5, EX1 = 0.35, yCr = 1.85, rc = 0.127, Lc = 0.62, pitch = (EX1 - EX0 - 0.4) / 8;
     {
       const k = new Kit();
-      k.box(pE.m('block'), EX1 - EX0, 0.6, 1.1, (EX0 + EX1) / 2, yCr - 0.1, 0);
+      k.box(pE.m('block', { shell: true }), EX1 - EX0, 0.6, 1.1, (EX0 + EX1) / 2, yCr - 0.1, 0);
       for (const sgn of [1, -1]) {
         const a = sgn * Math.PI / 8; // 22.5° desde la vertical
         const dir = [Math.sin(a), Math.cos(a)];
         for (let i = 0; i < 8; i++) {
           const x = EX0 + 0.2 + pitch * (i + 0.5) + (sgn > 0 ? 0.04 : -0.04);
           const c0 = 0.55, c1 = 1.05;
-          k.add(G.cyl(0.13, c1 - c0, 18), pE.m('block'), [x, yCr + dir[1] * (c0 + c1) / 2, dir[0] * (c0 + c1) / 2], [a, 0, 0]);
+          k.add(G.cyl(0.13, c1 - c0, 18), pE.m('block', { shell: true }), [x, yCr + dir[1] * (c0 + c1) / 2, dir[0] * (c0 + c1) / 2], [a, 0, 0]);
           k.add(G.box(0.36, 0.14, 0.34), pE.m('head'), [x, yCr + dir[1] * 1.12, dir[0] * 1.12], [a, 0, 0]);
           const pg = new T.Group(); const pk = new Kit();
           pk.cyl(pE.m('piston'), 0.108, 0.16, 'y', 0, 0, 0, 16);
           pk.cyl(pE.m('steel'), 0.028, Lc, 'y', 0, -Lc / 2, 0, 8);
           pk.build(pg); pg.rotation.x = a; pE.group.add(pg);
+          if (sgn > 0 && i === 0) pg.name = 'F.piston';
           pist.push({ pg, x, dir: [dir[0], dir[1]], phase: i * Math.PI / 4 + (sgn > 0 ? 0 : Math.PI / 4) });
         }
       }
       // cárter, bancada y soplador Roots
-      k.box(pE.m('block'), EX1 - EX0, 0.45, 1.25, (EX0 + EX1) / 2, yCr - 0.5, 0);
-      k.box(pE.m('gen'), 0.55, 0.85, 1.0, EX0 - 0.35, yCr + 0.45, 0);
-      for (const z of [-0.2, 0.2]) k.cyl(pE.m('steel'), 0.17, 0.5, 'x', EX0 - 0.35, yCr + 0.5, z, 16);
+      k.box(pE.m('block', { shell: true }), EX1 - EX0, 0.45, 1.25, (EX0 + EX1) / 2, yCr - 0.5, 0);
+      k.box(pE.m('gen', { shell: true }), 0.55, 0.85, 1.0, EX0 - 0.35, yCr + 0.45, 0);
+
       // escapes en el techo
       for (let i = 0; i < 4; i++) k.cyl(pE.m('dark'), 0.12, 0.6, 'y', EX0 + 0.5 + i * 0.95, 4.3, 0, 14);
       k.build(pE.group);
@@ -2478,6 +2961,15 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
       const ck = new Kit(); ck.cyl(pE.m('steel'), 0.07, EX1 - EX0, 'x', (EX0 + EX1) / 2, 0, 0, 12);
       for (let i = 0; i < 8; i++) { const ph = i * Math.PI / 4, x = EX0 + 0.2 + pitch * (i + 0.5); ck.add(G.box(0.08, rc + 0.12, 0.2), pE.m('steel'), [x, Math.cos(ph) * rc / 2, Math.sin(ph) * rc / 2], [-ph, 0, 0]); }
       ck.build(cg); pE.group.add(cg); crank = cg;
+      // soplador Roots: dos rotores de tres lóbulos (perfil r = r0 + a·cos 3θ) que giran en sentidos opuestos y engranan
+      const lobe = new T.Shape();
+      for (let i = 0; i <= 90; i++) { const th = i / 90 * Math.PI * 2, rr = 0.2 + 0.06 * Math.cos(3 * th); const px = Math.cos(th) * rr, py = Math.sin(th) * rr; if (i) lobe.lineTo(px, py); else lobe.moveTo(px, py); }
+      for (const z of [-0.2, 0.2]) {
+        const rg = new T.Group(); rg.position.set(EX0 - 0.35, yCr + 0.45, z);
+        const lg = new T.ExtrudeGeometry(lobe, { depth: 0.46, bevelEnabled: false, curveSegments: 1 }); lg.rotateY(Math.PI / 2); lg.translate(-0.23, 0, 0);
+        const rk = new Kit(); rk.cyl(pE.m('steel'), 0.04, 0.54, 'x', 0, 0, 0, 10); rk.add(lg, pE.m('piston'));
+        rk.build(rg); pE.group.add(rg); roots.push({ rg, dir: z > 0 ? 1 : -1, ph: 0 }); // mismo calado y giro opuesto: la punta de uno entra en el valle del otro
+      }
     }
 
     // 2 — Generador principal D12 (CC) acoplado al volante
@@ -2590,17 +3082,21 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     M.anim.push((s, dt, v) => {
       wsets.forEach(w => (w.rotation.z = -s / R));
       tms.forEach(a => (a.rotation.z = s / R * gear));
-      M._eng = (M._eng || 0) + dt * (v > 0.01 ? 800 : 275) / 60 * Math.PI * 2 * (M.timeScale ?? 1);
+      // régimen del motor según el punto del acelerador (275 rpm en ralentí, 800 rpm en el punto 8)
+      const load = M.brake ? 0.15 : Math.min(1, (v || 0) / 18);
+      M.rpm = M.powered ? 275 + 525 * load : 275; M.notch = M.powered && !M.brake ? Math.max(1, Math.round(load * 8)) : 0;
+      M._eng = (M._eng || 0) + dt * M.rpm / 60 * Math.PI * 2;
       const ca = M._eng;
       crank.rotation.x = ca; genArm.rotation.x = ca;
+      roots.forEach(r => (r.rg.rotation.x = r.dir * ca * 1.6 + r.ph));
       for (const p of pist) {
         const ang = ca + p.phase;
         const x = rc * Math.cos(ang) + Math.sqrt(Lc * Lc - (rc * Math.sin(ang)) ** 2);
         const d = x + 0.18;
         p.pg.position.set(p.x, yCr + p.dir[1] * (d + 0.55 - Lc + 0.25), p.dir[0] * (d + 0.55 - Lc + 0.25));
       }
-      fans.forEach(f => (f.rotation.y += dt * (v > 0.01 ? 18 : 6) * (M.timeScale ?? 1)));
-      dynFan.rotation.y += dt * (v > 0.01 ? 4 : 0) * (M.timeScale ?? 1);
+      fans.forEach(f => (f.rotation.y += dt * (M.powered ? 30 + 30 * load : 8)));
+      dynFan.rotation.y += dt * (M.brake ? 40 : 0);
     });
     M.update(0, 0);
     M.gear = gear;
@@ -2611,7 +3107,17 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     for (const xc of XTR) for (const dx of [-WB / 2, WB / 2]) {
       const tw = dx > 0 ? -1 : 1;
       M.flow([[EX1 + 1.1, yCr - 0.3, 0.3], [xc * 0.5 + 0.6, 1.2, 0.3], [xc + dx + tw * 0.52, R + 0.45, 0.3]], '#ffd166', { r: 0.04 });
+      M.bflow([[xc + dx + tw * 0.52, R + 0.45, -0.3], [xc * 0.4 + 0.7, 1.3, -0.3], [1.2, 1.5, -0.3], [1.2, 3.75, -0.3]], '#ff6b4a', { r: 0.045 });
     }
+    M.flows[0].userData.keep = true; M.flows[1].userData.keep = true;
+    M.brakeType = 'rheo';
+    // humo de escape por las cuatro chimeneas del techo
+    const PX = M.addParticles(pE.group, { count: 900, c0: '#7b7d80', c1: '#b9bbbd', grow: 3.0, rise: 0.5, opacity: 0.42 });
+    { let acc = 0; M.fx.push((t, dt, v) => {
+      if (!M.powered || dt <= 0) return;
+      acc += dt * (6 + 40 * ((M.rpm || 275) - 275) / 525);
+      while (acc > 1) { acc--; const i = Math.floor(Math.random() * 4); PX.emit([EX0 + 0.5 + i * 0.95 + (Math.random() - 0.5) * 0.1, 4.62, (Math.random() - 0.5) * 0.12], [-v * 0.95 + (Math.random() - 0.5) * 0.4, 2.2 + Math.random() * 1.5 + ((M.rpm || 275) - 275) / 200, (Math.random() - 0.5) * 0.4], 2.4, 0.22, t); }
+    }); }
 
     M.finalize();
     M.len = 15.44; M.center = 0.2;
@@ -2625,7 +3131,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 /* JNR Serie 0 Shinkansen (1964) — unidad eléctrica 25 kV 60 Hz, todos los ejes motorizados (185 kW) */
 (function () {
   const { T, Kit, G, wheelset, loft, stations } = TB;
-  const { Model, diamondPanto } = MB;
+  const { Model, diamondPanto, pantoSparks } = MB;
 
   MODELS.shinkansen = function () {
     const M = new Model('shinkansen', {
@@ -2782,7 +3288,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     M.flow([[xPan, wire, 0], [xPan, yT + 0.4, 0], [xPan - 1.6, yT + 0.1, 0.4], [-12.9, 2.0, 0.4], [-12.9, 1.0, 0]], cY, { r: 0.06 });
     M.flow([[-12.9, 0.8, 0.5], [-16.6, 0.8, 0.5]], '#ffb347', { r: 0.05 });
     M.flow([[-16.6, 0.95, 0.4], [-11, 1.0, 0.6], [-0.4, 1.0, 0.6], [10.6, 0.95, 0.6], [13.6, 0.9, 0.6]], '#ff9f43', { r: 0.05 });
-    for (const xc of [...B21, ...B26]) M.flow([[xc > 0 ? 13.6 : -16.6, 0.95, 0.3], [xc, 0.9, 0.3], [xc - 0.62, R + 0.12, 0.1], [xc + 0.62, R + 0.12, 0.1]], '#ffd166', { r: 0.04 });
+    for (const xc of [...B21, ...B26]) {
+      M.flow([[xc > 0 ? 13.6 : -16.6, 0.95, 0.3], [xc, 0.9, 0.3], [xc - 0.62, R + 0.12, 0.1], [xc + 0.62, R + 0.12, 0.1]], '#ffd166', { r: 0.04 });
+      const xr = Math.abs(xc - 7.6) < Math.abs(xc + 7.5) ? 7.6 : -7.5;
+      M.bflow([[xc - 0.62, R + 0.12, -0.3], [xc, 0.95, -0.3], [xr, 0.95, -0.3], [xr, 0.6, -0.3]], '#ff6b4a', { r: 0.045 });
+    }
+    M.brakeType = 'rheo';
+    pantoSparks(M, pP.group, [[xPan, wire, 0]]);
 
     M.finalize();
     M.frame = [-6, 25.2];
@@ -2798,7 +3310,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 /* SNCF TGV Sud-Est (Alsthom, 1981) — motriz + remolques articulados sobre bogies Jacobs; 12 motores de CC */
 (function () {
   const { T, Kit, G, wheelset, loft, stations } = TB;
-  const { Model, singleArmPanto } = MB;
+  const { Model, singleArmPanto, pantoSparks } = MB;
 
   MODELS.tgv = function () {
     const M = new Model('tgv', {
@@ -2955,8 +3467,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     M.anim.push((s, dt, v) => {
       wsets.forEach(w => (w.rotation.z = -s / R));
       arms.forEach(a => (a.rotation.z = -s / R * gear));
-      shafts.forEach(sh => (sh.rotation.x = 0));
-      fans.forEach(f => (f.rotation.y += dt * (v > 0.01 ? 10 : 0) * (M.timeScale ?? 1)));
+      fans.forEach(f => (f.rotation.y += dt * (M.brake ? 40 : 0)));
     });
     M.update(0, 0);
     M.gear = gear;
@@ -2966,6 +3477,10 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     for (const x of [7.0, 13.4]) M.flow([[10.3, 1.6, 0.3], [x, 1.8, 0.3], [x, 2.6, -0.3]], '#ffb347', { r: 0.05 });
     for (const xc of BPC) M.flow([[xc < 10 ? 7 : 13.4, 1.6, -0.3], [xc - 0.75, 1.35, -0.1], [xc + 0.75, 1.35, -0.1]], '#ffd166', { r: 0.045 });
     M.flow([[3.3, 1.5, -0.4], [0.0, 1.3, -0.4], [BR1, R + 0.4, -0.3]], '#ffd166', { r: 0.045 });
+    for (const xc of BPC) M.bflow([[xc - 0.75, 1.35, 0.3], [xc, 2.2, 0.3], [11.0, 3.6, 0.3], [11.0, 4.15, 0.3]], '#ff6b4a', { r: 0.05 });
+    M.bflow([[BR1, R + 0.4, 0.3], [0.5, 2.0, 0.3], [9.0, 3.7, 0.3], [9.6, 4.15, 0.3]], '#ff6b4a', { r: 0.045 });
+    M.brakeType = 'rheo';
+    pantoSparks(M, pP.group, [[4.35, wire, 0]]);
 
     M.finalize();
     M.frame = [-6, 22.2];
@@ -3177,6 +3692,8 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
     M.flow([[5, -7.6, -1.8], [5, -2.4, -1.5], [5, -0.6, -1.25], [12, -0.5, -1.08], [20, -0.5, -1.08]], '#ffd166', { r: 0.06 });
     M.flow([[10, -0.72, 1.08], [10, 0.1, 1.2], [14, 0.4, 0.4]], '#d8a33a', { r: 0.045 });
     M.flow([[14, 0.4, -0.2], [17, 0.2, -1.2], [17, -0.65, -1.08]], '#7bd389', { r: 0.045 });
+    M.flows[1].userData.noRev = true; M.flows[2].userData.noRev = true;
+    M.brakeType = 'regen';
 
     M.finalize();
     M.frame = [0, 27.2];
@@ -3210,7 +3727,7 @@ TRAINS.push({
       design: 'Barril de 3 ft 4 in de diámetro y 6 ft de largo, chapa de ¼ in. Los tubos de 3 in se sujetan entre dos placas tubulares; con más superficie por unidad de volumen, la caldera produce vapor suficiente sin crecer en peso, que era la restricción decisiva del concurso (4,5 t máximo para cuatro ruedas).',
       make: 'Chapa de hierro forjado remachada a mano y tubos de cobre expandidos en las placas. La estanqueidad entre tubo y placa fue uno de los problemas de taller más difíciles de resolver en 1829.',
       evo: 'La paternidad de la idea es discutida (se atribuye a George Stephenson o a Henry Booth; Marc Seguin patentó una solución paralela en Francia). A partir de Rocket, la caldera de tubos de humo fue el estándar hasta el final del vapor.',
-      data: [['Diámetro × largo', '1,016 × 1,829 m'], ['Tubos', '25 × Ø 76 mm × 1,83 m'], ['Espesor del tubo', '3⁄32 in (2,4 mm)'], ['Presión', '50 psi (3,4 bar)'], ['Superficie de tubos', '≈ 12,8 m²']],
+      data: [['Diámetro × largo', '1,016 × 1,829 m'], ['Tubos', '25 × Ø 76 mm × 1,83 m'], ['Espesor del tubo', '3⁄32 in (2,4 mm)'], ['Presión', '50 psi (3,4 bar)'], ['Superficie de tubos', '117,8 ft² (≈ 10,9 m²)'], ['Superficie total', '137,8 ft² (≈ 12,8 m²)']],
       refs: [['Cuaderno de J. U. Rastrick, págs. 18–19 (Science Museum Group)', 'https://collection.sciencemuseumgroup.org.uk/documents/aa110154165'], ['Rocket’s engineering excellence (Science and Industry Museum)', 'https://blog.scienceandindustrymuseum.org.uk/rocket-engineering-excellence/']] },
     hogar: { name: 'Hogar con camisa de agua', kicker: 'Caja de fuego de cobre', cutMode: 'T', cutX: -0.93,
       fn: 'Quema el coque y aprovecha el calor radiante: una doble pared llena de agua rodea al fuego, así que el agua recibe calor directamente de la llama además del que llega por los tubos.',
@@ -3621,11 +4138,11 @@ TRAINS.push({
   summary: 'Unidad de cabina de 1 500 hp con motor de dos tiempos 16-567B, generador de corriente continua y cuatro motores de tracción. Se fabricaron unas 3 850 unidades A y B; su producción en serie terminó con la era del vapor en Estados Unidos.',
   sky: ['#26364c', '#b8744a', '#efc07a'],
   stage: { tile: { ground: ['#c49a62', '#b08050', '#d0b080'], side: ['#b06a40', '#8a4e30', '#6a3a24'], hills: 4 }, props: 'west', fog: '#6b4a3a', sun: '#ffd9a8', sunI: 1.8, sky: '#f0dcc0', groundLight: '#7a5030' },
-  cutX: -1.5,
+  cutX: -1.36,
   partsIntro: 'Ocho conjuntos. En una diésel-eléctrica el motor no mueve las ruedas: mueve un generador. Sigue el flujo de energía desde el tanque hasta los ejes.',
   partOrder: ['motor', 'generador', 'traccion', 'bogies', 'dinamico', 'refrigeracion', 'cabina', 'chasis'],
   parts: {
-    motor: { name: 'Motor 16-567B', kicker: 'V16 de dos tiempos a 45°', cutMode: 'T', cutX: -1.5,
+    motor: { name: 'Motor 16-567B', kicker: 'V16 de dos tiempos a 45°', cutMode: 'T', cutX: -1.36,
       fn: 'Quema gasóleo y entrega 1 500 hp a 800 rpm al generador principal. El maquinista elige un “punto” del controlador y el regulador mantiene las revoluciones correspondientes, entre 275 y 800 rpm.',
       design: 'Dos tiempos con barrido por soplador Roots: cada carrera descendente es de trabajo, así que un motor relativamente compacto da mucha potencia. 567 pulgadas cúbicas por cilindro (9,29 L), 148,7 L en total.',
       make: 'Bloque soldado de acero, no fundido: se fabricaba en serie con plantillas, una idea traída de la industria automotriz de General Motors.',
@@ -4016,6 +4533,742 @@ TRAINS.push({
   cmp: { vs: 431, vr: 501, P: null, m: null, kwt: null, axle: 0 },
 });
 
+/* data3.js — recorridos guiados «Cómo funciona» (uno por tren).
+   Cada paso: t título · d texto · f dato o ecuación · part pieza a encuadrar · hl piezas resaltadas ·
+   flows índices de flujos visibles (true = todos) · cut 'T'|'L' con cutX (x del modelo) o cutV ·
+   xray · play · v (km/h) · ts (escala de tiempo) · cutoff · brake · irregular · pv · dir/dist/at (cámara) */
+window.TOURS = {
+  rocket: [
+    { t: 'Cuatro etapas en serie', view: 'home', flows: true, v: 24, ts: 0.25,
+      d: 'Rocket convierte coque en movimiento en cuatro etapas: <b>combustión</b> en el hogar, <b>transferencia de calor</b> en la caldera, <b>expansión</b> del vapor en los cilindros y <b>tiro</b> por el escape, que vuelve a avivar el fuego. Las líneas naranja y celeste siguen la energía.' },
+    { t: 'Hogar con camisa de agua', part: 'hogar', cut: 'T', cutX: -0.93, flows: [0], v: 24, ts: 0.25,
+      d: 'El coque arde sobre la parrilla. Las dos paredes de cobre encierran una capa de agua: el agua recibe el <b>calor radiante</b> de la llama directamente, la forma de transferencia más intensa de toda la máquina.',
+      f: 'Superficie del hogar ≈ 1,86 m² · parrilla ≈ 0,56 m²' },
+    { t: '25 tubos de humo', part: 'caldera', cut: 'T', cutX: 0.3, flows: [0], v: 24, ts: 0.25,
+      d: 'Los gases cruzan la caldera por 25 tubos de cobre de 3 in. Dividir el paso en muchos tubos pequeños multiplica la superficie de intercambio sin agrandar ni hacer más pesada la caldera, la restricción decisiva en Rainhill.',
+      f: 'A<sub>tubos</sub> = 25 · π · 0,076 m · 1,83 m ≈ 10,9 m² (+ 1,86 m² del hogar = 12,8 m²)' },
+    { t: 'Vapor a 3,4 bar', part: 'valvulas', hl: ['valvulas', 'caldera'], flows: [1], xray: true, v: 24, ts: 0.25, dir: [0.35, 0.55, 1],
+      d: 'El vapor se acumula sobre el nivel del agua a unas 50 psi. Dos válvulas de seguridad limitan la presión —una encerrada para que el maquinista no pudiera sobrecargarla— y el regulador lo deja pasar por tubos de cobre a los cilindros.' },
+    { t: 'Expansión en los cilindros', part: 'cilindros', cut: 'L', cutV: 303, pv: true, v: 20, ts: 0.0625, dir: [0.25, 0.3, 1],
+      d: 'El vapor empuja un lado del émbolo y luego el otro (<b>doble efecto</b>). El color de las cámaras es la presión: amarillo, vapor vivo; rojo, expansión; azul, escape. El área del lazo p–V es el trabajo de cada carrera.',
+      f: 'F ≈ 0,85 · p · d² · s ⁄ D = 0,85 · 50 · 8² · 16,5 ⁄ 56,5 ≈ 794 lbf ≈ 3,5 kN' },
+    { t: 'Biela, manivela y 90°', part: 'ruedas', hl: ['cilindros', 'ruedas'], v: 20, ts: 0.0625, dir: [0.15, 0.2, 1],
+      d: 'Cruceta y biela convierten el vaivén en giro del único eje motriz. Los dos lados están desfasados 90°: cuando un émbolo está en punto muerto, el otro da par máximo, así que la locomotora arranca en cualquier posición.',
+      f: 'Radio de manivela r = 210 mm → carrera 2r = 419 mm (16½ in)' },
+    { t: 'Escape y tiro: el lazo se cierra', part: 'escape', flows: [0, 1], v: 30, ts: 0.25, dir: [0.5, 0.25, 1], dist: 7,
+      d: 'El vapor usado sale por la tobera en la base de la chimenea. Cada golpe arrastra los gases y deja depresión en la caja de humos: más velocidad, más golpes por segundo, más tiro y más fuego. Las bocanadas van sincronizadas con cada escape.',
+      f: '4 golpes por vuelta · a 30 km/h: 4 · v ⁄ (π · D) = 4 · 8,33 ⁄ (π · 1,435) ≈ 7,4 golpes/s' },
+    { t: 'Rainhill, octubre de 1829', view: 'home', flows: true, v: 48, ts: 1,
+      d: 'Con 4,3 t y unos 3,5 kN de esfuerzo teórico, Rocket arrastró unas 13 t a 19 km/h de promedio y llegó a 48 km/h. Caldera tubular, hogar con camisa de agua y tiro por escape se mantuvieron hasta el final del vapor.' },
+  ],
+
+  general: [
+    { t: 'Una 4-4-0 para vías baratas', view: 'home', flows: true, v: 40, ts: 0.25,
+      d: 'El General repite la cadena de Rocket —fuego, caldera, cilindros, escape— y añade dos soluciones estadounidenses para vías ligeras y mal niveladas: un <b>bogie</b> delantero que guía y <b>balancines</b> que reparten la carga entre los ejes motrices.' },
+    { t: 'Hogar y 130 tubos', part: 'caldera', cut: 'T', cutX: -1.0, flows: [0], v: 40, ts: 0.25,
+      d: 'La leña arde en un hogar alto entre los bastidores. Los gases recorren 130 tubos de 2 in y 11 ft, que aportan 748 de los 819 ft² de superficie de calefacción; el hogar, sólo 71.',
+      f: 'Superficie total 819 ft² (76,1 m²) · parrilla 12,46 ft² (1,16 m²)' },
+    { t: 'Domo de vapor', part: 'caldera', at: [-0.95, 2.9, 0], dist: 5, dir: [0.4, 0.45, 1], flows: [1], xray: true, v: 40, ts: 0.25,
+      d: 'El vapor se toma en lo alto del domo de latón, lejos de la superficie del agua, para que llegue seco a los cilindros. La especificación de 1855 no registra la presión de caldera; el modelo supone 100 psi, típica de la década.' },
+    { t: 'Distribución de Stephenson', part: 'cilindros', cut: 'L', cutV: 276, pv: true, cutoff: 0.35, v: 25, ts: 0.0625, dir: [0.35, 0.3, 1],
+      d: 'Entre los bastidores, dos excéntricas por lado mueven el sector de Stephenson. Según la posición del sector, la corredera en D admite vapor durante más o menos carrera (el <b>corte</b>) o invierte la marcha. Mueve el corte en el diagrama p–V.',
+      f: 'F = 0,85 · p · d² · s ⁄ D = 0,85 · 100 · 15² · 22 ⁄ 60 ≈ 7 010 lbf ≈ 31,2 kN (p supuesta)' },
+    { t: 'Dos ejes acoplados', part: 'ruedas', hl: ['ruedas', 'cilindros'], v: 40, ts: 0.0625, dir: [0.2, 0.25, 1],
+      d: 'La biela motriz mueve el eje delantero y la biela de acoplamiento lleva el mismo giro al trasero. Con dos ejes motrices la masa adherente sube a 14,5 t, más de cinco veces la de Rocket.',
+      f: 'F<sub>adh</sub> = μ · W = 0,25 · 32 000 lb = 8 000 lbf ≈ 35,6 kN' },
+    { t: 'Vía irregular: el balancín', part: 'bastidor', hl: ['bastidor', 'ruedas'], irregular: true, v: 10, ts: 0.25, at: [-2.93, 1.0, 0.5], dir: [0.12, 0.18, 1], dist: 6.5,
+      d: 'Una junta levantada (altura exagerada ×3) pasa bajo la locomotora. El balancín rojo gira sobre su fulcro: cuando un eje sube, el otro baja lo justo para que ambos sigan cargados y ninguna rueda pierda adherencia.',
+      f: 'R<sub>1</sub> · a = R<sub>2</sub> · b → con brazos iguales, R<sub>1</sub> = R<sub>2</sub>' },
+    { t: 'Bogie delantero', part: 'bogie', irregular: true, v: 10, ts: 0.25, dir: [0.35, 0.2, 1],
+      d: 'El bogie de cuatro ruedas pivota bajo la caja de humos y se inclina sobre la junta sin levantar la locomotora. Con los balancines, el apoyo queda en tres puntos: un trípode isostático sobre la vía.',
+      f: 'Carga sobre el bogie 18 000 lb (8,2 t) · ruedas de 30 in' },
+    { t: 'Chimenea de globo', part: 'chimenea', flows: [0], xray: true, v: 50, ts: 0.25, dir: [0.5, 0.3, 1],
+      d: 'Cada golpe de escape aviva el fuego, pero la leña lanza brasas. El globo frena los gases y el cono y la malla retienen casi todas las chispas: verás escapar sólo algunas.' },
+  ],
+
+  krokodil: [
+    { t: 'Montaña eléctrica', view: 'home', flows: true, v: 35, ts: 0.25,
+      d: 'La Ce 6/8 II toma 15 kV a 16⅔ Hz de la catenaria, los reduce en un transformador, regula la tensión con un conmutador de 22 tomas y alimenta cuatro motores. Un eje ciego y bielas llevan el par a seis ejes motrices.' },
+    { t: 'Pantógrafos', part: 'panto', flows: [0], v: 35, ts: 0.25, dir: [0.4, 0.35, 1],
+      d: 'Dos pantógrafos de rombo; en servicio basta uno. La corriente entra por el frotador, pasa por el interruptor principal en aceite y llega al primario del transformador; vuelve al carril por las ruedas (línea azul).' },
+    { t: 'Transformador y 22 tomas', part: 'trafo', xray: true, flows: [0, 1, 2], v: 35, ts: 0.25, dir: [0.3, 0.35, 1],
+      d: 'El transformador en baño de aceite baja la tensión. El conmutador escalonado elige una de 22 tomas del secundario: más toma, más tensión en los motores y más esfuerzo. Mueve la velocidad simulada y mira la aguja de cobre.',
+      f: 'Regulación por tensión: sin resistencias de arranque que disipen energía' },
+    { t: 'Cuatro motores serie', part: 'motores', xray: true, flows: [1, 2], v: 30, ts: 0.0625, dir: [0.2, 0.3, 1],
+      d: 'Motores monofásicos serie de 12 polos, dos por bastidor. Su par es máximo a baja velocidad, justo lo que exige arrancar 430 t en rampa. Cada inducido mueve un piñón que engrana con la corona del eje ciego.',
+      f: 'Potencia unihoraria 1 650 kW a 36 km/h · esfuerzo de arranque ≈ 294 kN' },
+    { t: 'Eje ciego y bielas', part: 'ejeciego', hl: ['ejeciego', 'bielas'], xray: true, v: 30, ts: 0.0625, dir: [0.15, 0.2, 1], dist: 7,
+      d: 'El eje ciego no toca el carril: gira entre los motores y, con una biela triangular, mueve los tres ejes acoplados de su bastidor. Los lados van a 90°, igual que en una locomotora de vapor.',
+      f: 'A 35 km/h: n = v ⁄ (π · D) = 9,72 ⁄ (π · 1,35) ≈ 2,3 rev/s ≈ 138 rpm' },
+    { t: 'Bastidores articulados', part: 'rodaje', hl: ['rodaje'], v: 30, ts: 0.25, view: 'home', dir: [0.25, 0.55, 1],
+      d: 'Dos bastidores de tres ejes motrices y uno portador, unidos por una articulación bajo la cabina. Así una locomotora de 19,4 m inscribe las curvas cerradas del Gotardo; la cabina descansa sobre pivotes en ambos bastidores.' },
+    { t: 'Freno de recuperación', part: 'recuperacion', brake: true, xray: true, flows: true, v: 40, ts: 0.25, dir: [0.3, 0.45, 1],
+      d: 'En bajada los motores se reconectan como generadores y devuelven energía a la catenaria: observa los flujos invertidos (en verde). Fue el primer freno de recuperación exitoso en corriente monofásica.',
+      f: 'E = m · g · Δh = 558 t · 9,81 · 600 m ≈ 3,3 GJ ≈ 910 kWh (bajada ilustrativa, antes de pérdidas)' },
+    { t: 'Un trabajo de montaña', view: 'home', flows: true, v: 35, ts: 0.25,
+      d: 'La especificación pedía 430 t a 35 km/h en rampas de 28 ‰. Cada unidad recorrió unos 4 millones de kilómetros.',
+      f: 'F = (m<sub>loc</sub> + m<sub>tren</sub>) · g · i = 558 t · 9,81 · 0,028 ≈ 153 kN → P = F · v ≈ 1,5 MW' },
+  ],
+
+  mallard: [
+    { t: 'Vapor a 203 km/h', view: 'home', flows: true, v: 120, ts: 0.25,
+      d: 'La A4 suma caldera de 250 psi con recalentador, tres cilindros, válvulas de pistón, escape doble y carenado aerodinámico. El 3 de julio de 1938 alcanzó 126 mph (203 km/h), récord mundial del vapor.' },
+    { t: 'Hogar ancho', part: 'caldera', cut: 'T', cutX: -3.5, flows: [0], v: 120, ts: 0.25,
+      d: 'El hogar se ensancha sobre el bisel trasero para alojar 3,83 m² de parrilla. Una caja de fuego de cobre recibe el calor radiante de la llama, igual que en Rocket.',
+      f: 'Superficie de calefacción 308,9 m² · recalentador 69,6 m²' },
+    { t: 'Recalentador', part: 'caldera', cut: 'T', cutX: 0.5, flows: [0, 1], v: 120, ts: 0.25,
+      d: 'En la sección se ven los tubos pequeños y, arriba, los tubos grandes que alojan los elementos del recalentador. El vapor pasa de nuevo por los gases y sale más caliente que la temperatura de saturación: no se condensa en los cilindros y rinde más trabajo por kilogramo.' },
+    { t: 'Tres cilindros a 120°', part: 'cilindros', xray: true, pv: true, cutoff: 0.25, v: 40, ts: 0.0625, dir: [0.35, 0.3, 1],
+      d: 'Los cilindros exteriores mueven el segundo eje acoplado; el interior, inclinado 1 en 8, mueve el primero por un eje acodado. Con manivelas a 120° hay seis escapes por vuelta y un par más uniforme que con dos cilindros.',
+      f: 'F = 0,85 · p · d² · s · 3 ⁄ (2 · D) = 0,85 · 250 · 18,5² · 26 · 1,5 ⁄ 80 = 35 455 lbf ≈ 157,7 kN' },
+    { t: 'Walschaerts y conjugada 2:1', part: 'valvulas', pv: true, cutoff: 0.25, v: 40, ts: 0.0625, dir: [0.3, 0.4, 1],
+      d: 'Cada cilindro exterior tiene su distribución Walschaerts: la manivela de retorno y la cruceta combinan dos movimientos en la válvula de pistón. La válvula interior no tiene mecanismo propio: la palanca conjugada de Gresley la mueve sumando las dos exteriores.',
+      f: 'Con fases a 120°: x<sub>int</sub> = −(x<sub>der</sub> + x<sub>izq</sub>)' },
+    { t: 'Escape doble Kylchap', part: 'kylchap', xray: true, flows: [1], v: 140, ts: 0.25, dir: [0.4, 0.45, 1],
+      d: 'Dos chimeneas, cada una con tobera de cuatro boquillas y difusor Kylälä. Repartir el chorro reduce la contrapresión sobre los émbolos sin perder tiro; las bocanadas alternan entre ambas chimeneas.' },
+    { t: 'Carenado en cuña', part: 'carenado', v: 160, ts: 1, view: 'home', dir: [0.9, 0.3, 0.7],
+      d: 'La cuña frontal, ensayada en túnel de viento, levanta el humo lejos de la cabina y reduce el arrastre a alta velocidad. Los faldones cubrían las ruedas; se retiraron en 1942 para facilitar el mantenimiento.' },
+    { t: 'Ruedas de 6 ft 8 in', part: 'ruedas', v: 203, ts: 0.25, dir: [0.2, 0.2, 1],
+      d: 'Ruedas grandes significan menos revoluciones para la misma velocidad y menos velocidad de émbolo, que limita lubricación y desgaste.',
+      f: 'A 203 km/h: n = 56,4 ⁄ (π · 2,032) ≈ 8,8 rev/s (530 rpm) · v<sub>émbolo</sub> = 2 · s · n ≈ 11,7 m/s' },
+  ],
+
+  f7: [
+    { t: 'Transmisión eléctrica', view: 'home', flows: true, v: 60, ts: 0.25,
+      d: 'No hay caja de cambios: el diésel mueve un generador y la corriente alimenta cuatro motores en los bogies. El maquinista elige uno de 8 puntos del acelerador y el regulador fija el régimen del motor y la excitación del generador.' },
+    { t: 'Motor 16-567B', part: 'motor', cut: 'T', cutX: -1.36, xray: true, flows: [0], v: 60, ts: 0.0625,
+      d: 'V16 a 45° de dos tiempos: cada cilindro da una carrera de potencia por vuelta. 148,7 L de cilindrada; gira a 275 rpm en ralentí y a 800 rpm en el punto 8. Mira el régimen en el HUD al mover la velocidad.',
+      f: 'Par a plena potencia: T = P ⁄ ω = 1 119 kW ⁄ (800 · 2π ⁄ 60) ≈ 13,4 kN·m' },
+    { t: 'Soplador Roots', part: 'motor', cut: 'T', cutX: -3.85, at: [-3.85, 2.3, 0], dist: 4.2, dir: [1, 0.3, 0.55], v: 60, ts: 0.0625,
+      d: 'En la sección se ven los dos rotores de tres lóbulos. Un dos tiempos no tiene carrera de admisión: los rotores, que giran en sentidos opuestos, empujan aire fresco a las lumbreras de las camisas y barren los gases quemados por las válvulas de escape. El soplador va engranado al cigüeñal.' },
+    { t: 'Generador principal D12', part: 'generador', xray: true, flows: [1], v: 60, ts: 0.0625, dir: [0.3, 0.35, 1],
+      d: 'Acoplado al volante, convierte la potencia mecánica en corriente continua. Con la excitación, el generador entrega mucha corriente a baja velocidad (arranque) y más tensión a alta velocidad: el control es eléctrico.' },
+    { t: 'Motores suspendidos por la nariz', part: 'traccion', flows: [2, 3, 4, 5], v: 30, ts: 0.0625, dir: [0.25, 0.25, 1],
+      d: 'Cada eje tiene un motor serie D27: un lado apoya en el eje y la «nariz» cuelga del bastidor del bogie, así el engranaje 62:15 no se desalinea cuando el eje se mueve.',
+      f: 'A 30 km/h: n<sub>rueda</sub> = 8,33 ⁄ (π · 1,016) ≈ 157 rpm → n<sub>motor</sub> = 4,13 · 157 ≈ 647 rpm' },
+    { t: 'Bogies Blomberg', part: 'bogies', v: 50, ts: 0.25, dir: [0.3, 0.2, 1],
+      d: 'Bastidor lateral fundido, compensadores y resortes helicoidales sobre las cajas de grasa, y una traviesa colgada en péndulos con ballestas elípticas que deja desplazarse la caja en curva.',
+      f: 'Empate 9 ft (2,74 m) · ruedas de 40 in (1 016 mm)' },
+    { t: 'Freno dinámico', part: 'dinamico', brake: true, flows: true, xray: true, v: 60, ts: 0.25, dir: [0.3, 0.6, 1],
+      d: 'En bajada los motores se excitan como generadores y la energía se disipa como calor en rejillas resistivas del techo, enfriadas por un ventilador. Se ahorran zapatas y ruedas, y la velocidad se controla sin calentar las llantas.' },
+    { t: 'Unidades múltiples', view: 'home', flows: true, v: 80, ts: 0.25,
+      d: 'Con cables de mando múltiple un solo maquinista controla varias unidades A y B como una sola locomotora. Fue el argumento con el que EMD desplazó al vapor en los ferrocarriles estadounidenses.' },
+  ],
+
+  serie0: [
+    { t: 'Todos los ejes son motores', view: 'home', flows: true, v: 160, ts: 0.25,
+      d: 'No hay locomotora: cada par de coches forma una unidad con pantógrafo, transformador, rectificador y ocho motores. Repartir la tracción a lo largo del tren limita la carga por eje sobre una vía nueva pensada para 210 km/h.',
+      f: '16 coches × 4 ejes × 185 kW = 11 840 kW' },
+    { t: 'Pantógrafo a 25 kV', part: 'panto', flows: [0], v: 200, ts: 0.25, dir: [0.4, 0.4, 1],
+      d: 'Con 25 kV la corriente es baja para la potencia transmitida: menos pérdidas y menos desgaste del hilo. Las chispas son arcos de contacto entre frotador e hilo.' },
+    { t: 'Transformador y silicio', part: 'trafo', flows: [0, 1], v: 200, ts: 0.25, dir: [0.25, 0.12, 1],
+      d: 'Bajo el piso, el transformador reduce la tensión y un rectificador de diodos de silicio la convierte en continua para los motores de colector: alterna para la red, continua para el motor.' },
+    { t: 'Control por tomas', part: 'control', flows: [1, 2], v: 200, ts: 0.25, dir: [0.25, 0.12, -1],
+      d: 'Un conmutador en el secundario cambia la tensión aplicada a los motores en 25 escalones; los ocho motores de la unidad forman dos ramas de cuatro en serie (4S-2P). Arranque suave sin resistencias.' },
+    { t: 'Motores MT200', part: 'motores', flows: [3, 4, 5, 6], v: 200, ts: 0.0625, dir: [0.2, 0.15, 1],
+      d: '185 kW por eje, suspendidos del bastidor del bogie y unidos al eje por un acoplamiento flexible y engranajes de relación 2,17.',
+      f: 'A 210 km/h: n<sub>rueda</sub> = 58,3 ⁄ (π · 0,91) ≈ 1 224 rpm → n<sub>motor</sub> ≈ 2 660 rpm' },
+    { t: 'Bogies DT200', part: 'bogies', v: 200, ts: 0.0625, dir: [0.25, 0.15, 1],
+      d: 'Empate de 2 500 mm, ruedas de 910 mm y suspensión secundaria neumática. A 210 km/h el reto era evitar el «lazo» (hunting), la oscilación lateral autoexcitada del eje.' },
+    { t: 'La señal va en la cabina', part: 'atc', v: 200, ts: 0.25, dir: [0.4, 0.2, 1],
+      d: 'A 210 km/h no se pueden leer señales al lado de la vía. El ATC recibe por los carriles la velocidad permitida, la muestra al maquinista y frena si éste no lo hace.' },
+    { t: 'Freno reostático', part: 'frenos', brake: true, flows: true, v: 200, ts: 0.25, dir: [0.25, 0.12, 1],
+      d: 'A alta velocidad los motores actúan como generadores sobre resistencias bajo el piso; a baja velocidad frenan los discos montados en los ejes.',
+      f: 'Deceleración de servicio 2,84 km/h/s · emergencia 3,9 km/h/s' },
+  ],
+
+  tgv: [
+    { t: 'Dos motrices y un tren articulado', view: 'home', flows: true, v: 260, ts: 0.25,
+      d: 'Dos motrices en los extremos y ocho remolques apoyados sobre bogies compartidos. Cada motriz capta 25 kV, los transforma, los rectifica con tiristores y alimenta cuatro motores; dos más van en el bogie del remolque contiguo.' },
+    { t: 'Pantógrafo monobrazo', part: 'panto', flows: [0], v: 260, ts: 0.25, dir: [0.4, 0.45, 1],
+      d: 'Capta 25 kV 50 Hz en la línea nueva y 1,5 kV CC en la red clásica. A 260 km/h la fuerza de contacto tiene que mantenerse estable para que el frotador no se despegue del hilo.' },
+    { t: 'Transformador y tiristores', part: 'potencia', cut: 'T', cutX: 10.3, flows: [0, 1, 2], v: 260, ts: 0.25,
+      d: 'Los puentes mixtos de tiristores y diodos regulan la tensión de los motores sin escalones, cambiando el ángulo de disparo. La electrónica de potencia sustituye al conmutador de tomas del Serie 0.',
+      f: 'Puente semicontrolado: U<sub>d</sub> = U<sub>d0</sub> · (1 + cos α) ⁄ 2' },
+    { t: 'Motores colgados de la caja', part: 'motores', xray: true, flows: [3, 4], v: 260, ts: 0.0625, dir: [0.2, 0.2, 1],
+      d: 'Cada motor de 537 kW cuelga de la caja de la motriz, no del bogie: baja la masa no suspendida y la vía sufre menos a alta velocidad. Un árbol con juntas deslizantes lleva el par al reductor montado en el eje.',
+      f: '6 450 kW continuos por tren a 25 kV · a 260 km/h: F = P ⁄ v ≈ 6 450 ⁄ 72,2 ≈ 89 kN' },
+    { t: 'Bogies motores', part: 'bogies', v: 260, ts: 0.0625, dir: [0.25, 0.15, 1],
+      d: 'Dos bogies por motriz con dos ejes motores cada uno, empate de 3,00 m y ruedas de 920 mm; muelles helicoidales en ambas suspensiones.' },
+    { t: 'Articulación Jacobs', part: 'jacobs', hl: ['jacobs', 'remolque'], flows: [5], v: 260, ts: 0.25, dir: [0.2, 0.3, 1],
+      d: 'Los extremos de dos remolques se apoyan en un mismo bogie: menos bogies, centro de gravedad bajo y un tren que se comporta como una sola unidad en longitudinal. El bogie del primer remolque también es motor.' },
+    { t: 'TVM 300', part: 'tvm', v: 260, ts: 0.25, dir: [0.4, 0.25, 1],
+      d: 'Los circuitos de vía transmiten códigos que la cabina muestra como velocidad permitida; en la línea de alta velocidad no hay señales laterales.' },
+    { t: 'Freno reostático en el techo', part: 'frenos', brake: true, flows: true, v: 260, ts: 0.25, dir: [0.3, 0.6, 1],
+      d: 'A alta velocidad los motores alimentan resistencias del techo enfriadas por ventiladores; los remolques frenan con discos.',
+      f: 'Energía a disipar a 260 km/h: ½ · m · v² = ½ · 385 t · (72,2 m/s)² ≈ 1,0 GJ' },
+  ],
+
+  transrapid: [
+    { t: 'Sin ruedas', view: 'home', flows: true, v: 300, ts: 0.25,
+      d: 'El Transrapid no rueda: levita por <b>atracción</b>. Los imanes del vehículo, por debajo de la viga, tiran hacia arriba del estator. Y el motor no va a bordo: está en la vía.' },
+    { t: 'Viga guía', part: 'viga', cut: 'T', cutX: 12.2, v: 300, ts: 0.25,
+      d: 'La viga es a la vez vía, carril de guiado y estator. Su sección en T deja que el vehículo la abrace por debajo de las alas.' },
+    { t: 'Estator largo', part: 'estator', cut: 'T', cutX: 12.2, flows: [0], v: 300, ts: 0.25,
+      d: 'Un devanado trifásico bajo la viga crea un campo que viaja a lo largo de la vía (colores en movimiento). Los imanes del vehículo quedan enganchados a ese campo: es un motor síncrono «desenrollado» cuya velocidad fija la frecuencia.',
+      f: 'v = 2 · τ · f = 2 · 0,258 m · 270 Hz ≈ 139 m/s ≈ 502 km/h' },
+    { t: 'Sustentación electromagnética', part: 'sustentacion', cut: 'T', cutX: 12.2, v: 300, ts: 0.25,
+      d: 'La atracción magnética es inestable: si el entrehierro baja, la fuerza crece. Un control electrónico ajusta la corriente de los electroimanes miles de veces por segundo para mantener unos 10 mm.',
+      f: 'Entrehierro ≈ 10 mm en levitación · potencia de levitación ≈ 1,7 kW/t' },
+    { t: 'Guiado lateral', part: 'guiado', cut: 'T', cutX: 12.2, v: 300, ts: 0.25,
+      d: 'Electroimanes laterales, frente a los carriles de acero de los costados de la viga, mantienen el vehículo centrado incluso con viento cruzado.' },
+    { t: 'Energía sin contacto', part: 'generador', cut: 'T', cutX: 12.2, flows: [1, 2], v: 300, ts: 0.25,
+      d: 'Bobinas en los imanes de sustentación recogen energía del campo del estator al moverse y alimentan la levitación y los servicios. Las baterías cubren paradas y cortes.' },
+    { t: 'Patines', part: 'patines', cut: 'T', cutX: 12.2, play: false, v: 0,
+      d: 'Sin energía el vehículo se posa sobre patines; en emergencia, frenos de corrientes parásitas lo llevan a unos 10 km/h antes de apoyarse. Pulsa animar para ver cómo vuelve a levitar.' },
+    { t: 'Freno regenerativo', view: 'home', brake: true, flows: true, v: 300, ts: 0.25,
+      d: 'Para frenar, el inversor de la subestación invierte el flujo de potencia: el vehículo arrastra el campo y devuelve energía a la red (flujo invertido, en verde).' },
+  ],
+};
+
+/* data4.js — modo estudio por pieza: componentes señalados (letra, nombre, descripción, punto en coordenadas
+   del modelo en metros) y cotas [p1, p2, etiqueta, desplazamiento]. Opciones de vista: at/r (ventana),
+   view (dirección de cámara), floor (y del plano de referencia), cut/cutX/cutV, xray, play, ts, v, pv, brake, irregular.
+   Las cotas muestran valores de las fuentes; el modelo está a escala 1:1. */
+window.STUDY = {
+  rocket: {
+    caldera: { xray: true, view: [0.9, 0.35, 1],
+      comps: [
+        ['Envolvente de hierro forjado', 'Chapa de ¼ in remachada a mano.', [0.75, 1.69, 0.36]],
+        ['25 tubos de cobre', 'Ø 3 in, pared de 3⁄32 in; llevan los gases del hogar a la caja de humos.', [0.45, 1.23, 0.27]],
+        ['Placa tubular delantera', 'Sujeta los tubos del lado de la caja de humos.', [1.2, 1.55, -0.25]],
+        ['Placa tubular trasera', 'Separa caldera y hogar; los tubos se expanden en ella.', [-0.63, 1.55, -0.25]],
+        ['Nivel de agua', 'Por encima queda el espacio de vapor; los tubos deben quedar siempre cubiertos.', [0.3, 1.55, -0.35]],
+        ['Aro de unión', 'Junta entre virolas de la envolvente.', [-0.38, 1.84, 0]],
+      ],
+      dims: [[[-0.63, 1.33, 0.508], [1.2, 1.33, 0.508], '1 829 (6 ft)', [0, -0.75, 0]], [[1.2, 0.822, 0], [1.2, 1.838, 0], 'Ø 1 016 (3 ft 4 in)', [0.4, 0, 0]]] },
+    hogar: { xray: true, view: [0.65, 0.4, 1], play: true, ts: 0.25, v: 24,
+      comps: [
+        ['Camisa exterior de cobre', 'Pared externa del espacio de agua.', [-0.75, 1.35, 0.467]],
+        ['Caja de fuego interior', 'El agua la rodea por los lados y el techo.', [-0.93, 1.3, 0.377]],
+        ['Parrilla', 'Barras de hierro; el aire entra por debajo.', [-0.93, 0.88, 0.25]],
+        ['Lecho de coque', 'Combustible sin humo, como exigía el reglamento.', [-0.93, 0.98, -0.1]],
+        ['Puerta de carga', 'Por aquí el fogonero alimenta el fuego.', [-1.26, 1.2, 0.1]],
+        ['Remaches de la camisa', 'Uniones de la chapa de cobre.', [-1.1, 0.82, 0.469]],
+      ],
+      dims: [[[-1.24, 0.78, 0.457], [-0.63, 0.78, 0.457], '610 (2 ft)', [0, -0.2, 0]], [[-0.63, 0.78, -0.457], [-0.63, 0.78, 0.457], '914 (3 ft)', [0, -0.2, 0]]] },
+    escape: { xray: true, floor: 0, view: [0.8, 0.3, 1], play: true, ts: 0.25, v: 30,
+      comps: [
+        ['Chimenea', 'Tubo de chapa remachada de 14 in.', [1.03, 3.4, 0.178]],
+        ['Tobera de escape', 'Estrecha la salida del vapor para acelerarlo hacia la chimenea.', [1.03, 2.05, 0]],
+        ['Tubos de escape', 'Traen el vapor usado de cada cilindro.', [0.3, 2.01, 0.66]],
+        ['Caja de humos', 'Recibe los gases de los tubos; aquí se forma la depresión.', [1.3, 1.6, 0.42]],
+        ['Corona', 'Remate de la chimenea.', [1.03, 4.57, 0.2]],
+      ],
+      dims: [[[1.03, 0, 0], [1.03, 4.572, 0], '4 572 (15 ft) sobre el riel', [0.75, 0, 0]], [[0.852, 4.3, 0], [1.208, 4.3, 0], 'Ø 356', [0, 0, 0]]],
+      note: 'Cada golpe de escape sale por la tobera y arrastra los gases: mira las bocanadas.' },
+    cilindros: { cut: 'L', cutV: 303, play: true, ts: 0.0625, v: 20, pv: true, view: [0.3, 0.3, 1], fit: 1.0, with: ['ruedas'],
+      comps: [
+        ['Cilindro de hierro fundido', 'Ø 8 in, mandrilado; inclinado ≈ 38°.', [-0.34, 1.83, 1.04]],
+        ['Émbolo y vástago', 'Doble efecto: el vapor empuja alternadamente cada cara.', [-0.34, 1.83, 0.9], 'R.piston'],
+        ['Cámaras de vapor', 'El color es la presión de cada lado del émbolo.', [-0.2, 1.72, 0.9]],
+        ['Cruceta y guías', 'Absorben el empuje lateral de la biela.', [0.13, 1.46, 0.97], 'R.cross'],
+        ['Biela', 'Une la cruceta con la muñequilla de la rueda.', [0.59, 1.1, 0.96], 'R.biela', [0.625, 0, 0]],
+        ['Eje motriz', 'Centro de la manivela (r = 210 mm).', [1.08, 0.72, 1.0]],
+      ],
+      dims: [[[-0.512, 2.091, 0.9], [-0.637, 1.931, 0.9], 'Ø 203 (8 in)', [-0.17, 0.135, 0]], [[0.915, 0.847, 1.0], [1.245, 0.588, 1.0], 'carrera 419 (16½ in)', [0.31, 0.39, 0]]],
+      note: 'El émbolo va y viene mientras la manivela gira; los lados izquierdo y derecho van desfasados 90°.' },
+    ruedas: { floor: 0, play: true, ts: 0.25, v: 20, view: [0.55, 0.3, 1],
+      comps: [
+        ['Bandaje de hierro forjado', '3¼ in de ancho, colocado en caliente.', [1.08, 1.435, 0.72]],
+        ['Rayos de roble', '14 rayos encajados en el cubo.', [1.45, 1.05, 0.73]],
+        ['Cubo de hierro', 'Lleva la muñequilla de la manivela.', [1.08, 0.89, 0.76]],
+        ['Eje motriz', 'El único: ≈ 2,65 t de carga.', [1.08, 0.72, 0]],
+        ['Ruedas portadoras', 'Sostienen el hogar.', [-1.08, 0.826, 0.72]],
+      ],
+      dims: [[[1.08, 0, 0.78], [1.08, 1.435, 0.78], 'Ø 1 435 (4 ft 8½ in)', [0.9, 0, 0]], [[-1.08, 0, 0.78], [-1.08, 0.826, 0.78], 'Ø 826', [-0.6, 0, 0]], [[-1.08, 0, 0.78], [1.08, 0, 0.78], 'empate ≈ 2 160', [0, -0.25, 0]], [[1.08, 0.04, -0.72], [1.08, 0.04, 0.72], 'vía 1 435', [0.95, 0, 0]]] },
+    bastidor: { view: [0.7, 0.45, 1],
+      comps: [
+        ['Larguero de madera', 'Roble con pletina de hierro.', [0.4, 0.98, 0.625]],
+        ['Ballesta de hojas', 'Seis hojas de acero sobre cada caja de grasa.', [1.08, 1.03, 0.62]],
+        ['Caja de grasa', 'Aloja el cojinete del eje.', [1.08, 0.74, 0.64]],
+        ['Bomba de alimentación', 'Ø 1½ in; repone el agua de la caldera.', [0.15, 0.8, 0.665]],
+        ['Plataforma del maquinista', 'Sin cabina: el personal iba a la intemperie.', [-1.6, 0.89, 0.45]],
+      ] },
+    valvulas: { view: [0.45, 0.6, 1],
+      comps: [
+        ['Válvula de seguridad de palanca', 'Ø 2,55 in, tarada a ≈ 50 psi.', [-0.45, 1.93, 0.06]],
+        ['Balanza de resorte', 'Carga la palanca de la válvula.', [0.12, 1.86, 0.04]],
+        ['Válvula de cierre («lock-up»)', 'Encerrada: el maquinista no podía manipularla.', [0.45, 2.1, 0.08]],
+        ['Regulador', 'Abre el paso de vapor a los cilindros.', [-0.3, 1.88, 0.07]],
+        ['Tubos de vapor', 'Cobre; uno por cilindro.', [-0.42, 1.98, 0.58]],
+      ] },
+    tender: { view: [0.6, 0.5, 1],
+      comps: [
+        ['Tonel de agua', 'Madera con aros de hierro.', [-3.35, 1.87, 0.3]],
+        ['Coque', 'Combustible a granel junto al maquinista.', [-2.35, 1.1, 0.35]],
+        ['Bastidor de madera', 'Construcción de carretero.', [-3.8, 0.86, 0.68]],
+        ['Ruedas', 'Dos ejes de hierro fundido.', [-2.35, 0.455, 0.78]],
+        ['Barra de tiro', 'Une el ténder con la locomotora.', [-1.72, 0.81, 0.04]],
+      ] },
+  },
+
+  general: {
+    bogie: { at: [1.475, 0.5, 0], r: 1.6, floor: 0, play: true, ts: 0.25, v: 10, irregular: true, view: [0.6, 0.35, 1],
+      comps: [
+        ['Pivote central', 'Une el bogie al bastidor y lo deja girar en curva.', [1.475, 0.95, 0]],
+        ['Bastidor del bogie', 'Hierro forjado remachado.', [1.475, 0.62, 0.66]],
+        ['Ruedas de 30 in', 'Hierro fundido.', [2.25, 0.762, 0.77]],
+        ['Caja de grasa', 'Cojinete del eje.', [0.7, 0.45, 0.68]],
+        ['Traviesa del pivote', 'Recibe la carga del bastidor.', [1.475, 0.68, 0.4]],
+      ],
+      dims: [[[2.25, 0, 0.82], [2.25, 0.762, 0.82], 'Ø 762 (30 in)', [0.55, 0, 0]]],
+      note: 'Con la vía irregular activa, el bogie se inclina sobre la junta sin levantar la locomotora.' },
+    bastidor: { at: [-2.93, 1.0, 0.5], r: 1.9, floor: 0, play: true, ts: 0.25, v: 10, irregular: true, view: [0.25, 0.25, 1], with: ['ruedas'],
+      comps: [
+        ['Larguero de barras', 'Hierro forjado; más flexible que un bastidor de placas.', [-1.3, 1.02, 0.545]],
+        ['Balancín compensador', 'Patente de Joseph Harrison (1838).', [-2.6, 1.38, 0.53]],
+        ['Fulcro', 'Punto fijo al bastidor sobre el que gira el balancín.', [-2.927, 1.38, 0.6]],
+        ['Ballesta', 'Una por eje motriz; sus extremos cuelgan de tirantes.', [-1.86, 1.2, 0.56]],
+        ['Tirante', 'Lleva la carga de la ballesta al balancín.', [-2.31, 1.26, 0.55]],
+      ],
+      dims: [[[-3.994, 0.62, 0.55], [-1.86, 0.62, 0.55], 'empate motriz 2 134 (7 ft)', [0, -0.4, 0]]],
+      note: 'La junta levantada pasa bajo los ejes: el balancín gira y las dos ballestas siguen cargadas por igual.' },
+    chimenea: { xray: true, floor: 0, view: [0.8, 0.3, 1], play: true, ts: 0.25, v: 40,
+      comps: [
+        ['Globo', 'Ensancha la sección y frena los gases.', [1.95, 4.26, 0.7]],
+        ['Cono deflector', 'Desvía las chispas hacia abajo.', [1.95, 4.1, 0.25]],
+        ['Malla parachispas', 'Retiene las brasas de la leña.', [1.95, 4.51, 0.45]],
+        ['Tobera de escape', 'Mantiene el tiro, como en Rocket.', [1.95, 2.6, 0]],
+        ['Caja de humos', 'Reúne los gases de los 130 tubos.', [2.3, 2.3, 0.5]],
+      ] },
+    cilindros: { cut: 'L', cutV: 276, play: true, ts: 0.0625, v: 25, pv: true, view: [0.3, 0.3, 1], with: ['ruedas'],
+      comps: [
+        ['Cilindro 15 × 22 in', 'Fundición mandrilada, casi horizontal.', [1.55, 1.05, 1.24]],
+        ['Caja de válvulas', 'Aloja la corredera en D.', [1.55, 1.51, 1.1]],
+        ['Corredera en D', 'Abre y cierra las lumbreras de admisión y escape.', [1.55, 1.31, 0.988], 'G.valve'],
+        ['Cruceta y guías', 'Guían el vástago en línea recta.', [0.58, 0.97, 1.0], 'G.cross'],
+        ['Biela motriz', 'Al eje motriz delantero.', [-0.6, 0.85, 1.06], 'G.biela', [1.175, 0, 0]],
+        ['Excéntricas', 'Dos por lado, sobre el eje delantero.', [-1.86, 0.93, 0.3]],
+        ['Sector de Stephenson', 'Su posición fija el corte y el sentido de marcha.', [1.34, 0.85, 0.3]],
+      ],
+      dims: [[[1.96, 1.276, 0.988], [1.992, 0.896, 0.988], 'Ø 381 (15 in)', [0.3, 0.025, 0]], [[-2.139, 0.739, 1.1], [-1.582, 0.786, 1.1], 'carrera 559 (22 in)', [-0.08, 0.95, 0]]],
+      note: 'La corredera se adelanta ~90° al émbolo; con el corte ajustas cuánto dura la admisión.' },
+    ruedas: { floor: 0, play: true, ts: 0.25, v: 25, view: [0.45, 0.3, 1],
+      comps: [
+        ['Ruedas motrices de 60 in', 'Hierro fundido con contrapesos.', [-1.86, 1.524, 0.83]],
+        ['Biela de acoplamiento', 'Reparte el par entre ambos ejes.', [-2.93, 0.77, 1.05], 'G.acopl', [1.067, 0, 0]],
+        ['Bandaje', 'Colocado en caliente.', [-3.994, 1.524, 0.83]],
+        ['Eje motriz', 'Dos ejes acoplados: 14,5 t adherentes.', [-1.86, 0.762, 0]],
+      ],
+      dims: [[[-1.86, 0, 0.85], [-1.86, 1.524, 0.85], 'Ø 1 524 (60 in)', [1.05, 0, 0]], [[-3.994, 0.04, -0.762], [-3.994, 0.04, 0.762], 'vía 1 524 (5 ft)', [-1.0, 0, 0]]] },
+    caldera: { xray: true, view: [0.6, 0.35, 1],
+      comps: [
+        ['Barril con «hierro de Rusia»', 'Chapa pavonada azul gris y aros de latón.', [0.0, 2.45, 0.35]],
+        ['130 tubos de 2 in', '11 ft entre placas.', [0.2, 1.9, 0.2]],
+        ['Hogar', 'Alto, entre los bastidores.', [-2.66, 1.8, 0.49]],
+        ['Domo de vapor', 'Toma vapor seco, lejos del agua.', [-0.95, 3.0, 0.2]],
+        ['Arenero', 'Arena para mejorar la adherencia.', [0.25, 2.82, 0.15]],
+        ['Válvulas de seguridad y silbato', 'Sobre el hogar.', [-2.93, 3.15, 0.12]],
+      ],
+      dims: [[[-1.933, 1.48, 0], [1.42, 1.48, 0], '3 353 (11 ft) entre placas', [0, -0.35, 0]]] },
+    quitapiedras: { view: [0.8, 0.35, 1],
+      comps: [
+        ['Quitapiedras', 'Rejilla de barras en cuña.', [3.6, 0.5, 0.2]],
+        ['Faro de aceite', 'Con reflector parabólico.', [2.94, 2.98, 0]],
+        ['Campana', 'Aviso en cruces.', [0.95, 2.75, 0.15]],
+        ['Traviesa de topes', 'Madera.', [2.72, 0.95, 0.7]],
+      ] },
+    cabina: { view: [0.6, 0.4, 1],
+      comps: [
+        ['Caja de madera', 'Carpintería fina con barniz.', [-4.45, 2.0, 1.08]],
+        ['Techo arqueado', '', [-4.45, 3.62, 0.6]],
+        ['Piso', '', [-4.45, 1.45, 0.9]],
+      ] },
+    tender: { view: [0.6, 0.45, 1],
+      comps: [
+        ['Depósito de agua en U', '2 000 gal EE. UU. (7,6 m³).', [-8.4, 1.8, 1.15]],
+        ['Leña', 'En el hueco de la U.', [-7.0, 1.6, 0.2]],
+        ['Bogies del ténder', 'Cojinetes interiores.', [-7.35, 0.55, 0.98]],
+        ['Ruedas de 30 in', '8 ruedas.', [-6.7, 0.381, 0.8]],
+      ] },
+  },
+
+  krokodil: {
+    panto: { at: [1.75, 4.7, 0], r: 1.3, play: true, ts: 0.25, v: 35, view: [0.6, 0.35, 1],
+      comps: [
+        ['Frotador', 'Contacto deslizante con el hilo.', [1.75, 5.43, 0.5]],
+        ['Brazos en rombo', 'Mantienen el frotador horizontal.', [1.75, 4.8, 0.5]],
+        ['Bastidor y resortes', 'Empujan el frotador contra el hilo.', [1.75, 4.2, 0.6]],
+        ['Barra colectora y aislador', 'Lleva la corriente al interruptor principal.', [0.6, 4.18, 0.55]],
+      ],
+      note: 'Las chispas son arcos de contacto entre el frotador y el hilo.' },
+    trafo: { view: [0.6, 0.45, 1], play: true, ts: 0.25, v: 30,
+      comps: [
+        ['Cuba con aceite', 'Aislante y refrigerante.', [0, 3.0, 0.65]],
+        ['Aletas de refrigeración', '', [0.33, 2.5, 0.87]],
+        ['Bornes de alta tensión', '', [-0.4, 3.78, 0.35]],
+        ['Conmutador escalonado', '22 posiciones.', [1.25, 2.75, 0.25]],
+        ['Aguja de contacto', 'Cambia de toma con la demanda.', [1.43, 2.35, 0.36]],
+        ['Interruptor principal en aceite', 'Corta la alta tensión.', [-1.3, 2.55, 0.55]],
+      ],
+      note: 'Mueve la velocidad simulada: la aguja recorre las tomas.' },
+    motores: { at: [4.15, 1.6, 0], r: 1.6, play: true, ts: 0.0625, v: 30, view: [0.45, 0.4, 1], with: ['ejeciego'],
+      comps: [
+        ['Carcasa del motor', 'Monofásico serie de 12 polos.', [4.76, 2.11, 0.4]],
+        ['Inducido', 'Gira unas cuatro veces más rápido que el eje ciego.', [3.54, 1.61, -0.45]],
+        ['Piñón', 'Engrana con la corona del eje ciego.', [4.76, 1.61, 0.7]],
+        ['Ventilador', 'Refrigeración forzada.', [4.76, 2.26, 0.3]],
+        ['Segundo motor del grupo', 'Dos motores por eje ciego.', [3.54, 2.11, 0.4]],
+      ] },
+    ejeciego: { at: [4.15, 1.0, 0.3], r: 1.2, play: true, ts: 0.0625, v: 30, view: [0.4, 0.3, 1],
+      comps: [
+        ['Corona dentada', 'Recibe el par de dos piñones.', [4.15, 1.72, 0.62]],
+        ['Eje ciego', 'Gira sin tocar el carril.', [4.15, 1.0, 0]],
+        ['Manivela con contrapeso', 'Mueve la biela triangular.', [4.15, 1.0, 0.85]],
+        ['Cojinete al bastidor', '', [4.15, 1.2, 0.66]],
+      ] },
+    bielas: { at: [3.35, 0.8, 1.0], r: 2.2, floor: 0, play: true, ts: 0.0625, v: 30, view: [0.15, 0.25, 1], with: ['rodaje', 'ejeciego'],
+      comps: [
+        ['Biela de acoplamiento', 'Une los tres ejes del bastidor.', [2.5, 0.675, 1.01], 'K.rig', [2.5, 0.675, 1.01]],
+        ['Biela triangular', 'Toma el giro del eje ciego.', [3.73, 0.84, 1.01], 'K.rig', [3.73, 0.84, 1.01]],
+        ['Muñequilla del eje ciego', '', [4.45, 1.0, 1.05], 'K.rig', [4.15, 1.0, 1.05]],
+        ['Muñequilla del tercer eje', '', [5.0, 0.675, 1.05], 'K.rig', [5.0, 0.675, 1.05]],
+      ],
+      note: 'Los lados van a 90°: siempre hay un lado con brazo de palanca útil.' },
+    rodaje: { at: [5.0, 0.8, 0.5], r: 3.4, floor: 0, play: true, ts: 0.25, v: 30, view: [0.5, 0.35, 1],
+      comps: [
+        ['Ruedas motrices', 'Tres ejes acoplados por bastidor.', [3.3, 1.35, 0.85]],
+        ['Eje portador delantero', 'Guía la entrada en curva.', [7.3, 0.95, 0.85]],
+        ['Bastidor de placas', '', [6.0, 1.0, 0.65]],
+        ['Articulación central', 'Une los dos bastidores.', [0, 1.05, 0.3]],
+        ['Pivote de la cabina', 'La cabina se apoya en ambos bastidores.', [1.8, 1.55, 0]],
+        ['Topes', '', [9.74, 1.06, 0.88]],
+      ],
+      dims: [[[3.3, 0, 0.9], [3.3, 1.35, 0.9], 'Ø 1 350', [0.85, 0, 0]]] },
+    recuperacion: { xray: true, brake: true, play: true, ts: 0.25, v: 40, view: [0.4, 0.45, 1],
+      comps: [
+        ['Bobina de reactancia', 'Estabiliza la corriente al frenar.', [-1.3, 2.3, -0.47]],
+        ['Núcleo', '', [-1.3, 2.75, -0.75]],
+        ['Conmutador de marcha / freno', 'Reconecta los motores como generadores.', [4.15, 2.63, 0.45]],
+      ] },
+    carroceria: { floor: 0, view: [0.7, 0.4, 1],
+      comps: [
+        ['Capó («hocico»)', 'Cubre motores y engranajes.', [6.0, 2.62, 0.9]],
+        ['Persianas de ventilación', '', [5.0, 2.02, 1.14]],
+        ['Cabina central', 'Puestos de mando en ambos sentidos.', [0, 3.0, 1.5]],
+        ['Faroles', '', [9.2, 1.75, 0.75]],
+        ['Areneros y barandillas', '', [5.5, 2.7, 1.0]],
+      ],
+      dims: [[[-9.7, 1.3, 1.2], [9.7, 1.3, 1.2], '19 400 entre topes', [0, -0.7, 0]]] },
+  },
+
+  mallard: {
+    carenado: { floor: 0, view: [0.85, 0.35, 1],
+      comps: [
+        ['Cuña frontal', 'Levanta el humo lejos de la cabina.', [6.3, 2.6, 0.5]],
+        ['Faldones', 'Cubrían las ruedas; retirados en 1942.', [0, 1.2, 1.37]],
+        ['Salidas de las chimeneas', 'Dos, por el escape doble.', [2.9, 3.94, 0.2]],
+        ['Ventanas de cabina', '', [-5.0, 3.15, 1.24]],
+      ],
+      dims: [[[-2.0, 0, 1.4], [-2.0, 3.92, 1.4], 'altura 3 988 sobre el riel', [-0.5, 0, 0]], [[-3.0, 2.2, -1.37], [-3.0, 2.2, 1.37], 'anchura 2 743', [0, 1.9, 0]]] },
+    kylchap: { xray: true, view: [0.55, 0.45, 1], play: true, ts: 0.25, v: 120,
+      comps: [
+        ['Chimenea doble', 'Una por cada tobera.', [2.55, 3.6, 0.22]],
+        ['Difusor Kylälä', 'Divide el chorro en cuatro.', [2.55, 2.47, 0.15]],
+        ['Tobera de cuatro boquillas', '', [3.2, 2.1, 0.12]],
+        ['Falda («petticoat»)', 'Une el chorro con la chimenea.', [3.2, 2.75, 0.3]],
+        ['Caja de humos', '', [3.6, 2.85, 0.85]],
+        ['Tubo de vapor recalentado', 'Del regulador a los cilindros.', [3.8, 2.0, 0.45]],
+      ],
+      note: 'Las bocanadas alternan entre las dos chimeneas, seis por vuelta de rueda.' },
+    caldera: { cut: 'T', cutX: 0.5, xray: true, view: [0.75, 0.4, 1],
+      comps: [
+        ['Barril cónico', 'Más diámetro donde más vapor se genera.', [0.2, 3.75, 0.3]],
+        ['Hogar ancho', 'Sobre el bisel trasero.', [-3.5, 2.6, 0.96]],
+        ['Caja de fuego de cobre', '', [-3.5, 2.4, 0.8]],
+        ['Tubos de humo', '', [0.5, 2.5, 0.3]],
+        ['Tubos del recalentador', 'Tubos grandes con elementos de vapor.', [0.5, 3.07, 0.22]],
+        ['Válvulas de seguridad', 'Taradas a 250 psi.', [-2.4, 4.1, 0.15]],
+        ['Parrilla', '3,83 m².', [-3.5, 1.6, 0.6]],
+      ] },
+    cilindros: { xray: true, play: true, ts: 0.0625, v: 40, pv: true, view: [0.35, 0.3, 1], with: ['ruedas'],
+      comps: [
+        ['Cilindro exterior', 'Mueve el segundo eje acoplado.', [3.66, 1.59, 0.95]],
+        ['Cilindro interior (1 en 8)', 'Mueve el primer eje por un eje acodado.', [4.28, 1.72, 0]],
+        ['Émbolo y cámaras', 'El color es la presión.', [3.66, 1.26, 0.95], 'M.piston'],
+        ['Cruceta y guías', '', [2.61, 1.2, 0.95], 'M.cross'],
+        ['Biela motriz', '', [0.8, 1.1, 1.02], 'M.biela', [1.75, 0, 0]],
+      ],
+      dims: [[[4.071, 1.513, 0.9535], [4.096, 1.043, 0.9535], 'Ø 470 (18½ in)', [0.45, 0.024, 0]], [[-1.24, 0.999, 1.12], [-0.581, 1.033, 1.12], 'carrera 660 (26 in)', [0, 1.05, 0]]],
+      note: 'Tres manivelas a 120°: seis escapes por vuelta y par casi constante.' },
+    valvulas: { play: true, ts: 0.0625, v: 30, pv: true, view: [0.35, 0.45, 1], with: ['cilindros'],
+      comps: [
+        ['Sector de Walschaerts', 'La posición del dado en el sector fija el corte.', [1.05, 1.95, 1.16]],
+        ['Barra de excéntrica', 'Movida por la manivela de retorno.', [0.1, 1.5, 1.16], 'M.ecc', [1.0, 0, 0]],
+        ['Dado', 'Se desliza en el sector según el corte.', [1.05, 1.8, 1.16], 'M.die'],
+        ['Palanca de combinación', 'Suma el movimiento de la cruceta.', [2.85, 1.55, 1.16], 'M.comb', [0.5, 0, 0]],
+        ['Caja de válvulas de pistón', '', [3.66, 1.97, 0.95]],
+        ['Palanca conjugada 2:1', 'Mueve la válvula del cilindro interior.', [5.5, 1.81, 0.4], 'M.conj', [0, 0, 0.4]],
+        ['Válvula interior', '', [3.5, 1.86, 0]],
+      ],
+      note: 'Cambia el corte en el diagrama p–V: el dado se desplaza en el sector y la carrera de la válvula cambia.' },
+    ruedas: { floor: 0, play: true, ts: 0.25, v: 60, view: [0.45, 0.3, 1],
+      comps: [
+        ['Ruedas motrices', 'Tres ejes acoplados.', [-0.91, 2.032, 0.85]],
+        ['Bielas de acoplamiento', '', [0.2, 1.0, 0.97], 'M.acopl', [1.1, 0, 0]],
+        ['Eje acodado', 'Recibe la biela del cilindro interior.', [1.3, 1.016, 0.14]],
+      ],
+      dims: [[[-3.12, 0, 0.85], [-3.12, 2.032, 0.85], 'Ø 2 032 (6 ft 8 in)', [-1.25, 0, 0]]] },
+    rodaje: { floor: 0, play: true, ts: 0.25, v: 60, view: [0.6, 0.4, 1],
+      comps: [
+        ['Bogie delantero', 'Ruedas de 3 ft 2 in.', [5.0, 0.48, 0.8]],
+        ['Eje trasero Cartazzi', 'Ruedas de 3 ft 8 in bajo el hogar.', [-4.95, 0.56, 0.8]],
+        ['Bastidor de placas', '', [0, 1.0, 0.66]],
+        ['Cajas de grasa', '', [1.3, 1.04, 0.71]],
+        ['Topes', '', [7.17, 1.06, 0.88]],
+      ],
+      dims: [[[-4.95, 0, 0.9], [5.95, 0, 0.9], 'empate 10 900', [0, -0.3, 0]]] },
+    tender: { view: [0.6, 0.45, 1],
+      comps: [
+        ['Carbonera', '8 t de carbón.', [-7.5, 3.1, 0.5]],
+        ['Depósito de agua', '5 000 gal imp. (22,7 m³).', [-12.2, 2.95, 1.0]],
+        ['Ruedas', 'Ocho, de 4 ft 2 in.', [-9.5, 0.635, 0.8]],
+        ['Bastidor', '', [-10.7, 0.95, 0.72]],
+      ] },
+  },
+
+  f7: {
+    motor: { at: [-1.6, 2.4, 0], r: 2.4, cut: 'T', cutX: -1.36, xray: true, play: true, ts: 0.0625, v: 60, view: [0.75, 0.35, 0.75],
+      comps: [
+        ['Bloque en V a 45°', 'Dos bancadas de 8 cilindros.', [-1.6, 2.1, 0.55]],
+        ['Émbolos', 'Ø 8½ in × 10 in de carrera.', [-1.36, 2.59, 0.31], 'F.piston'],
+        ['Culatas', 'Con válvulas de escape: barrido uniflujo.', [-1.6, 2.89, 0.43]],
+        ['Cigüeñal', 'Ocho codos; un tiempo motor por vuelta y cilindro.', [-1.6, 1.85, 0]],
+        ['Soplador Roots', 'Dos rotores lobulados en sentidos opuestos.', [-3.85, 2.35, 0.3]],
+        ['Cárter', '', [-1.6, 1.35, 0.63]],
+      ],
+      note: 'El régimen va de 275 rpm (ralentí) a 800 rpm (punto 8): mueve la velocidad simulada.' },
+    generador: { xray: true, play: true, ts: 0.0625, v: 60, view: [0.55, 0.35, 1],
+      comps: [
+        ['Estator del generador D12', 'Corriente continua.', [0.97, 2.51, 0]],
+        ['Inducido', 'Gira con el cigüeñal.', [0.97, 1.85, 0.49]],
+        ['Generador auxiliar', 'Excitación y servicios.', [1.8, 2.57, 0]],
+        ['Armario eléctrico', 'Relés y contactores.', [3.45, 3.0, 1.2]],
+      ] },
+    traccion: { at: [3.85, 0.6, 0.3], r: 1.4, floor: 0, play: true, ts: 0.0625, v: 30, view: [0.45, 0.3, 1], with: ['bogies'],
+      comps: [
+        ['Motor de tracción D27', 'Serie de corriente continua.', [3.72, 0.97, 0.3]],
+        ['Nariz', 'Cuelga del bastidor del bogie.', [4.07, 0.86, 0]],
+        ['Caja de engranajes 62:15', '', [3.42, 0.53, 0.68]],
+        ['Eje', 'El motor se apoya en él.', [3.2, 0.508, 0]],
+      ] },
+    bogies: { at: [4.57, 0.7, 0.5], r: 2.1, floor: 0, play: true, ts: 0.25, v: 30, view: [0.45, 0.3, 1],
+      comps: [
+        ['Bastidor lateral fundido', '', [4.57, 1.05, 1.06]],
+        ['Compensador', 'Reparte la carga entre los dos ejes.', [4.57, 0.79, 1.1]],
+        ['Resortes helicoidales', '', [5.27, 0.95, 1.05]],
+        ['Ballesta elíptica', 'Suspensión de la traviesa colgante.', [4.57, 0.95, 0.75]],
+        ['Caja de grasa', '', [5.94, 0.508, 1.1]],
+        ['Cilindro de freno', '', [5.72, 0.95, 1.0]],
+      ],
+      dims: [[[3.199, 0, 1.12], [5.941, 0, 1.12], 'empate 2 743 (9 ft)', [0, -0.25, 0]], [[5.94, 0, 1.15], [5.94, 1.016, 1.15], 'Ø 1 016 (40 in)', [0.75, 0, 0]]] },
+    dinamico: { brake: true, play: true, ts: 0.25, v: 60, view: [0.5, 0.6, 1],
+      comps: [
+        ['Rejillas resistivas', 'Disipan la energía como calor.', [1.0, 3.95, 0.6]],
+        ['Ventilador', 'Sólo gira al frenar.', [1.2, 4.55, 0.3]],
+        ['Caja del freno', '', [1.2, 4.42, 1.2]],
+      ] },
+    refrigeracion: { at: [-5.25, 3.8, 0], r: 2.1, play: true, ts: 0.25, v: 60, view: [0.5, 0.5, 1],
+      comps: [
+        ['Radiador lateral', 'Acero inoxidable.', [-5.1, 3.55, 1.4]],
+        ['Ventiladores de techo', 'Su velocidad sigue al motor.', [-4.4, 4.35, 0.3]],
+        ['Tubería de agua', 'Al bloque del motor.', [-4.2, 2.85, 0.8]],
+      ] },
+    cabina: { floor: 0, view: [0.8, 0.35, 1],
+      comps: [
+        ['Nariz «bulldog»', 'Protege a la tripulación en cruces.', [7.3, 2.4, 0.5]],
+        ['Parabrisas', '', [5.8, 3.98, 0.55]],
+        ['Faro', '', [7.13, 2.62, 0]],
+        ['Ojos de buey', '', [1.2, 3.1, 1.52]],
+        ['Rejillas de radiador', '', [-5.1, 3.35, 1.5]],
+      ],
+      dims: [[[5.0, 0, 1.6], [5.0, 4.57, 1.6], '4 572 (15 ft)', [0.45, 0, 0]]] },
+    chasis: { view: [0.6, 0.35, 1],
+      comps: [
+        ['Depósito de combustible', '1 200 gal EE. UU. (4,5 m³).', [0, 0.95, 0.95]],
+        ['Depósitos de aire', 'Para frenos y mandos.', [1.0, 0.95, 1.23]],
+        ['Bastidor', '', [-3, 1.21, 1.45]],
+        ['Quitapiedras', '', [7.4, 0.6, 1.0]],
+        ['Enchufes de mando múltiple', 'Un maquinista para varias unidades.', [7.6, 1.15, 0.5]],
+      ] },
+  },
+
+  serie0: {
+    carroceria: { at: [18.5, 2.2, 0], r: 7.5, floor: 0, view: [0.8, 0.35, 1],
+      comps: [
+        ['Nariz', 'Forma redondeada contra resistencia y ondas de presión.', [24.3, 2.2, 0.75]],
+        ['Parabrisas', '', [20.3, 3.45, 0.9]],
+        ['Ventanas', '', [14.0, 2.64, 1.7]],
+        ['Faldón', '', [21.5, 1.35, 1.6]],
+      ],
+      dims: [[[14.0, 2.25, -1.69], [14.0, 2.25, 1.69], 'anchura 3 380', [0, 1.95, 0]], [[13.0, 0, 1.75], [13.0, 3.975, 1.75], '3 975', [0, 0, 0.35]]] },
+    panto: { at: [-8.6, 4.4, 0], r: 1.6, play: true, ts: 0.25, v: 200, view: [0.6, 0.4, 1],
+      comps: [
+        ['Frotador', 'Contacto con el hilo a 25 kV.', [-8.2, 4.95, 0.5]],
+        ['Brazos en rombo', '', [-8.2, 4.45, 0.5]],
+        ['Barra colectora', '', [-9.8, 4.04, 0.4]],
+        ['Aislador', '', [-11.0, 4.1, 0.4]],
+      ] },
+    trafo: { at: [-13.5, 0.8, 0], r: 3.0, play: true, ts: 0.25, v: 200, view: [0.4, 0.25, 1],
+      comps: [
+        ['Transformador principal', 'Reduce los 25 kV.', [-12.9, 1.08, 1.0]],
+        ['Radiador de aceite', '', [-14.0, 0.68, 1.25]],
+        ['Rectificador de silicio', 'Diodos con aletas de refrigeración.', [-16.6, 1.08, 0.9]],
+        ['Equipo auxiliar', '', [-10.3, 1.05, 0.8]],
+      ] },
+    control: { at: [12.5, 0.8, 0], r: 2.4, view: [0.45, 0.25, 1],
+      comps: [
+        ['Conmutador de tomas', '25 escalones en el secundario.', [13.6, 1.25, 1.18]],
+        ['Caja de control', '', [13.6, 1.1, 0.9]],
+        ['Contactores', '', [10.6, 1.1, 0.9]],
+      ] },
+    motores: { at: [21.33, 0.6, 0.2], r: 1.7, floor: 0, play: true, ts: 0.0625, v: 200, view: [0.35, 0.3, 1], with: ['bogies'],
+      comps: [
+        ['Motor MT200', '185 kW, suspendido del bogie.', [21.96, 0.88, -0.1]],
+        ['Caja de engranajes', 'Relación 2,17.', [21.66, 0.51, 0.36]],
+        ['Acoplamiento flexible', '', [21.91, 0.575, 0.38]],
+        ['Segundo motor', '', [20.7, 0.88, -0.1]],
+      ] },
+    bogies: { at: [21.33, 0.6, 0.4], r: 1.9, floor: 0, play: true, ts: 0.0625, v: 200, view: [0.4, 0.3, 1],
+      comps: [
+        ['Resorte neumático', 'Suspensión secundaria.', [21.33, 1.15, 0.95]],
+        ['Bastidor del bogie', '', [21.33, 0.85, 1.05]],
+        ['Resortes de eje', '', [22.33, 0.75, 1.05]],
+        ['Discos de freno', 'Dos por eje.', [20.08, 0.455, 0.38]],
+        ['Caja de grasa', '', [22.58, 0.455, 1.1]],
+      ],
+      dims: [[[20.08, 0, 1.1], [22.58, 0, 1.1], 'empate 2 500', [0, -0.25, 0]], [[22.58, 0, 1.15], [22.58, 0.91, 1.15], 'Ø 910', [0.7, 0, 0]]] },
+    atc: { at: [21.5, 1.0, 0.3], r: 2.6, view: [0.5, 0.3, 1],
+      comps: [
+        ['Antenas de captación', 'Reciben los códigos de velocidad por los carriles.', [23.13, 0.18, 0.72]],
+        ['Equipo ATC', '', [18.5, 0.85, -0.3]],
+        ['Indicador en cabina', 'Velocidad permitida.', [19.85, 2.65, 0]],
+      ] },
+    frenos: { at: [7.6, 0.9, 0], r: 1.9, brake: true, play: true, ts: 0.25, v: 200, view: [0.4, 0.25, 1],
+      comps: [
+        ['Resistencias de freno', 'Disipan la energía del freno reostático.', [7.6, 0.75, 0.9]],
+        ['Bastidor de resistencias', '', [7.6, 1.05, 1.0]],
+      ] },
+  },
+
+  tgv: {
+    motriz: { at: [16.5, 2.2, 0], r: 6.5, floor: 0, view: [0.85, 0.35, 1],
+      comps: [
+        ['Morro', 'Reduce la resistencia y protege la cabina.', [20.5, 2.2, 0.9]],
+        ['Persianas de ventilación', '', [11.0, 3.1, 1.41]],
+        ['Ventana de cabina', '', [15.0, 3.0, 1.41]],
+      ],
+      dims: [[[12.0, 2.1, -1.452], [12.0, 2.1, 1.452], 'anchura 2 904', [0, 2.1, 0]]] },
+    panto: { at: [4.2, 4.6, 0], r: 1.6, play: true, ts: 0.25, v: 260, view: [0.6, 0.4, 1],
+      comps: [
+        ['Frotador', '', [4.35, 5.05, 0.5]],
+        ['Brazo superior', '', [4.4, 4.6, 0.1]],
+        ['Brazo inferior y base', '', [3.4, 4.2, 0.2]],
+        ['Aislador y equipo de techo', '', [7.0, 4.45, 0]],
+      ] },
+    potencia: { cut: 'T', cutX: 10.3, xray: true, view: [0.75, 0.35, 0.8],
+      comps: [
+        ['Transformador', 'Sumergido en aceite.', [10.3, 2.05, 0.6]],
+        ['Radiador del transformador', '', [9.2, 1.55, 1.05]],
+        ['Puente de tiristores', 'Regulación continua de la tensión.', [7.0, 2.3, -0.0]],
+        ['Segundo puente', '', [13.4, 2.3, 0]],
+        ['Armario de control', '', [15.6, 2.4, 1.1]],
+      ] },
+    motores: { at: [17.3, 1.0, -0.2], r: 2.0, xray: true, floor: 0, play: true, ts: 0.0625, v: 260, view: [0.4, 0.3, 1], with: ['bogies'],
+      comps: [
+        ['Motor de CC', '537 kW, colgado de la caja.', [16.55, 1.7, 0]],
+        ['Árbol con juntas deslizantes', 'Absorbe los movimientos entre caja y eje.', [16.3, 0.95, -0.4]],
+        ['Reductor en el eje', '', [15.8, 0.46, -0.35]],
+        ['Segundo motor', '', [18.05, 1.7, 0]],
+      ] },
+    bogies: { at: [17.3, 0.6, 0.4], r: 2.1, floor: 0, play: true, ts: 0.0625, v: 260, view: [0.4, 0.3, 1],
+      comps: [
+        ['Bastidor del bogie', '', [17.3, 0.8, 1.05]],
+        ['Muelles de eje', '', [18.52, 0.7, 1.05]],
+        ['Caja de grasa', '', [18.8, 0.46, 1.08]],
+        ['Ruedas', 'Ø 920 mm nuevas.', [15.8, 0.92, 0.78]],
+      ],
+      dims: [[[15.8, 0, 1.1], [18.8, 0, 1.1], 'empate 3 000', [0, -0.25, 0]], [[18.8, 0, 1.15], [18.8, 0.92, 1.15], 'Ø 920', [0.7, 0, 0]]] },
+    remolque: { at: [-2.35, 0.6, 0.3], r: 2.0, floor: 0, play: true, ts: 0.0625, v: 260, view: [0.4, 0.3, 1],
+      comps: [
+        ['Bogie motor del remolque', 'Dos motores más por extremo de tren.', [-2.35, 0.8, 1.0]],
+        ['Motor', 'Sobre el bogie.', [-3.1, 0.61, 0]],
+      ] },
+    jacobs: { at: [-19.55, 1.3, 0.4], r: 3.0, floor: 0, play: true, ts: 0.25, v: 260, view: [0.45, 0.3, 1],
+      comps: [
+        ['Bogie compartido', 'Sostiene los extremos de dos remolques.', [-19.55, 0.72, 1.0]],
+        ['Extremo del remolque 1', '', [-18.2, 2.5, 1.45]],
+        ['Extremo del remolque 2', '', [-21.0, 2.5, 1.45]],
+      ] },
+    tvm: { at: [18.2, 1.4, 0.3], r: 2.4, view: [0.5, 0.25, 1],
+      comps: [
+        ['Antenas de captación', 'Leen los códigos de los circuitos de vía.', [19.4, 0.17, 0.72]],
+        ['Equipo TVM 300', '', [16.0, 2.2, 0.8]],
+        ['Indicador en cabina', 'Velocidad permitida, sin señales laterales.', [16.75, 2.95, 0.3]],
+      ] },
+    frenos: { at: [11.0, 4.2, 0], r: 2.6, brake: true, play: true, ts: 0.25, v: 260, view: [0.45, 0.6, 1],
+      comps: [
+        ['Resistencias de freno', 'En el techo, refrigeradas por aire.', [10.0, 4.2, 0.6]],
+        ['Ventiladores', 'Sólo giran al frenar.', [9.6, 4.45, 0.4]],
+        ['Caja de resistencias', '', [12.8, 4.37, 0.9]],
+      ] },
+  },
+
+  transrapid: {
+    viga: { at: [12.0, -0.8, 0], r: 2.4, floor: -2.3, cut: 'T', cutX: 12.2, view: [1, 0.3, 0.45],
+      comps: [
+        ['Ala de la viga', 'El vehículo la abraza por debajo.', [12.0, -0.15, 1.2]],
+        ['Carril de guiado', 'Acero, en el costado.', [12.0, -0.27, 1.43]],
+        ['Franja de deslizamiento', 'Apoyo de los patines.', [12.0, 0.01, 1.15]],
+        ['Alma de hormigón', '', [12.0, -1.4, 0.5]],
+      ],
+      dims: [[[12.2, 0.05, -1.4], [12.2, 0.05, 1.4], 'ancho 2 800', [0, 0.3, 0]]] },
+    estator: { at: [12.0, -0.45, 0.9], r: 1.2, cut: 'T', cutX: 12.2, play: true, ts: 0.0625, v: 300, view: [1, 0.15, 0.5],
+      comps: [
+        ['Paquete de chapas', 'Hierro laminado bajo el ala.', [12.0, -0.45, 1.3]],
+        ['Devanado trifásico', 'El campo viaja a lo largo de la vía.', [12.0, -0.53, 1.08]],
+      ],
+      dims: [[[11.871, -0.55, 1.32], [12.129, -0.55, 1.32], 'τ = 258', [0, -0.12, 0]]],
+      note: 'Los colores son los polos del campo que avanza; su velocidad es v = 2·τ·f.' },
+    sustentacion: { at: [12.1, -0.6, 1.0], r: 1.2, cut: 'T', cutX: 12.2, play: true, ts: 0.0625, v: 300, view: [1, 0.1, 0.45],
+      comps: [
+        ['Electroimán de sustentación', 'Atrae el vehículo hacia el estator.', [12.1, -0.62, 1.3]],
+        ['Polos', 'Alternan norte y sur cada paso polar.', [12.1, -0.545, 0.88]],
+        ['Entrehierro', '≈ 10 mm en levitación.', [12.2, -0.535, 1.08]],
+      ] },
+    guiado: { at: [12.1, -0.3, 1.4], r: 0.9, cut: 'T', cutX: 12.2, play: true, ts: 0.0625, v: 300, view: [1, 0.15, 0.6],
+      comps: [
+        ['Imán de guiado', 'Frente al carril lateral.', [12.1, -0.27, 1.6]],
+        ['Bobina', '', [12.1, -0.1, 1.46]],
+        ['Carril de guiado', '', [12.1, -0.27, 1.43]],
+      ] },
+    chasis: { at: [12.1, -0.3, 1.0], r: 1.6, cut: 'T', cutX: 12.2, view: [1, 0.2, 0.5],
+      comps: [
+        ['Bastidor en «C»', 'Rodea el ala de la viga.', [12.1, -0.8, 1.6]],
+        ['Suspensión secundaria', 'Apoyos elásticos hacia la caja.', [11.3, 0.3, 1.5]],
+      ] },
+    generador: { at: [12.1, -0.1, 0.6], r: 1.6, cut: 'T', cutX: 12.2, play: true, ts: 0.0625, v: 300, view: [1, 0.3, 0.6],
+      comps: [
+        ['Bobinas del generador lineal', 'Dentro de los imanes de sustentación.', [12.1, -0.69, 1.08]],
+        ['Baterías', 'Respaldo a bordo.', [14.0, 0.38, 0.5]],
+      ] },
+    patines: { at: [12.1, 0.0, 1.1], r: 1.0, cut: 'T', cutX: 12.2, view: [1, 0.25, 0.6],
+      comps: [
+        ['Patín', 'Apoyo en reposo.', [12.1, 0.06, 1.15]],
+        ['Freno de corrientes parásitas', 'Frenado de emergencia sin contacto.', [16.5, -0.27, 1.67]],
+      ],
+      note: 'Pausa la animación: sin energía, el vehículo baja y se posa sobre los patines.' },
+    carroceria: { at: [21.0, 1.3, 0], r: 6.5, floor: -0.9, view: [0.85, 0.3, 1],
+      comps: [
+        ['Cabeza aerodinámica', '', [26.0, 1.0, 0.9]],
+        ['Ventanas', '', [10.0, 2.0, 1.85]],
+        ['Faldón', 'Envuelve la viga.', [18.0, -0.5, 1.8]],
+      ],
+      dims: [[[15.0, -0.86, 1.9], [15.0, 3.32, 1.9], 'altura 4 200', [0, 0, 0.4]], [[15.0, 1.05, -1.85], [15.0, 1.05, 1.85], 'anchura 3 700', [0, 2.6, 0]]] },
+  },
+};
+
 /* app.js — interfaz: escena, selección de piezas, corte, explosión, telemetría, paneles y comparativas */
 (function () {
   const T = THREE;
@@ -4034,8 +5287,15 @@ TRAINS.push({
   const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
   const S = { i: 0, t: null, M: null, sel: null, hover: null, tab: 'piezas', cut: false, cutMode: 'L', cutV: 613, exp: false, expK: 0, expTarget: 0.7,
-    xray: false, flow: false, labels: true, play: false, vkmh: 0, ts: 0.0625, mu: 0.25, busy: false };
-  let stage = null, tween = null, needs = true, last = performance.now(), flowT = 0;
+    xray: false, flow: false, labels: true, play: false, vkmh: 0, ts: 0.0625, mu: 0.25, busy: false,
+    tour: null, tourHL: [], tourGhost: false, study: null, pv: false, auto: true };
+  const LET = 'ABCDEFGHIJKLMNOP';
+  const NS = 'http://www.w3.org/2000/svg';
+  const svgEl = (tag, at = {}) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); return e; };
+  const TOURS = () => window.TOURS || {};
+  const narrow = () => $('#vp').clientWidth < 640;
+  const STUDY = () => window.STUDY || {};
+  let stage = null, tween = null, needs = true, last = performance.now(), flowT = 0, hudT = 0;
 
   // ---------- Arranque ----------
   function init() {
@@ -4064,6 +5324,8 @@ TRAINS.push({
     if (!stage) return;
     const r = $('#vp').getBoundingClientRect();
     stage.resize(Math.max(1, r.width), Math.max(1, r.height));
+    TB.GU.uPScale.value = stage.renderer.domElement.height * 0.5 / Math.tan(stage.camera.fov * Math.PI / 360);
+    viewOffset();
     needs = true;
   }
 
@@ -4088,6 +5350,8 @@ TRAINS.push({
       S.M.timeScale = S.ts;
       S.M.update(sdt, v);
       if (stage.trackAnim) stage.trackAnim.scroll(v * sdt);
+      if (S.pv) pvLive();
+      if (now - hudT > 220) { hudT = now; setHudState(); }
       needs = true;
     }
     if (S.flow) { flowT += dt; TB.flowMats.forEach(m => (m.uniforms.uT.value = flowT)); needs = true; }
@@ -4098,6 +5362,8 @@ TRAINS.push({
   function goTrain(i, first) {
     if (S.busy) { S.pending = i; return; }
     if (!first && i === S.i && S.M) return;
+    if (S.tour) exitTour(true);
+    if (S.study) exitStudy(true);
     S.busy = true;
     const t = TR[i];
     $('#eraK').textContent = t.era;
@@ -4108,9 +5374,10 @@ TRAINS.push({
     $$('.stn').forEach((b, k) => b.setAttribute('aria-current', k === i ? 'true' : 'false'));
     const railBtn = $$('.stn')[i]; railBtn && railBtn.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduce ? 'auto' : 'smooth' });
     setTimeout(() => {
+      S.sel = null; S.hover = null; // antes de cargar: applyLook no debe fantasmear el tren nuevo
       try { loadScene(t); } catch (err) { console.error(err); }
       renderHead(t);
-      S.sel = null; S.tab = S.tab || 'piezas';
+      S.tab = S.tab || 'piezas';
       renderTab();
       setTimeout(() => { $('#era').classList.remove('show'); S.busy = false; if (S.pending != null) { const p = S.pending; S.pending = null; goTrain(p); } }, reduce ? 200 : 650);
     }, reduce || first ? 60 : 380);
@@ -4130,7 +5397,8 @@ TRAINS.push({
       const p = M.parts[id]; const set = new Set();
       p.group.traverse(o => { if (o.isMesh && o.material) set.add(o.material); });
       p.mats2 = [...set].filter(m => m.isMeshStandardMaterial);
-      p.mats2.forEach(m => { if (!m.userData.base) m.userData.base = { opacity: m.opacity, transparent: m.transparent, emissive: m.emissive.clone(), ei: m.emissiveIntensity }; });
+      p.mats2.forEach(m => { if (!m.userData.base) m.userData.base = { opacity: m.opacity, transparent: m.transparent }; });
+      p.basics = []; p.group.traverse(o => { if (o.userData.chamber) p.basics.push(o); });
     }
     M.flowGroup.visible = S.flow;
     // reiniciar estado de escena
@@ -4142,6 +5410,8 @@ TRAINS.push({
     const spd = $('#spd'); spd.max = String(tele.vsim); S.vkmh = Math.round(tele.vsim * 0.35); spd.value = String(S.vkmh);
     S.mu = t.physics.fv.mu ?? 0.25;
     buildLabels();
+    buildHudX();
+    showPV(false);
     applyLook();
     updateHud();
     // cámara: entra desde más lejos y el diorama sube
@@ -4156,23 +5426,28 @@ TRAINS.push({
   }
 
   // ---------- Aspecto: fantasmas, rayos X, realce ----------
-  const HL_SEL = new T.Color('#5a3a08'), HL_HOV = new T.Color('#2c1e06');
+  // realce por contorno (rim) en el shader: no toca el emisivo, que usan el fuego y los indicadores
   function applyLook() {
     const M = S.M; if (!M) return;
+    const hl = S.tour ? S.tourHL : [];
     for (const id of M.order) {
       const p = M.parts[id];
+      const sw = S.study ? (studyData(S.study) || {}).with || [] : [];
+      const hidden = !!S.study && id !== S.study && !sw.includes(id);
+      p.group.visible = !hidden;
+      const ghost = !hidden && (S.study ? sw.includes(id) : S.sel ? S.sel !== id : (S.tourGhost && hl.length ? !hl.includes(id) : false));
+      const k = S.study ? (S.hover === id ? 0.25 : 0) : S.sel === id ? 0.75 : hl.includes(id) ? 0.62 : (S.hover === id && !S.sel ? 0.38 : 0);
       for (const m of p.mats2) {
         const b = m.userData.base;
         let op = 1;
         if (S.xray && m.userData.shell) op = 0.14;
-        if (S.sel && S.sel !== id) op = Math.min(op, 0.07);
+        if (ghost) op = Math.min(op, S.study ? 0.2 : S.tour && !S.sel ? 0.16 : 0.07);
         const tr = op < 1 || b.transparent;
         if (m.transparent !== tr) { m.transparent = tr; m.needsUpdate = true; }
         m.opacity = b.opacity * op; m.depthWrite = op >= 1;
-        if (S.sel === id) { m.emissive.copy(b.emissive).add(HL_SEL); m.emissiveIntensity = 1; }
-        else if (S.hover === id && !S.sel) { m.emissive.copy(b.emissive).add(HL_HOV); m.emissiveIntensity = 1; }
-        else { m.emissive.copy(b.emissive); m.emissiveIntensity = b.ei; }
+        if (m.userData.uHL) m.userData.uHL.value = k;
       }
+      for (const o of p.basics) o.visible = !ghost;
     }
     $$('.balloon').forEach(b => {
       b.classList.toggle('sel', b.dataset.id === S.sel);
@@ -4205,6 +5480,7 @@ TRAINS.push({
   const _v = new T.Vector3();
   function placeLabels() {
     const L = $('#labels');
+    if (S.study) { L.style.display = 'none'; placeStudy(); return; }
     L.style.display = S.labels ? '' : 'none';
     if (!S.labels || !S.M) return;
     const r = $('#vp').getBoundingClientRect(), W = r.width, H = r.height;
@@ -4221,7 +5497,7 @@ TRAINS.push({
         else { if (p.box.min.z + oz > c) clipped = true; else if (p.box.max.z + oz > c) _v.z = c - 0.02; }
       }
       _v.project(stage.camera);
-      const vis = !clipped && _v.z < 1 && _v.z > -1;
+      const vis = !clipped && _v.z < 1 && _v.z > -1 && !(S.tour && S.tourHL.length && !S.tourHL.includes(bl.id));
       const x = (_v.x * 0.5 + 0.5) * W, y = (-_v.y * 0.5 + 0.5) * H;
       pts.push({ bl, x, y, vis }); if (vis) { cx += x; cy += y; n++; }
     }
@@ -4248,6 +5524,7 @@ TRAINS.push({
   // ---------- Selección y cámara ----------
   function flyTo(pos, target, d = 900) {
     if (!stage) return;
+    if (tween && tween.fn) tween.fn(1); // completa la entrada del diorama si se interrumpe
     if (reduce) { stage.camera.position.copy(pos); stage.controls.target.copy(target); needs = true; return; }
     tween = { t0: performance.now(), d, cam: true, p0: stage.camera.position.clone(), p1: pos, q0: stage.controls.target.clone(), q1: target };
   }
@@ -4275,7 +5552,7 @@ TRAINS.push({
     const r = $('#cv').getBoundingClientRect();
     ndc.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, stage.camera);
-    const objs = []; for (const id of S.M.order) S.M.parts[id].group.traverse(o => { if (o.isMesh) objs.push(o); });
+    const objs = []; for (const id of S.M.order) { const g = S.M.parts[id].group; if (g.visible) g.traverse(o => { if (o.isMesh && !o.userData.chamber) objs.push(o); }); }
     const hits = ray.intersectObjects(objs, false);
     for (const h of hits) {
       if (S.cut && TB.SECTION.distanceToPoint(h.point) < 0) continue;
@@ -4358,13 +5635,17 @@ TRAINS.push({
     }
     $('#ro').innerHTML = ro.map(r => `<div class="ro"><b>${r[0]}</b><span>${r[1]}</span></div>`).join('');
     if (S.tab === 'fisica') drawFv();
+    setHudState(); if (S.pv) pvNums();
   }
 
   // ---------- Panel ----------
   function renderHead(t) {
     $('#pHead').style.setProperty('--tc', TC[t.traction]);
     $('#pHead').innerHTML = `<span class="chip"><i></i>${t.tractionLabel} · ${t.year} · ${t.country}</span>
-      <h2>${t.name}</h2><p class="by">${t.builder} · ${t.place}</p><p class="sum">${t.summary}</p>`;
+      <h2>${t.name}</h2><p class="by">${t.builder} · ${t.place}</p><p class="sum">${t.summary}</p>
+      ${TOURS()[t.id] ? `<button class="btn primary tourbtn" id="hTour" type="button"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 3.5v13l10-6.5z"/></svg>Cómo funciona · ${TOURS()[t.id].length} pasos</button>` : ''}`;
+    const hb = $('#hTour'); hb && hb.addEventListener('click', startTour);
+    $('#btnTour').hidden = !TOURS()[t.id];
   }
   function setTabs() { $$('.tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === S.tab ? 'true' : 'false')); }
   function renderTab() {
@@ -4380,7 +5661,7 @@ TRAINS.push({
   function partList(t) {
     const rows = t.partOrder.map((id, k) => { const p = t.parts[id]; return `<tr data-part="${id}" tabindex="0"><td class="n"><b>${k + 1}</b></td><td><div class="nm">${p.name}</div><div class="ds">${p.kicker}</div></td></tr>`; }).join('');
     return `<h3>Lista de piezas</h3><p class="lead">${t.partsIntro}</p><table class="bom"><tbody>${rows}</tbody></table>
-      <div class="note">Haz clic en un globo numerado, en una fila o directamente sobre el modelo. Usa <b>Corte</b> para ver el interior en sección (las superficies cortadas aparecen rayadas, como en un plano) y <b>Flujo de energía</b> para seguir el camino del vapor, el combustible o la corriente.</div>`;
+      <div class="note"><b>Cómo funciona</b> recorre el tren paso a paso. Al elegir una pieza, <b>Estudiar pieza</b> la aísla sobre un plano con sus componentes señalados y cotas reales. Usa <b>Corte</b> para ver el interior en sección (las superficies cortadas aparecen rayadas, como en un plano) y <b>Flujo de energía</b> para seguir el vapor, el combustible o la corriente.</div>`;
   }
   function partDetail(t, id) {
     const p = t.parts[id], n = t.partOrder.indexOf(id) + 1;
@@ -4389,8 +5670,16 @@ TRAINS.push({
     const refs = p.refs && p.refs.length ? `<div class="sec"><div class="lbl">Para profundizar</div><ul class="refs">${p.refs.map(r => `<li><a href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a></li>`).join('')}</ul></div>` : '';
     return `<button class="back" type="button" data-act="back">← Lista de piezas</button>
       <div class="part-h"><div class="num">${n}</div><div><h4>${p.name}</h4><p class="k">${p.kicker}</p></div></div>
-      <div class="part-act"><button class="btn" type="button" data-act="focus">Encuadrar</button><button class="btn" type="button" data-act="cut">Ver en corte</button>${S.M && S.M.flows.length ? '<button class="btn" type="button" data-act="flow">Flujo de energía</button>' : ''}</div>
+      <div class="part-act">${S.study === id ? '<button class="btn primary" type="button" data-act="unstudy">Salir del estudio</button>' : '<button class="btn primary" type="button" data-act="study"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l4.5 4.5"/></svg>Estudiar pieza</button>'}<button class="btn" type="button" data-act="focus">Encuadrar</button><button class="btn" type="button" data-act="cut">Ver en corte</button>${S.M && S.M.flows.length ? '<button class="btn" type="button" data-act="flow">Flujo de energía</button>' : ''}</div>
+      ${compsHTML(t, id)}
       ${sec('Función', p.fn)}${sec('Diseño', p.design)}${sec('Fabricación', p.make)}${sec('Evolución', p.evo)}${data}${refs}`;
+  }
+  function compsHTML(t, id) {
+    const sd = studyData(id);
+    if (!sd || !sd.comps || !sd.comps.length) return S.study === id && sd && sd.note ? `<div class="sec"><div class="lbl">Cómo se mueve</div><p>${sd.note}</p></div>` : '';
+    if (S.study !== id) return `<p class="hintp">Modo estudio: ${sd.comps.length} componentes señalados${sd.dims && sd.dims.length ? ` y ${sd.dims.length} cotas` : ''} sobre la pieza aislada.</p>`;
+    return `<div class="sec"><div class="lbl">Componentes señalados</div><ol class="comps">${sd.comps.map((c, k) => `<li data-comp="${k}"><b>${LET[k]}</b><div><span class="cn">${c[0]}</span><span class="cd">${c[1]}</span></div></li>`).join('')}</ol>
+      ${sd.note ? `<p class="snote"><b>Cómo se mueve.</b> ${sd.note}</p>` : ''}${sd.dims && sd.dims.length ? '<p class="snote">Cotas en milímetros salvo indicación; valores de las fuentes (pestaña Fuentes). El modelo está a escala real.</p>' : ''}</div>`;
   }
   function fichaHTML(t) {
     return t.specs.map(g => `<div class="spec-g"><h3>${g[0]}</h3><dl class="kv">${g[1].map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl></div>`).join('') +
@@ -4405,6 +5694,7 @@ TRAINS.push({
       <div class="legend">${fv.legend.map(l => `<span><i style="background:${l[1]}"></i>${l[0]}</span>`).join('')}</div>
       <svg class="chart" id="fvChart" viewBox="0 0 390 240" role="img" aria-label="Curva de esfuerzo de tracción contra velocidad"></svg>
       ${mu}<p style="font-size:12px;color:var(--muted)">${fv.note}</p>
+      ${S.M && S.M.steam ? pvSectionHTML() : ''}
       <h3>Ecuaciones con datos reales</h3>${eqs}`;
   }
   function contextoHTML(t) {
@@ -4434,7 +5724,11 @@ TRAINS.push({
       if (act === 'focus') focusPart(S.sel);
       if (act === 'cut') { if (!S.cut) setCut(true); const m = S.t.parts[S.sel].cutMode || 'L'; setCutMode(m); if (m === 'T' && S.t.parts[S.sel].cutX != null) { const b2 = S.M.bbox; S.cutV = Math.round(((S.t.parts[S.sel].cutX - S.M.center) - b2.min.x) / (b2.max.x - b2.min.x) * 1000); $('#cutPos').value = S.cutV; updateCut(); flySection(); } }
       if (act === 'flow') toggleFlow(true);
+      if (act === 'study') enterStudy(S.sel);
+      if (act === 'unstudy') exitStudy();
+      if (act === 'pv') showPV(true);
     }));
+    $$('.comps li').forEach(li => { const k = +li.dataset.comp; li.addEventListener('pointerenter', () => hotComp(k, true)); li.addEventListener('pointerleave', () => hotComp(k, false)); });
   }
 
   // ---------- Gráfica F–v ----------
@@ -4527,10 +5821,13 @@ TRAINS.push({
   // ---------- Controles ----------
   function setPressed(sel, on) { const b = $(sel); b && b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
   function toggleFlow(on) { S.flow = on ?? !S.flow; setPressed('#tFlow', S.flow); if (S.M) S.M.flowGroup.visible = S.flow; needs = true; }
+  function setSpeed(v) { const mx = +$('#spd').max; S.vkmh = Math.max(0, Math.min(mx, v)); $('#spd').value = String(S.vkmh); updateHud(); needs = true; }
+  function setTs(ts) { S.ts = ts; $$('.hud .seg button').forEach(x => x.setAttribute('aria-pressed', +x.dataset.ts === ts ? 'true' : 'false')); }
   function togglePlay(on) {
     S.play = on ?? !S.play; setPressed('#play', S.play);
     $('#play').innerHTML = S.play ? '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3" height="11" rx="1"/><rect x="9.5" y="2.5" width="3" height="11" rx="1"/></svg>' : '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>';
     $('#play').setAttribute('aria-label', S.play ? 'Pausar mecanismos' : 'Animar mecanismos');
+    const tp = $('#tourPlay'); if (tp) { tp.innerHTML = S.play ? '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="2.5" width="3" height="11" rx="1"/><rect x="9.5" y="2.5" width="3" height="11" rx="1"/></svg>' : '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>'; tp.setAttribute('aria-label', S.play ? 'Pausar' : 'Animar'); }
     if (S.M) S.M.powered = S.play;
     last = performance.now(); needs = true; updateHud();
   }
@@ -4551,14 +5848,25 @@ TRAINS.push({
     function setPressed2(el, on) { el.setAttribute('aria-pressed', on ? 'true' : 'false'); }
     $$('.tabs button').forEach(b => b.addEventListener('click', () => { S.tab = b.dataset.tab; renderTab(); }));
     $('#btnCompare').addEventListener('click', openCompare);
+    $('#btnTour').addEventListener('click', startTour);
+    $('#tourPrev').addEventListener('click', () => tourStep(-1));
+    $('#tourNext').addEventListener('click', () => tourStep(1));
+    $('#tourExit').addEventListener('click', () => exitTour());
+    $('#tourMin').addEventListener('click', () => { const t = $('#tour'), m = !t.classList.contains('min'); t.classList.toggle('min', m); $('#tourMin').setAttribute('aria-expanded', m ? 'false' : 'true'); $('#tourMin').setAttribute('aria-label', m ? 'Mostrar explicación' : 'Contraer explicación'); requestAnimationFrame(viewOffset); });
+    $('#tourPlay').addEventListener('click', () => togglePlay());
+    $('#sRot').addEventListener('click', () => setAuto(!S.auto));
+    $('#sExit').addEventListener('click', () => exitStudy());
+    $('#pvClose').addEventListener('click', () => showPV(false));
+    $('#pvCut').addEventListener('input', e => { if (!S.M || !S.M.steam) return; S.M.setCutoff(+e.target.value / 100); drawPV(); setHudState(); if (S.tab === 'fisica') renderTab(); needs = true; });
     $('#cmpClose').addEventListener('click', () => { $('#sheet').hidden = true; $('#btnCompare').focus(); });
     $('#sheet').addEventListener('click', e => { if (e.target.id === 'sheet') $('#sheet').hidden = true; });
     // puntero sobre el lienzo
     const cv = $('#cv'); let down = null, lastMove = 0;
-    cv.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY }; });
+    cv.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY }; if (S.study && stage.controls.autoRotate) setAuto(false); });
     cv.addEventListener('pointerup', e => {
       if (!down) return; const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y); down = null;
       if (moved > 6) return;
+      if (S.study) return;
       const id = pick(e);
       if (id) selectPart(id, true); else clearSel();
     });
@@ -4576,6 +5884,8 @@ TRAINS.push({
     document.addEventListener('keydown', e => {
       if (e.target.closest('input, select, textarea')) return;
       if (!$('#sheet').hidden) { if (e.key === 'Escape') $('#sheet').hidden = true; return; }
+      if (S.tour) { if (e.key === 'ArrowRight') { tourStep(1); return; } if (e.key === 'ArrowLeft') { tourStep(-1); return; } if (e.key === 'Escape') { exitTour(); return; } }
+      if (S.study && e.key === 'Escape') { exitStudy(); return; }
       if (e.key === 'ArrowRight') goTrain(Math.min(TR.length - 1, S.i + 1));
       else if (e.key === 'ArrowLeft') goTrain(Math.max(0, S.i - 1));
       else if (e.key === 'Escape') clearSel();
@@ -4589,7 +5899,364 @@ TRAINS.push({
     });
   }
 
-  window.__app = { S, goTrain, selectPart, setCut, setCutMode, togglePlay, toggleFlow, openCompare, get stage() { return stage; }, renderTab, render: () => { needs = true; } };
+
+  // ---------- Controles extra del HUD: p–V, freno, vía irregular, estado ----------
+  function buildHudX() {
+    const M = S.M, x = $('#hudX'); if (!M) return;
+    let h = '';
+    if (M.steam) h += '<button class="chipb" id="bPV" type="button" aria-pressed="false" title="Diagrama indicado presión–volumen en vivo">Diagrama p–V</button>';
+    if (M.brakeType) h += `<button class="chipb" id="bBrake" type="button" aria-pressed="false" title="Los motores pasan a funcionar como generadores">${M.brakeType === 'regen' ? 'Freno regenerativo' : S.t.id === 'f7' ? 'Freno dinámico' : 'Freno reostático'}</button>`;
+    if (M.modes.irregular) h += '<button class="chipb" id="bIrr" type="button" aria-pressed="false" title="Una junta de carril levantada: observa la suspensión compensada">Vía irregular</button>';
+    h += '<span class="hstate" id="hState"></span>';
+    x.innerHTML = h;
+    const bp_ = $('#bPV'); bp_ && bp_.addEventListener('click', () => showPV(!S.pv));
+    const bb = $('#bBrake'); bb && bb.addEventListener('click', () => { M.setBrake(!M.brake); if (M.brake) { toggleFlow(true); if (!S.play) togglePlay(true); } updateHudX(); needs = true; });
+    const bi = $('#bIrr'); bi && bi.addEventListener('click', () => { M.irregular = !M.irregular; if (M.irregular && !S.play) togglePlay(true); updateHudX(); needs = true; });
+    updateHudX();
+  }
+  function updateHudX() {
+    const M = S.M; if (!M) return;
+    setPressed('#bPV', S.pv); setPressed('#bBrake', !!M.brake); setPressed('#bIrr', !!M.irregular);
+    setHudState();
+  }
+  function setHudState() {
+    const el = $('#hState'), M = S.M; if (!el || !M) return;
+    let s = '';
+    if (M.brake) s = M.brakeType === 'regen' ? 'Motores → generadores · energía devuelta a la red' : 'Motores → generadores · calor en resistencias';
+    else if (M.steam) s = `Corte ${Math.round(M.steam.cut * 100)} % · ${2 * M.steam.cyls.length} escapes por vuelta`;
+    else if (M.rpm != null) s = M.notch ? `Punto ${M.notch} de 8 · motor ${fmt(M.rpm)} rpm` : `Ralentí · motor ${fmt(M.rpm)} rpm`;
+    else if (M.notch != null) s = S.play ? `Toma ${M.notch} de 22 del transformador` : 'Toma 0 de 22';
+    if (M.irregular) s = 'Junta levantada: el balancín reparte la carga';
+    if (el.textContent !== s) el.textContent = s;
+  }
+
+  // ---------- Diagrama indicado p–V ----------
+  function showPV(on) {
+    S.pv = !!on && !!(S.M && S.M.steam);
+    $('#pv').hidden = !S.pv; setPressed('#bPV', S.pv);
+    if (S.pv) drawPV();
+    viewOffset();
+  }
+  function pvGeom() {
+    const st = S.M.steam; let k = 0;
+    for (const c of st.cyls) k += Math.PI * c.bore * c.bore * 2 * c.r; // A·L por cilindro
+    const c0 = st.cyls[0];
+    return { st, AL: k, n: st.cyls.length, D: Math.round(c0.bore * 2000), L: Math.round(c0.r * 2000) };
+  }
+  const PVW = 300, PVH = 176, PVm = [40, 10, 10, 28];
+  const pvX = (V, st) => PVm[0] + V / (1 + st.clr) * (PVW - PVm[0] - PVm[1]);
+  const pvY = p => PVH - PVm[3] - p / 1.06 * (PVH - PVm[2] - PVm[3]);
+  function drawPV() {
+    const M = S.M; if (!M || !M.steam) return;
+    const st = M.steam, svg = $('#pvSvg'); const ind = MB.indicator(st, 96);
+    let g = '';
+    const step = st.pB > 10 ? 4 : st.pB > 5 ? 2 : 1;
+    for (let b = 0; b <= st.pB + 1e-6; b += step) { const y = pvY(b / st.pB); g += `<line class="gr" x1="${PVm[0]}" x2="${PVW - PVm[1]}" y1="${y}" y2="${y}"/><text x="${PVm[0] - 5}" y="${y + 3.5}" text-anchor="end">${fmt(b)}</text>`; }
+    g += `<line class="ax" x1="${PVm[0]}" x2="${PVW - PVm[1]}" y1="${pvY(0)}" y2="${pvY(0)}"/><line class="ax" x1="${PVm[0]}" x2="${PVm[0]}" y1="${PVm[2]}" y2="${pvY(0)}"/>`;
+    // eventos de distribución: corte y escape en la carrera motriz (arriba), compresión en la de retorno (abajo)
+    const ev = [[st.clr + st.cut, 'corte', 'top'], [st.clr + st.rel, 'escape', 'top'], [st.clr + st.comp, 'compresión', 'bot']];
+    let lastTop = -1e9;
+    ev.forEach(([V, l, w]) => {
+      const x = pvX(V, st);
+      g += `<line x1="${x}" x2="${x}" y1="${PVm[2]}" y2="${pvY(0)}" stroke="#8fa2ad" stroke-width=".8" stroke-dasharray="2 3"/>`;
+      const right = x > PVW - 64, tx = right ? x - 3 : x + 3, an = right ? 'end' : 'start';
+      if (w === 'top') { const dy = x - lastTop < 48 ? 11 : 0; lastTop = x; g += `<text x="${tx}" y="${PVm[2] + 9 + dy}" text-anchor="${an}" style="fill:#c9c4b6">${l}</text>`; }
+      else g += `<text x="${tx}" y="${pvY(0) - 4}" text-anchor="${an}" style="fill:#c9c4b6">${l}</text>`;
+    });
+    g += `<text x="${pvX(0, st)}" y="${pvY(0) + 12}" text-anchor="start">V₀ (espacio muerto)</text>`;
+    g += `<text x="${PVW - PVm[1]}" y="${PVH - 3}" text-anchor="end">volumen de cámara →</text><text x="11" y="${(PVm[2] + pvY(0)) / 2}" text-anchor="middle" transform="rotate(-90 11 ${(PVm[2] + pvY(0)) / 2})">p (bar man.)</text>`;
+    const d = ind.pts.map((q, k) => `${k ? 'L' : 'M'}${pvX(q[0], st).toFixed(1)},${pvY(q[1]).toFixed(1)}`).join('') + 'Z';
+    g += `<path d="${d}" fill="rgba(214,165,79,.16)" stroke="#f0cd84" stroke-width="1.8" stroke-linejoin="round"/>`;
+    g += `<circle id="pvA" r="5" fill="#d9573b" stroke="#fff" stroke-width="1.4"/><circle id="pvB" r="5" fill="#4fb3d9" stroke="#fff" stroke-width="1.4"/>`;
+    svg.innerHTML = g;
+    const sl = $('#pvCut'); sl.value = String(Math.round(st.cut * 100)); sl.disabled = !!st.fixedCut;
+    $('#pvCutV').textContent = Math.round(st.cut * 100) + ' %';
+    $('#pvNote').textContent = (st.fixedCut ? 'Excéntricas de calado fijo: sin corte variable (valor estimado). ' : st.pAssumed ? 'Presión de caldera supuesta (no documentada). ' : 'Menos corte: más expansión y menos vapor por golpe. ') + 'Ciclo ideal: cota superior de la potencia.';
+    pvNums(); pvLive();
+  }
+  function pvNums() {
+    const M = S.M; if (!M || !M.steam || !$('#pvNums')) return;
+    const { st, AL } = pvGeom(); const ind = MB.indicator(st, 96);
+    const pm = ind.mep * st.pB; // bar
+    const W = 2 * pm * 1e5 * AL / 1000; // kJ por vuelta (doble efecto, todos los cilindros)
+    const N = (S.vkmh / 3.6) / (2 * Math.PI * st.Rw);
+    $('#pvNums').innerHTML = `<div><b>${fmt(pm, 2)} bar</b><span>p media</span></div><div><b>${fmt(W, 1)} kJ</b><span>por vuelta</span></div><div><b>${fmt(W * N, 0)} kW</b><span>P ind. ideal</span></div>`;
+  }
+  function pvLive() {
+    const M = S.M; if (!M || !M.steam) return; const st = M.steam, c = st.cyls[0];
+    const a = $('#pvA'), b = $('#pvB'); if (!a) return;
+    a.setAttribute('cx', pvX(st.clr + c.xA, st)); a.setAttribute('cy', pvY(c.pA));
+    b.setAttribute('cx', pvX(st.clr + c.xB, st)); b.setAttribute('cy', pvY(c.pBv));
+  }
+  function pvSectionHTML() {
+    const { st, AL, n, D, L } = pvGeom(); const ind = MB.indicator(st, 96);
+    const pm = ind.mep * st.pB, W = 2 * pm * 1e5 * AL / 1000;
+    const N = (S.vkmh / 3.6) / (2 * Math.PI * st.Rw);
+    return `<h3>Diagrama indicado p–V (ciclo ideal)</h3>
+      <p>Cada cámara del cilindro recorre un lazo: admisión a presión de caldera hasta el <b>corte</b>, expansión politrópica (n ≈ 1,3), <b>escape</b> anticipado, contrapresión de escape y <b>compresión</b> del vapor residual que amortigua al pistón al final de carrera. El área encerrada es el trabajo por carrera.</p>
+      <div class="part-act"><button class="btn" type="button" data-act="pv">Ver el diagrama en vivo sobre el modelo</button></div>
+      <div class="eq"><div class="et">Presión media efectiva (corte ${Math.round(st.cut * 100)} %)</div><div class="ef">p<sub>m</sub> = (1/V<sub>s</sub>) ∮ p dV</div><div class="es">= ${fmt(ind.mep, 3)} · ${fmt(st.pB, 1)} bar</div><div class="er">p<sub>m</sub> ≈ ${fmt(pm, 2)} bar</div></div>
+      <div class="eq"><div class="et">Trabajo por vuelta de rueda (${n} cilindros de doble efecto, Ø ${fmt(D)} × ${fmt(L)} mm)</div><div class="ef">W = 2 · n · p<sub>m</sub> · A · L</div><div class="er">W ≈ ${fmt(W, 1)} kJ</div></div>
+      <div class="eq"><div class="et">Potencia indicada ideal a ${fmt(S.vkmh)} km/h</div><div class="ef">P<sub>i</sub> = W · N,&nbsp; N = v / (π·D<sub>rueda</sub>)</div><div class="es">N = ${fmt(N, 2)} rev/s</div><div class="er">P<sub>i</sub> ≈ ${fmt(W * N, 0)} kW</div><div class="en">Cota superior: a alta velocidad la presión en la caja de vapor cae por estrangulamiento en lumbreras y regulador, y la caldera no produce vapor suficiente; por eso la curva F–v real queda por debajo.</div></div>`;
+  }
+
+  // ---------- Recorrido guiado «Cómo funciona» ----------
+  function startTour() {
+    const steps = TOURS()[S.t.id]; if (!steps || !S.M || !stage) return;
+    if (S.study) exitStudy(true);
+    $('#sheet').hidden = true;
+    S.tour = { k: -1, steps, saved: { play: S.play, vkmh: S.vkmh, ts: S.ts } };
+    S.sel = null; S.tab = 'piezas'; renderTab();
+    $('#tour').hidden = false; $('#hud').hidden = true; $('#btnTour').hidden = true;
+    $('#tourDots').innerHTML = steps.map((_, i) => `<button type="button" aria-label="Paso ${i + 1}" data-k="${i}"></button>`).join('');
+    $$('#tourDots button').forEach(b => b.addEventListener('click', () => tourGo(+b.dataset.k)));
+    tourGo(0);
+    $('#tourNext').focus({ preventScroll: true });
+  }
+  function tourStep(d) { if (!S.tour) return; const k = S.tour.k + d; if (k >= S.tour.steps.length) exitTour(); else tourGo(k); }
+  function tourGo(k) {
+    const TT = S.tour; if (!TT || !S.M) return;
+    k = Math.max(0, Math.min(TT.steps.length - 1, k)); TT.k = k;
+    const st = TT.steps[k], M = S.M;
+    $('#tourK').textContent = `Cómo funciona · ${k + 1} / ${TT.steps.length}`;
+    $('#tourT').textContent = st.t;
+    $('#tourD').innerHTML = st.d;
+    $('#tourF').innerHTML = st.f || ''; $('#tourF').hidden = !st.f;
+    $$('#tourDots button').forEach((b, i) => { b.className = i < k ? 'done' : i === k ? 'on' : ''; b.setAttribute('aria-current', i === k ? 'step' : 'false'); });
+    $('#tourPrev').disabled = k === 0;
+    $('#tourNext').textContent = k === TT.steps.length - 1 ? 'Terminar' : 'Siguiente →';
+    if (S.sel) { S.sel = null; renderTab(); }
+    S.xray = !!st.xray; setPressed('#tX', S.xray);
+    S.exp = !!st.exp; setPressed('#tExp', S.exp); $('#expCtl').hidden = true;
+    if (M.modes.irregular) M.irregular = !!st.irregular;
+    if (M.brakeType) M.setBrake(!!st.brake);
+    if (st.flows) { toggleFlow(true); if (!st.brake) M.flows.forEach((f, i) => (f.visible = st.flows === true || st.flows.includes(i))); }
+    else { toggleFlow(false); M.flows.forEach(f => (f.visible = true)); }
+    if (st.v != null) setSpeed(st.v);
+    if (st.ts != null) setTs(st.ts);
+    if (st.cutoff != null && M.steam && !M.steam.fixedCut) M.setCutoff(st.cutoff);
+    togglePlay(st.play ?? true);
+    showPV(!!st.pv && !!M.steam && !narrow());
+    S.tourHL = st.hl || (st.part ? [st.part] : []);
+    S.tourGhost = !!st.ghost;
+    if (st.cut) {
+      if (!S.cut) setCut(true);
+      S.cutMode = st.cut; setPressed('#cutL', st.cut === 'L'); setPressed('#cutT', st.cut === 'T');
+      if (st.cut === 'T') { const b = M.bbox; const xw = (st.cutX ?? S.t.cutX) - M.center; S.cutV = Math.round(Math.max(0, Math.min(1, (xw - b.min.x) / (b.max.x - b.min.x))) * 1000); }
+      else S.cutV = st.cutV ?? 613;
+      $('#cutPos').value = String(S.cutV); updateCut();
+    } else if (S.cut) setCut(false);
+    tourCam(st);
+    requestAnimationFrame(viewOffset);
+    applyLook(); updateHudX(); needs = true;
+  }
+  function tourCam(st) {
+    const M = S.M;
+    if (st.view === 'home' || (!st.part && !st.at && !st.dir)) { const cp = stage.camPreset(); if (st.dir) { const dd = cp.pos.distanceTo(cp.target) * (st.zoom || 1); flyTo(cp.target.clone().addScaledVector(new T.Vector3(...st.dir).normalize(), dd), cp.target, 1100); } else flyTo(cp.pos, cp.target, 1100); return; }
+    if (st.cut === 'T' && !st.dir) { flySection(); return; }
+    const p = st.part ? M.parts[st.part] : null;
+    const c = st.at ? new T.Vector3(...st.at) : p.anchor.clone().addScaledVector(p.explode, S.exp ? S.expTarget : 0);
+    M.root.localToWorld(c);
+    const rad = Math.max(0.9, Math.min(10, p ? p.radius : 3));
+    const dist = st.dist ?? Math.max(3.6, rad * 3.0 + 1.8);
+    const dir = new T.Vector3(...(st.dir || [0.42, 0.4, 1])).normalize();
+    flyTo(c.clone().addScaledVector(dir, dist), c, 1100);
+  }
+  // desplaza el punto principal de la cámara para que el sujeto quede sobre la tarjeta del recorrido
+  function viewOffset() {
+    if (!stage) return;
+    const r = $('#vp').getBoundingClientRect(), W = Math.max(1, r.width), H = Math.max(1, r.height);
+    const cam = stage.camera;
+    let ox = 0, oy = 0;
+    if (S.tour) { const card = $('#tour').getBoundingClientRect(); const cover = Math.max(0, Math.min(0.45, (r.bottom - card.top) / H)); oy = H * cover * 0.42; }
+    if (S.pv && W > 700) { const pr = $('#pv').getBoundingClientRect(); if (pr.width) ox = Math.min(W * 0.2, (r.right - pr.left) * 0.45); }
+    if (ox || oy) cam.setViewOffset(W, H, ox, oy, W, H); else cam.clearViewOffset();
+    needs = true;
+  }
+  function exitTour(silent) {
+    const TT = S.tour; if (!TT) return;
+    S.tour = null; S.tourHL = []; S.tourGhost = false;
+    $('#tour').hidden = true; $('#hud').hidden = false; $('#btnTour').hidden = !TOURS()[S.t.id];
+    const M = S.M;
+    if (M) { if (M.brakeType) M.setBrake(false); M.irregular = false; M.flows.forEach(f => (f.visible = true)); }
+    S.xray = false; setPressed('#tX', false); S.exp = false; setPressed('#tExp', false);
+    toggleFlow(false); setCut(false); showPV(false); viewOffset();
+    setSpeed(TT.saved.vkmh); setTs(TT.saved.ts); togglePlay(TT.saved.play);
+    applyLook(); updateHudX();
+    if (!silent && stage) { const cp = stage.camPreset(); flyTo(cp.pos, cp.target, 1000); $('#btnTour').focus({ preventScroll: true }); }
+  }
+
+  // ---------- Modo estudio: pieza aislada, componentes y cotas ----------
+  function studyData(id) { return (STUDY()[S.t.id] || {})[id] || null; }
+  let bp = null, sEls = { comps: [], dims: [] }, sCenter = new T.Vector3();
+  function makeBlueprint() {
+    const g = new T.Group();
+    const disc = new T.Mesh(new T.CircleGeometry(1, 72), new T.MeshBasicMaterial({ color: '#0f2638', transparent: true, opacity: 0.72, depthWrite: false }));
+    disc.rotation.x = -Math.PI / 2; disc.position.y = -0.003; disc.renderOrder = -2; g.add(disc);
+    const sh = new T.Mesh(new T.CircleGeometry(1, 72), new T.ShadowMaterial({ opacity: 0.38, depthWrite: false }));
+    sh.rotation.x = -Math.PI / 2; sh.position.y = -0.001; sh.receiveShadow = true; g.add(sh);
+    const ring = new T.Mesh(new T.RingGeometry(0.986, 1, 120), new T.MeshBasicMaterial({ color: '#8cc8f0', transparent: true, opacity: 0.75, depthWrite: false }));
+    ring.rotation.x = -Math.PI / 2; g.add(ring);
+    const tk = []; for (let a = 0; a < 360; a += 10) { const r0 = a % 90 === 0 ? 0.9 : a % 30 === 0 ? 0.94 : 0.965, c = Math.cos(a * Math.PI / 180), s = Math.sin(a * Math.PI / 180); tk.push(c * r0, 0, s * r0, c * 0.986, 0, s * 0.986); }
+    const tg = new T.BufferGeometry(); tg.setAttribute('position', new T.Float32BufferAttribute(tk, 3));
+    g.add(new T.LineSegments(tg, new T.LineBasicMaterial({ color: '#8cc8f0', transparent: true, opacity: 0.6 })));
+    const grid = new T.LineSegments(new T.BufferGeometry(), new T.LineBasicMaterial({ color: '#3f7fae', transparent: true, opacity: 0.42, depthWrite: false }));
+    grid.name = 'grid'; g.add(grid);
+    return g;
+  }
+  function setGrid(R) {
+    const step = [0.1, 0.25, 0.5, 1, 2].find(s => R / s <= 14) || 2;
+    const grid = bp.getObjectByName('grid'); const a = [];
+    for (let x = -Math.floor(R / step) * step; x <= R + 1e-6; x += step) { const h = Math.sqrt(Math.max(0, R * R - x * x)) / R; const u = x / R; a.push(u, 0, -h, u, 0, h, -h, 0, u, h, 0, u); }
+    grid.geometry.dispose(); grid.geometry = new T.BufferGeometry(); grid.geometry.setAttribute('position', new T.Float32BufferAttribute(a, 3));
+    return step;
+  }
+  function enterStudy(id) {
+    const M = S.M; if (!M || !M.parts[id] || !stage) return;
+    if (S.tour) exitTour(true);
+    S.study = id; S.sel = id;
+    S.exp = false; S.expK = 0; M.setExplode(0); setPressed('#tExp', false); $('#expCtl').hidden = true; $('#tExp').disabled = true;
+    stage.envGroup.visible = false;
+    $('#vp').classList.add('study'); $('#studyBar').hidden = false; $('#btnTour').hidden = true;
+    $('#studyName').textContent = S.t.parts[id].name;
+    const p = M.parts[id], sd = studyData(id) || {};
+    const box = p.box;
+    const c = sd.at ? new T.Vector3(...sd.at) : box.getCenter(new T.Vector3());
+    const size = sd.r ? new T.Vector3(sd.r * 1.7, sd.r, sd.r) : box.getSize(new T.Vector3());
+    sCenter.copy(c);
+    const cw = c.clone(); M.root.localToWorld(cw);
+    const base = new T.Vector3(c.x, sd.floor ?? box.min.y, c.z); M.root.localToWorld(base);
+    if (!bp) { bp = makeBlueprint(); stage.scene.add(bp); }
+    const R = sd.r ? sd.r * 1.15 : Math.max(0.8, Math.hypot(size.x, size.z) * 0.62);
+    // ajustes de escena propios de la pieza (corte, rayos X, modos)
+    toggleFlow(false);
+    S.studySet = { cut: !!sd.cut, xray: !!sd.xray && !S.xray, brake: !!sd.brake && !!M.brakeType, irr: !!sd.irregular && !!M.modes.irregular };
+    if (sd.xray) { S.xray = true; setPressed('#tX', true); }
+    if (S.studySet.brake) M.setBrake(true);
+    if (S.studySet.irr) M.irregular = true;
+    if (sd.cut) {
+      if (!S.cut) setCut(true);
+      S.cutMode = sd.cut; setPressed('#cutL', sd.cut === 'L'); setPressed('#cutT', sd.cut === 'T');
+      if (sd.cut === 'T') { const b = M.bbox; S.cutV = Math.round(Math.max(0, Math.min(1, ((sd.cutX ?? S.t.cutX) - M.center - b.min.x) / (b.max.x - b.min.x))) * 1000); }
+      else S.cutV = sd.cutV ?? 613;
+      $('#cutPos').value = String(S.cutV); updateCut();
+    } else if (S.cut) setCut(false);
+    if (sd.v != null) setSpeed(sd.v);
+    const step = setGrid(R);
+    bp.visible = true; bp.scale.setScalar(R); bp.position.set(cw.x, base.y - 0.01, cw.z);
+    $('#studyGrid').textContent = `Cuadrícula ${step < 1 ? fmt(step * 1000) + ' mm' : fmt(step) + ' m'}`;
+    stage.controls.minDistance = 0.4;
+    setAuto(!reduce);
+    const vf = stage.camera.fov * Math.PI / 180, hf = 2 * Math.atan(Math.tan(vf / 2) * stage.camera.aspect);
+    const rad = sd.r ?? Math.max(0.3, size.length() * 0.5);
+    const dist = rad / Math.sin(Math.min(vf, hf) / 2) * (sd.fit ?? 1.08);
+    const dir = new T.Vector3(...(sd.view || [0.78, 0.42, 1])).normalize();
+    flyTo(cw.clone().addScaledVector(dir, dist), cw, 1000);
+    buildStudy(sd);
+    if (sd.play) { setTs(sd.ts ?? 0.0625); togglePlay(true); }
+    showPV(!!sd.pv && !!M.steam && !narrow());
+    updateHudX(); applyLook(); renderTab(); needs = true;
+  }
+  function setAuto(on) { S.auto = on; if (stage) { stage.controls.autoRotate = on && !!S.study; stage.controls.autoRotateSpeed = 0.9; } setPressed('#sRot', on); }
+  function exitStudy(silent) {
+    if (!S.study) return; const id = S.study;
+    S.study = null; $('#sLayer').hidden = true; $('#studyBar').hidden = true; $('#vp').classList.remove('study');
+    $('#tExp').disabled = false; if (stage) { stage.envGroup.visible = true; stage.controls.autoRotate = false; stage.controls.minDistance = 1.5; }
+    if (bp) bp.visible = false;
+    $('#btnTour').hidden = !TOURS()[S.t.id];
+    showPV(false);
+    const ss = S.studySet || {}, M = S.M;
+    if (ss.cut) setCut(false);
+    if (ss.xray) { S.xray = false; setPressed('#tX', false); }
+    if (ss.brake && M) M.setBrake(false);
+    if (ss.irr && M) M.irregular = false;
+    S.studySet = null; updateHudX();
+    applyLook(); if (!silent) { renderTab(); focusPart(id); }
+  }
+  function buildStudy(sd) {
+    const L = $('#sLayer'); L.hidden = false;
+    $$('.cchip', L).forEach(e => e.remove());
+    const svg = $('#sSvg'); svg.querySelectorAll('g.dyn').forEach(g => g.remove());
+    const g = svgEl('g', { class: 'dyn' }); svg.appendChild(g);
+    sEls = { comps: [], dims: [] };
+    (sd.dims || []).forEach(d => {
+      const grp = svgEl('g', { class: 'dim' });
+      const e1 = svgEl('line', { class: 'dimx' }), e2 = svgEl('line', { class: 'dimx' });
+      const ln = svgEl('line', { class: 'diml', 'marker-start': 'url(#arw)', 'marker-end': 'url(#arw)' });
+      const tx = svgEl('text', { 'text-anchor': 'middle' }); tx.textContent = d[2];
+      grp.append(e1, e2, ln, tx); g.appendChild(grp);
+      sEls.dims.push({ a: new T.Vector3(...d[0]), b: new T.Vector3(...d[1]), off: d[3] ? new T.Vector3(...d[3]) : null, e1, e2, ln, tx });
+    });
+    (sd.comps || []).forEach((cp, k) => {
+      const ch = document.createElement('button'); ch.type = 'button'; ch.className = 'cchip'; ch.innerHTML = `<b>${LET[k]}</b><span>${cp[0]}</span>`;
+      ch.addEventListener('pointerenter', () => hotComp(k, true)); ch.addEventListener('pointerleave', () => hotComp(k, false));
+      ch.addEventListener('click', () => { if (S.tab !== 'piezas') { S.tab = 'piezas'; renderTab(); } const row = $(`.comps li[data-comp="${k}"]`); if (row) { row.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' }); row.classList.add('flash'); setTimeout(() => row.classList.remove('flash'), 900); } });
+      L.appendChild(ch);
+      const ln = svgEl('polyline', { class: 'sline', fill: 'none' }), dot = svgEl('circle', { r: 3.2, class: 'sdot' });
+      g.append(ln, dot);
+      const obj = typeof cp[3] === 'string' ? S.M.root.getObjectByName(cp[3]) : null;
+      sEls.comps.push({ k, p: new T.Vector3(...cp[2]), obj, off: new T.Vector3(...(cp[4] || [0, 0, 0])), ch, ln, dot, w: 0 });
+    });
+  }
+  function hotComp(k, on) {
+    const c = sEls.comps[k]; if (c) { c.ch.classList.toggle('hot', on); c.ln.classList.toggle('hot', on); c.dot.classList.toggle('hot', on); }
+    const row = $(`.comps li[data-comp="${k}"]`); row && row.classList.toggle('hot', on);
+  }
+  const _w = new T.Vector3();
+  function proj(v, W, H, obj) { _w.copy(v); (obj || S.M.root).localToWorld(_w); _w.project(stage.camera); return { x: (_w.x * 0.5 + 0.5) * W, y: (-_w.y * 0.5 + 0.5) * H, ok: _w.z < 1 && _w.z > -1 }; }
+  function placeStudy() {
+    if (!S.M || !stage) return;
+    const r = $('#vp').getBoundingClientRect(), W = r.width, H = r.height;
+    const cc = proj(sCenter, W, H);
+    // cotas
+    for (const d of sEls.dims) {
+      let A = proj(d.a, W, H), B = proj(d.b, W, H), A2 = A, B2 = B;
+      if (d.off) { A2 = proj(_w.copy(d.a).add(d.off).clone(), W, H); B2 = proj(_w.copy(d.b).add(d.off).clone(), W, H); }
+      const ok = A.ok && B.ok && A2.ok && B2.ok, vis = ok ? 'visible' : 'hidden';
+      d.ln.style.visibility = d.tx.style.visibility = vis;
+      set4(d.ln, A2, B2);
+      if (d.off) { set4(d.e1, A, A2); set4(d.e2, B, B2); d.e1.style.visibility = d.e2.style.visibility = vis; } else d.e1.style.visibility = d.e2.style.visibility = 'hidden';
+      const mx = (A2.x + B2.x) / 2, my = (A2.y + B2.y) / 2; let ang = Math.atan2(B2.y - A2.y, B2.x - A2.x) * 180 / Math.PI;
+      if (ang > 90) ang -= 180; if (ang < -90) ang += 180;
+      const len = Math.hypot(B2.x - A2.x, B2.y - A2.y);
+      d.tx.setAttribute('x', mx); d.tx.setAttribute('y', my - 6); d.tx.setAttribute('transform', `rotate(${ang.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)})`);
+      if (len < 26) d.tx.style.visibility = 'hidden';
+    }
+    // componentes: dos columnas de etiquetas con líneas de referencia
+    const pts = sEls.comps.map(c => ({ c, ...(c.obj ? proj(c.off, W, H, c.obj) : proj(c.p, W, H)) }));
+    if (!pts.length) return;
+    const cmp = W < 640, L0 = $('#sLayer');
+    if (L0.classList.contains('compact') !== cmp) { L0.classList.toggle('compact', cmp); sEls.comps.forEach(c => (c.w = 0)); }
+    for (const q of pts) if (!q.c.w) q.c.w = q.c.ch.offsetWidth || 120;
+    const L = pts.filter(q => q.x < cc.x).sort((a, b) => a.y - b.y), R = pts.filter(q => q.x >= cc.x).sort((a, b) => a.y - b.y);
+    const xs = pts.map(q => q.x), minX = Math.min(...xs), maxX = Math.max(...xs);
+    // zonas ocupadas por tarjetas: el p–V (arriba a la derecha) y el HUD (abajo a la izquierda)
+    const lim = { xR: W - 10, botL: H - 14 };
+    if (S.pv) { const pr = $('#pv').getBoundingClientRect(); if (pr.width) lim.xR = Math.max(W * 0.45, pr.left - r.left - 12); }
+    const hr = $('#hud').getBoundingClientRect(); if (hr.height && !$('#hud').hidden) lim.botL = Math.max(H * 0.45, hr.top - r.top - 10);
+    col(L, minX - 44, 'L', W, H, lim); col(R, maxX + 44, 'R', W, H, lim);
+  }
+  function set4(el, A, B) { el.setAttribute('x1', A.x.toFixed(1)); el.setAttribute('y1', A.y.toFixed(1)); el.setAttribute('x2', B.x.toFixed(1)); el.setAttribute('y2', B.y.toFixed(1)); }
+  function col(arr, cx, side, W, H, lim) {
+    if (!arr.length) return;
+    const gap = 27, top = 64, bot = side === 'L' ? lim.botL : H - 14;
+    let y0 = -1e9; for (const q of arr) { q.cy = Math.max(q.y, top, y0 + gap); y0 = q.cy; }
+    const over = arr[arr.length - 1].cy - bot; if (over > 0) { for (let i = arr.length - 1, lim = bot; i >= 0; i--, lim -= gap) arr[i].cy = Math.min(arr[i].cy, lim); }
+    const wmax = Math.max(...arr.map(q => q.c.w));
+    if (side === 'L') cx = Math.max(10 + wmax, cx); else cx = Math.min(lim.xR - wmax, cx);
+    for (const q of arr) {
+      const vis = q.ok ? 'visible' : 'hidden';
+      const x0 = side === 'L' ? cx - q.c.w : cx;
+      q.c.ch.style.transform = `translate(${x0.toFixed(1)}px, ${(q.cy - 11).toFixed(1)}px)`; q.c.ch.style.visibility = vis;
+      const ex = side === 'L' ? cx + 2 : cx - 2, kx = side === 'L' ? cx + 14 : cx - 14;
+      q.c.ln.setAttribute('points', `${q.x.toFixed(1)},${q.y.toFixed(1)} ${kx.toFixed(1)},${q.cy.toFixed(1)} ${ex.toFixed(1)},${q.cy.toFixed(1)}`);
+      q.c.dot.setAttribute('cx', q.x.toFixed(1)); q.c.dot.setAttribute('cy', q.y.toFixed(1));
+      q.c.ln.style.visibility = q.c.dot.style.visibility = vis;
+    }
+  }
+
+  window.__app = { S, goTrain, selectPart, setCut, setCutMode, togglePlay, toggleFlow, openCompare, get stage() { return stage; }, renderTab, render: () => { needs = true; },
+    startTour, tourGo, exitTour, enterStudy, exitStudy, showPV, setSpeed, setTs, setBrake: on => { if (S.M && S.M.brakeType) { S.M.setBrake(on); updateHudX(); } } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 

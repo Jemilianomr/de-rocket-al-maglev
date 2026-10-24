@@ -1,7 +1,7 @@
 /* Stephenson's Rocket (1829) — 0-2-2, dimensiones del cuaderno de J. U. Rastrick (5 oct 1829) */
 (function () {
   const { T, Kit, G, wheelset, rod, placeRod } = TB;
-  const { Model, sliderCrank, pinPos } = MB;
+  const { Model, sliderCrank, pinPos, steamCyl, puff, fireFx, fireLight } = MB;
 
   MODELS.rocket = function () {
     const M = new Model('rocket', {
@@ -20,7 +20,7 @@
     {
       const k = new Kit(), ks = new Kit();
       ks.add(G.cyl(rb, bx1 - bx0, 40, rb, true), pB.m('yellow', { shell: true }), [(bx0 + bx1) / 2, yb, 0], [0, 0, Math.PI / 2]);
-      for (const x of [bx0 + 0.25, (bx0 + bx1) / 2, bx1 - 0.22]) ks.add(G.torus(rb + 0.004, 0.012, 6, 40), pB.m('yellow', { shell: true }), [x, yb, 0], [0, Math.PI / 2, 0]);
+      for (const x of [bx0 + 0.25, (bx0 + bx1) / 2, bx1 - 0.22]) { ks.add(G.torus(rb + 0.004, 0.012, 6, 40), pB.m('yellow', { shell: true }), [x, yb, 0], [0, Math.PI / 2, 0]); ks.rivetRing(pB.m('yellow', { shell: true }), [x + 0.035, yb, 0], rb + 0.004, 36, 0.009); }
       // placas tubulares
       for (const x of [bx0, bx1]) k.cyl(pB.m('plate'), rb - 0.005, 0.02, 'x', x, yb, 0, 40);
       // 25 tubos de cobre de 3 in (76 mm)
@@ -56,6 +56,9 @@
       k.add(G.sph(0.24, 12, 8), pF.m('fire'), [(fx0 + fx1) / 2, fy0 + 0.2, 0], [0, 0, 0], [1, 0.45, 1.4]);
       // puerta del hogar
       k.box(pF.m('iron'), 0.03, 0.26, 0.3, fx0 - 0.02, fy0 + 0.42, 0);
+      // remaches de la camisa exterior
+      const rv = pF.m('copper', { shell: true });
+      for (const sz of [1, -1]) { ks.rivets(rv, [fx0 + 0.03, fy0 + 0.04, sz * (fw / 2 + 0.012)], [fx1 - 0.03, fy0 + 0.04, sz * (fw / 2 + 0.012)], 9, 0.011); ks.rivets(rv, [fx0 + 0.03, fy0 + 0.06, sz * (fw / 2 + 0.012)], [fx0 + 0.03, fy1 - 0.04, sz * (fw / 2 + 0.012)], 8, 0.011); }
       k.build(pF.group); ks.build(pF.group);
     }
 
@@ -87,6 +90,11 @@
     const r = 0.4191 / 2, L = 1.25, pistonRod = 0.58, cyl0 = 1.5, cyl1 = 2.1;
     const zRod = TB.zRod(g, 0.09);
     const sides = [];
+    // Rocket trabajaba casi a plena admisión: su distribución de excéntricas no permitía variar el corte
+    const P = M.addParticles(pE.group, { count: 1100, c0: '#f3f2ee', c1: '#a19e98', grow: 2.8, rise: 0.9, opacity: 0.5 });
+    M.initSteam({ pB: 3.45, cut: 0.85, Rw: R, fixedCut: true, onBeat: (c, dt) => puff(P, [1.03, 4.62, 0], M.vNow, M.tSim, { n: beatN(), up: 3.2 + M.vNow * 0.15, life: 2.6, size: 0.3 }) });
+    M.steam.fixedCut = true;
+    const beatN = () => Math.max(2, Math.min(9, Math.round(40 / Math.max(1, M.vNow / (Math.PI * 2 * R) * 4))));
     {
       for (const s of [1, -1]) {
         const grp = new T.Group(); pC.group.add(grp);
@@ -112,7 +120,10 @@
         const ck = new Kit(); ck.box(pC.m('steel'), 0.12, 0.13, 0.08, 0, 0, 0);
         const cross = new T.Group(); ck.build(cross); cross.rotation.z = Math.atan2(u[1], u[0]); cross.position.z = s * zRod; grp.add(cross);
         const crod = rod(pC.m('iron'), L, 0.075, 0.045, 0.065, pC.m('brass')); crod.position.z = s * (zRod + 0.06); grp.add(crod);
-        sides.push({ s, piston, cross, crod, phase: s > 0 ? 0 : Math.PI / 2 });
+        if (s > 0) { piston.name = 'R.piston'; cross.name = 'R.cross'; crod.name = 'R.biela'; }
+        const sd = { s, piston, cross, crod, phase: s > 0 ? 0 : Math.PI / 2, A };
+        sides.push(sd);
+        steamCyl(M, grp, { src: sd, A, u, L, r, pr: pistonRod, pt: 0.035, d0: cyl0, d1: cyl1, bore: 0.1015, z: s * zRod });
       }
     }
 
@@ -167,6 +178,17 @@
       k.build(pV.group);
     }
 
+    // vapor que escapa de la válvula de seguridad (“pluma”) y humo de coque
+    const PS = M.addParticles(pV.group, { count: 200, c0: '#ffffff', c1: '#d8dde2', grow: 2.0, rise: 0.4, opacity: 0.32 });
+    { let acc = 0, accS = 0;
+      M.fx.push((t, dt, v) => {
+        if (!M.powered || dt <= 0) return;
+        accS += dt * 5; while (accS > 1) { accS--; PS.emit([-0.45 + (Math.random() - 0.5) * 0.04, yb + rb + 0.2, (Math.random() - 0.5) * 0.04], [-v * 0.9 + (Math.random() - 0.5) * 0.3, 1.6 + Math.random(), (Math.random() - 0.5) * 0.3], 1.6, 0.12, t); }
+        acc += dt * 4; while (acc > 1) { acc--; P.emit([1.03 + (Math.random() - 0.5) * 0.1, 4.6, (Math.random() - 0.5) * 0.1], [-v * 0.95, 1.2 + Math.random() * 0.6, (Math.random() - 0.5) * 0.3], 3.0, 0.28, t); }
+      });
+    }
+    fireFx(M, [pF.m('fire')], fireLight(M, [-0.93, 1.05, 0], 2.2), 1.4);
+
     // 8 — Ténder
     const pT = M.part('tender', { explode: [-1.2, 0, 0] });
     const tWheels = [];
@@ -203,6 +225,7 @@
       for (const sd of sides) {
         const pin = pinPos(A, r, th + sd.phase);
         const xc = sliderCrank(A, u, pin, L);
+        sd.xc = xc; sd.phi = th + sd.phase;
         const C = [A[0] + u[0] * xc, A[1] + u[1] * xc];
         sd.cross.position.x = C[0]; sd.cross.position.y = C[1];
         sd.piston.position.x = A[0] + u[0] * (xc + pistonRod); sd.piston.position.y = A[1] + u[1] * (xc + pistonRod);

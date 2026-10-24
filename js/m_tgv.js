@@ -1,7 +1,7 @@
 /* SNCF TGV Sud-Est (Alsthom, 1981) — motriz + remolques articulados sobre bogies Jacobs; 12 motores de CC */
 (function () {
   const { T, Kit, G, wheelset, loft, stations } = TB;
-  const { Model, singleArmPanto } = MB;
+  const { Model, singleArmPanto, pantoSparks } = MB;
 
   MODELS.tgv = function () {
     const M = new Model('tgv', {
@@ -158,8 +158,7 @@
     M.anim.push((s, dt, v) => {
       wsets.forEach(w => (w.rotation.z = -s / R));
       arms.forEach(a => (a.rotation.z = -s / R * gear));
-      shafts.forEach(sh => (sh.rotation.x = 0));
-      fans.forEach(f => (f.rotation.y += dt * (v > 0.01 ? 10 : 0) * (M.timeScale ?? 1)));
+      fans.forEach(f => (f.rotation.y += dt * (M.brake ? 40 : 0)));
     });
     M.update(0, 0);
     M.gear = gear;
@@ -169,6 +168,10 @@
     for (const x of [7.0, 13.4]) M.flow([[10.3, 1.6, 0.3], [x, 1.8, 0.3], [x, 2.6, -0.3]], '#ffb347', { r: 0.05 });
     for (const xc of BPC) M.flow([[xc < 10 ? 7 : 13.4, 1.6, -0.3], [xc - 0.75, 1.35, -0.1], [xc + 0.75, 1.35, -0.1]], '#ffd166', { r: 0.045 });
     M.flow([[3.3, 1.5, -0.4], [0.0, 1.3, -0.4], [BR1, R + 0.4, -0.3]], '#ffd166', { r: 0.045 });
+    for (const xc of BPC) M.bflow([[xc - 0.75, 1.35, 0.3], [xc, 2.2, 0.3], [11.0, 3.6, 0.3], [11.0, 4.15, 0.3]], '#ff6b4a', { r: 0.05 });
+    M.bflow([[BR1, R + 0.4, 0.3], [0.5, 2.0, 0.3], [9.0, 3.7, 0.3], [9.6, 4.15, 0.3]], '#ff6b4a', { r: 0.045 });
+    M.brakeType = 'rheo';
+    pantoSparks(M, pP.group, [[4.35, wire, 0]]);
 
     M.finalize();
     M.frame = [-6, 22.2];

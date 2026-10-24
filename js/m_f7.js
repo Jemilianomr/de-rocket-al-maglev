@@ -51,30 +51,31 @@
 
     // 1 — Motor diésel 16-567B (V16 a 45°, dos tiempos, soplador Roots)
     const pE = M.part('motor', { anchor: [-1.6, 2.5, 0.6], explode: [0, 1.6, 1.8] });
-    const pist = []; let crank;
+    const pist = [], roots = []; let crank;
     const EX0 = -3.5, EX1 = 0.35, yCr = 1.85, rc = 0.127, Lc = 0.62, pitch = (EX1 - EX0 - 0.4) / 8;
     {
       const k = new Kit();
-      k.box(pE.m('block'), EX1 - EX0, 0.6, 1.1, (EX0 + EX1) / 2, yCr - 0.1, 0);
+      k.box(pE.m('block', { shell: true }), EX1 - EX0, 0.6, 1.1, (EX0 + EX1) / 2, yCr - 0.1, 0);
       for (const sgn of [1, -1]) {
         const a = sgn * Math.PI / 8; // 22.5° desde la vertical
         const dir = [Math.sin(a), Math.cos(a)];
         for (let i = 0; i < 8; i++) {
           const x = EX0 + 0.2 + pitch * (i + 0.5) + (sgn > 0 ? 0.04 : -0.04);
           const c0 = 0.55, c1 = 1.05;
-          k.add(G.cyl(0.13, c1 - c0, 18), pE.m('block'), [x, yCr + dir[1] * (c0 + c1) / 2, dir[0] * (c0 + c1) / 2], [a, 0, 0]);
+          k.add(G.cyl(0.13, c1 - c0, 18), pE.m('block', { shell: true }), [x, yCr + dir[1] * (c0 + c1) / 2, dir[0] * (c0 + c1) / 2], [a, 0, 0]);
           k.add(G.box(0.36, 0.14, 0.34), pE.m('head'), [x, yCr + dir[1] * 1.12, dir[0] * 1.12], [a, 0, 0]);
           const pg = new T.Group(); const pk = new Kit();
           pk.cyl(pE.m('piston'), 0.108, 0.16, 'y', 0, 0, 0, 16);
           pk.cyl(pE.m('steel'), 0.028, Lc, 'y', 0, -Lc / 2, 0, 8);
           pk.build(pg); pg.rotation.x = a; pE.group.add(pg);
+          if (sgn > 0 && i === 0) pg.name = 'F.piston';
           pist.push({ pg, x, dir: [dir[0], dir[1]], phase: i * Math.PI / 4 + (sgn > 0 ? 0 : Math.PI / 4) });
         }
       }
       // cárter, bancada y soplador Roots
-      k.box(pE.m('block'), EX1 - EX0, 0.45, 1.25, (EX0 + EX1) / 2, yCr - 0.5, 0);
-      k.box(pE.m('gen'), 0.55, 0.85, 1.0, EX0 - 0.35, yCr + 0.45, 0);
-      for (const z of [-0.2, 0.2]) k.cyl(pE.m('steel'), 0.17, 0.5, 'x', EX0 - 0.35, yCr + 0.5, z, 16);
+      k.box(pE.m('block', { shell: true }), EX1 - EX0, 0.45, 1.25, (EX0 + EX1) / 2, yCr - 0.5, 0);
+      k.box(pE.m('gen', { shell: true }), 0.55, 0.85, 1.0, EX0 - 0.35, yCr + 0.45, 0);
+
       // escapes en el techo
       for (let i = 0; i < 4; i++) k.cyl(pE.m('dark'), 0.12, 0.6, 'y', EX0 + 0.5 + i * 0.95, 4.3, 0, 14);
       k.build(pE.group);
@@ -82,6 +83,15 @@
       const ck = new Kit(); ck.cyl(pE.m('steel'), 0.07, EX1 - EX0, 'x', (EX0 + EX1) / 2, 0, 0, 12);
       for (let i = 0; i < 8; i++) { const ph = i * Math.PI / 4, x = EX0 + 0.2 + pitch * (i + 0.5); ck.add(G.box(0.08, rc + 0.12, 0.2), pE.m('steel'), [x, Math.cos(ph) * rc / 2, Math.sin(ph) * rc / 2], [-ph, 0, 0]); }
       ck.build(cg); pE.group.add(cg); crank = cg;
+      // soplador Roots: dos rotores de tres lóbulos (perfil r = r0 + a·cos 3θ) que giran en sentidos opuestos y engranan
+      const lobe = new T.Shape();
+      for (let i = 0; i <= 90; i++) { const th = i / 90 * Math.PI * 2, rr = 0.2 + 0.06 * Math.cos(3 * th); const px = Math.cos(th) * rr, py = Math.sin(th) * rr; if (i) lobe.lineTo(px, py); else lobe.moveTo(px, py); }
+      for (const z of [-0.2, 0.2]) {
+        const rg = new T.Group(); rg.position.set(EX0 - 0.35, yCr + 0.45, z);
+        const lg = new T.ExtrudeGeometry(lobe, { depth: 0.46, bevelEnabled: false, curveSegments: 1 }); lg.rotateY(Math.PI / 2); lg.translate(-0.23, 0, 0);
+        const rk = new Kit(); rk.cyl(pE.m('steel'), 0.04, 0.54, 'x', 0, 0, 0, 10); rk.add(lg, pE.m('piston'));
+        rk.build(rg); pE.group.add(rg); roots.push({ rg, dir: z > 0 ? 1 : -1, ph: 0 }); // mismo calado y giro opuesto: la punta de uno entra en el valle del otro
+      }
     }
 
     // 2 — Generador principal D12 (CC) acoplado al volante
@@ -194,17 +204,21 @@
     M.anim.push((s, dt, v) => {
       wsets.forEach(w => (w.rotation.z = -s / R));
       tms.forEach(a => (a.rotation.z = s / R * gear));
-      M._eng = (M._eng || 0) + dt * (v > 0.01 ? 800 : 275) / 60 * Math.PI * 2 * (M.timeScale ?? 1);
+      // régimen del motor según el punto del acelerador (275 rpm en ralentí, 800 rpm en el punto 8)
+      const load = M.brake ? 0.15 : Math.min(1, (v || 0) / 18);
+      M.rpm = M.powered ? 275 + 525 * load : 275; M.notch = M.powered && !M.brake ? Math.max(1, Math.round(load * 8)) : 0;
+      M._eng = (M._eng || 0) + dt * M.rpm / 60 * Math.PI * 2;
       const ca = M._eng;
       crank.rotation.x = ca; genArm.rotation.x = ca;
+      roots.forEach(r => (r.rg.rotation.x = r.dir * ca * 1.6 + r.ph));
       for (const p of pist) {
         const ang = ca + p.phase;
         const x = rc * Math.cos(ang) + Math.sqrt(Lc * Lc - (rc * Math.sin(ang)) ** 2);
         const d = x + 0.18;
         p.pg.position.set(p.x, yCr + p.dir[1] * (d + 0.55 - Lc + 0.25), p.dir[0] * (d + 0.55 - Lc + 0.25));
       }
-      fans.forEach(f => (f.rotation.y += dt * (v > 0.01 ? 18 : 6) * (M.timeScale ?? 1)));
-      dynFan.rotation.y += dt * (v > 0.01 ? 4 : 0) * (M.timeScale ?? 1);
+      fans.forEach(f => (f.rotation.y += dt * (M.powered ? 30 + 30 * load : 8)));
+      dynFan.rotation.y += dt * (M.brake ? 40 : 0);
     });
     M.update(0, 0);
     M.gear = gear;
@@ -215,7 +229,17 @@
     for (const xc of XTR) for (const dx of [-WB / 2, WB / 2]) {
       const tw = dx > 0 ? -1 : 1;
       M.flow([[EX1 + 1.1, yCr - 0.3, 0.3], [xc * 0.5 + 0.6, 1.2, 0.3], [xc + dx + tw * 0.52, R + 0.45, 0.3]], '#ffd166', { r: 0.04 });
+      M.bflow([[xc + dx + tw * 0.52, R + 0.45, -0.3], [xc * 0.4 + 0.7, 1.3, -0.3], [1.2, 1.5, -0.3], [1.2, 3.75, -0.3]], '#ff6b4a', { r: 0.045 });
     }
+    M.flows[0].userData.keep = true; M.flows[1].userData.keep = true;
+    M.brakeType = 'rheo';
+    // humo de escape por las cuatro chimeneas del techo
+    const PX = M.addParticles(pE.group, { count: 900, c0: '#7b7d80', c1: '#b9bbbd', grow: 3.0, rise: 0.5, opacity: 0.42 });
+    { let acc = 0; M.fx.push((t, dt, v) => {
+      if (!M.powered || dt <= 0) return;
+      acc += dt * (6 + 40 * ((M.rpm || 275) - 275) / 525);
+      while (acc > 1) { acc--; const i = Math.floor(Math.random() * 4); PX.emit([EX0 + 0.5 + i * 0.95 + (Math.random() - 0.5) * 0.1, 4.62, (Math.random() - 0.5) * 0.12], [-v * 0.95 + (Math.random() - 0.5) * 0.4, 2.2 + Math.random() * 1.5 + ((M.rpm || 275) - 275) / 200, (Math.random() - 0.5) * 0.4], 2.4, 0.22, t); }
+    }); }
 
     M.finalize();
     M.len = 15.44; M.center = 0.2;
