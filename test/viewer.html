@@ -5,6 +5,7 @@
 <script src="../js/m_rocket.js"></script>
 <script src="../js/m_general.js"></script><script src="../js/m_croc.js"></script><script src="../js/m_mallard.js"></script>
 <script src="../js/m_f7.js"></script><script src="../js/m_shinkansen.js"></script><script src="../js/m_tgv.js"></script><script src="../js/m_maglev.js"></script>
+<script src="../js/m_siemens.js"></script><script src="../js/m_bigboy.js"></script><script src="../js/m_ilint.js"></script>
 <script>
 const q = new URLSearchParams(location.search);
 const id = q.get('m') || 'rocket';
@@ -17,6 +18,9 @@ const ERAS = {
  shinkansen:{tile:{ground:['#6f9a4a','#8aa85a','#7a8a4a'],side:['#6b4f3a','#4a3a2e']},props:STAGE.PROPS.tokaido},
  tgv:{tile:{ground:['#7a9a48','#9aa85a','#b0a060'],side:['#8a6a4a','#5a4636']},props:STAGE.PROPS.bourgogne},
  maglev:{tile:{ground:['#7a8a6a','#8a948a','#6a7a5a'],side:['#7a7a72','#5a5a55']},props:STAGE.PROPS.pudong},
+ siemens:{tile:{ground:['#b9ad90','#a89c80','#8a9a5a'],side:['#7a6a55','#5a4c3e']},props:STAGE.PROPS.berlin1879},
+ bigboy:{tile:{ground:['#a89470','#9a8a60','#b8a27a'],side:['#9a7350','#6e5038'],hills:5},props:STAGE.PROPS.wyoming},
+ ilint:{tile:{ground:['#6f9a4a','#86a85a','#7a944a'],side:['#6b4f3a','#4a3a2e']},props:STAGE.PROPS.niedersachsen},
 };
 const stage = new STAGE.Stage(document.getElementById('c'));
 const M = MODELS[id]();

@@ -43,7 +43,7 @@
     setBrake(on) {
       this.brake = !!on;
       // regenerativo: el flujo se invierte y se tiñe de verde (energía devuelta a la red)
-      if (this.brakeType === 'regen') this.flows.forEach(f => { if (f.userData.noRev) return; const u = f.material.uniforms; u.uSpeed.value = Math.abs(f.userData.sp) * (on ? -1 : 1); if (u.uC) u.uC.value.set(on ? '#7bd389' : f.userData.c0); });
+      if (this.brakeType === 'regen') this.flows.forEach(f => { if (f.userData.offOnBrake) f.visible = !on; if (f.userData.noRev) return; const u = f.material.uniforms; u.uSpeed.value = Math.abs(f.userData.sp) * (on ? -1 : 1); if (u.uC) u.uC.value.set(on ? '#7bd389' : f.userData.c0); });
       if (this.brakeType === 'rheo') { this.flows.forEach(f => (f.visible = !on || !!f.userData.keep)); this.brakeFlows.forEach(f => (f.visible = !!on)); }
       if (this.onBrake) this.onBrake(on);
     }
@@ -251,14 +251,15 @@
     });
   }
   // chispas en el contacto pantógrafo–hilo
-  function pantoSparks(M, group, pts) {
-    const PK = M.addParticles(group, { kind: 'spark', count: 220, c0: '#e9f6ff', c1: '#6fb7ff', grow: -0.7, rise: 0, grav: 6 });
+  function pantoSparks(M, group, pts, o = {}) {
+    const PK = M.addParticles(group, { kind: 'spark', count: o.count ?? 220, c0: '#e9f6ff', c1: '#6fb7ff', grow: -0.7, rise: 0, grav: o.grav ?? 6 });
+    const spread = o.spread ?? 0.9, vmin = o.vmin ?? 1, rate = o.rate ?? 0.6, size = o.size ?? 0.035, kick = o.kick ?? 3;
     let acc = 0;
     M.fx.push((t, dt, v) => {
-      if (!M.powered || dt <= 0 || v < 1) return;
-      acc += dt * (0.6 + v * 0.05);
+      if (!M.powered || dt <= 0 || v < vmin) return;
+      acc += dt * (rate + v * 0.05);
       while (acc > 1) { acc--; const p = pts[Math.floor(Math.random() * pts.length)];
-        for (let i = 0; i < 7; i++) PK.emit([p[0] + (Math.random() - 0.5) * 0.1, p[1], p[2] + (Math.random() - 0.5) * 0.9], [-v * 0.15 + (Math.random() - 0.5) * 3, Math.random() * 2.5, (Math.random() - 0.5) * 3], 0.25 + Math.random() * 0.3, 0.035, t); }
+        for (let i = 0; i < 7; i++) PK.emit([p[0] + (Math.random() - 0.5) * 0.1 * spread, p[1], p[2] + (Math.random() - 0.5) * spread], [-v * 0.15 + (Math.random() - 0.5) * kick, Math.random() * kick * 0.8, (Math.random() - 0.5) * kick], 0.25 + Math.random() * 0.3, size, t); }
     });
     return PK;
   }

@@ -13,7 +13,8 @@ root = pathlib.Path(__file__).parent
 shell = (root / 'src/shell.html').read_text(encoding='utf-8')
 ORDER = ['builders.js', 'models_base.js', 'stage.js',
          'm_rocket.js', 'm_general.js', 'm_croc.js', 'm_mallard.js', 'm_f7.js', 'm_shinkansen.js', 'm_tgv.js', 'm_maglev.js',
-         'data1.js', 'data2.js', 'data3.js', 'data4.js', 'app.js']
+         'm_siemens.js', 'm_bigboy.js', 'm_ilint.js',
+         'data1.js', 'data2.js', 'data3.js', 'data4.js', 'data5.js', 'app.js']
 ORDER = [f for f in ORDER if (root / 'js' / f).exists()]
 js = '\n'.join((root / 'js' / f).read_text(encoding='utf-8') for f in ORDER)
 
@@ -22,8 +23,8 @@ CDN = [THREE + 'build/three.min.js', THREE + 'examples/js/controls/OrbitControls
 LOCAL = ['../vendor/three.min.js', '../vendor/OrbitControls.js', '../vendor/RoomEnvironment.js']
 
 SITE = 'https://jemilianomr.github.io/de-rocket-al-maglev/'
-DESC = ('Atlas 3D interactivo de la evolución de la tracción ferroviaria, de Rocket (1829) al maglev de Shanghái (2004): '
-        'piezas en corte, recorridos «Cómo funciona», modo estudio con cotas y diagrama p–V.')
+DESC = ('Atlas 3D interactivo de la evolución de la tracción ferroviaria en once hitos, de Rocket (1829) al tren de hidrógeno '
+        'Coradia iLint (2018): piezas en corte, recorridos «Cómo funciona», modo estudio con cotas y diagrama p–V.')
 
 def scripts(libs):
     return '\n'.join(f'<script src="{u}"></script>' for u in libs) + '\n<script>\n' + js + '\n</script>\n'

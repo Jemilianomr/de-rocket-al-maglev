@@ -24,7 +24,7 @@ async def main():
                 r = await pg.evaluate(step)
                 if r is not None: logs.append(f'eval: {r}')
             await pg.wait_for_timeout(1800)
-        await pg.screenshot(path=out)
+        await pg.screenshot(path=out, timeout=180000)
         for l in logs:
             if any(k in l for k in ('GPU stall', 'Automatic fallback', 'fonts.g', 'ERR_NAME', 'net::', 'Failed to load resource')): continue
             print(l)

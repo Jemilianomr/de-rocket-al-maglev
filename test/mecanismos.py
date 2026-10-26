@@ -8,7 +8,7 @@ async () => {
   const A = window.__app, sleep = ms => new Promise(r => setTimeout(r, ms));
   const waitIdle = async () => { for (let i = 0; i < 150 && (A.S.busy || A.S.pending != null); i++) await sleep(200); await sleep(300); };
   const out = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < A.TR.length; i++) {
     A.goTrain(i); await sleep(100); await waitIdle();
     const M = A.S.M, r = { id: A.S.t.id, err: null };
     try {
@@ -19,6 +19,7 @@ async () => {
       if (M.setBrake) { M.setBrake(true); for (let k = 0; k < 30; k++) M.update(0.02, 25); r.bflowsVis = M.brakeFlows.filter(f => f.visible).length; M.setBrake(false); }
       if (M.steam) { M.setCutoff(0.5); for (let k = 0; k < 30; k++) M.update(0.02, 15); const ind = MB.indicator(M.steam, 60); r.mep = +ind.mep.toFixed(3); r.pts = ind.pts.length; }
       if (M.modes && M.modes.irregular) { M.irregular = true; for (let k = 0; k < 200; k++) M.update(0.02, 10); M.irregular = false; }
+      if (M.modes && M.modes.curve) { M.curve = true; for (let k = 0; k < 120; k++) M.update(0.02, 5); let yaw = 0; M.root.traverse(o => { yaw = Math.max(yaw, Math.abs(o.rotation.y)); }); r.curveYaw = +yaw.toFixed(3); M.curve = false; for (let k = 0; k < 30; k++) M.update(0.02, 5); }
       r.rpm = M.rpm; r.notch = M.notch;
       let nan = 0; M.root.traverse(o => { if ([o.position.x, o.position.y, o.position.z, o.rotation.x, o.rotation.y, o.rotation.z].some(v => !isFinite(v))) nan++; }); r.nan = nan;
       M.powered = false; M.update(0, 0);

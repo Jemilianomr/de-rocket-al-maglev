@@ -10,7 +10,7 @@ async () => {
   const out = { trains: [], errors: [] };
   const waitIdle = async () => { for (let i = 0; i < 150 && (A.S.busy || A.S.pending != null); i++) await sleep(200); await sleep(600); };
   const mem0 = { ...st().memory };
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < A.TR.length; i++) {
     A.goTrain(i); await sleep(100); await waitIdle();
     const t = A.S.t, M = A.S.M;
     const r = { id: t.id, parts: t.partOrder.length, missingParts: t.partOrder.filter(p => !M.parts[p]), extraParts: M.order.filter(p => !t.parts[p]) };

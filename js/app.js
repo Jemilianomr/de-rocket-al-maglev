@@ -4,7 +4,8 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const TR = window.TRAINS;
-  const TC = { vapor: 'var(--steam)', electrica: 'var(--elec)', diesel: 'var(--diesel)', maglev: 'var(--maglev)' };
+  const TC = { vapor: 'var(--steam)', electrica: 'var(--elec)', diesel: 'var(--diesel)', maglev: 'var(--maglev)', hidrogeno: 'var(--h2)' };
+  const TCOL = { vapor: '#e08a4b', electrica: '#4fb3d9', diesel: '#cdb54f', maglev: '#a796f2', hidrogeno: '#5fd3a0' };
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // formato SI (NOM-008 / ISO 80000): coma decimal y espacio fino como separador de miles
   const fmt = (x, d = 0) => {
@@ -324,7 +325,8 @@
     const M = S.M, b = M.bbox;
     const hgt = M.secH ?? Math.min(6, b.max.y - Math.max(b.min.y, -1)), yc = M.secY ?? (Math.max(b.min.y, -1) + hgt * 0.5);
     const x = TB.SECTION.constant;
-    flyTo(new T.Vector3(x + Math.max(6, hgt * 2.1), yc + hgt * 0.38, Math.max(4, hgt * 1.25)), new T.Vector3(x - hgt * 0.15, yc - hgt * 0.06, 0));
+    const dMin = M.secMin ?? 6;   // distancia mínima de la cámara (los modelos pequeños la reducen)
+    flyTo(new T.Vector3(x + Math.max(dMin, hgt * 2.1), yc + hgt * 0.38, Math.max(dMin * 0.67, hgt * 1.25)), new T.Vector3(x - hgt * 0.15, yc - hgt * 0.06, 0));
   }
 
   // ---------- Telemetría ----------
@@ -359,8 +361,13 @@
       else if (tele.gear) ro.push([fmt(n * tele.gear, 0) + ' rpm', tele.gearLabel || 'Motor de tracción']);
       else ro.push([fmt(n, 0) + ' rpm', tele.shaftLabel || 'Eje ciego']);
       const F = envF(fv, v);
+      if (tele.type === 'h2') ro.splice(1);   // rueda · esfuerzo · potencia · hidrógeno
       ro.push([F == null ? 'n/d' : fmt(F, F < 10 ? 1 : 0) + ' kN', 'Esfuerzo']);
-      ro.push([F == null ? 'n/d' : fmt(F * v, 0) + ' kW', 'Potencia']);
+      ro.push([F == null ? 'n/d' : fmt(F * v, F * v < 10 ? 1 : 0) + ' kW', 'Potencia']);
+      if (tele.type === 'h2') {
+        const br = S.M && S.M.brake;
+        ro.push([br ? 'recarga' : F == null ? 'n/d' : fmt(F * v / ((tele.eta || 0.5) * 33.33), F * v < 100 ? 1 : 0) + ' kg/h', br ? 'Batería' : 'H₂ (máx., est.)']);
+      }
     }
     $('#ro').innerHTML = ro.map(r => `<div class="ro"><b>${r[0]}</b><span>${r[1]}</span></div>`).join('');
     if (S.tab === 'fisica') drawFv();
@@ -508,28 +515,29 @@
       card('Potencia específica', 'Potencia nominal ÷ masa de la unidad de tracción, kW/t', barChart(C, 'kwt', 'kW/t')) +
       card('Carga por eje', 'Masa máxima que cada eje transmite a la vía, t', barChart(C, 'axle', 't'));
     $('#cmpTable').innerHTML = `<thead><tr><th>Tren</th><th>Año</th><th style="text-align:left">Tracción</th><th>V servicio (km/h)</th><th>Récord (km/h)</th><th>Potencia (kW)</th><th>Masa (t)</th><th>kW/t</th><th>Carga/eje (t)</th></tr></thead><tbody>` +
-      C.map(c => `<tr><td>${c.t.name}</td><td>${c.t.year}</td><td style="text-align:left">${c.t.tractionLabel}</td><td>${v(c.vs)}</td><td>${v(c.vr, c.vr && c.vr % 1 ? 1 : 0)}</td><td>${v(c.P)}</td><td>${v(c.m, c.m != null && c.m < 10 ? 1 : 0)}</td><td>${v(c.kwt, 1)}</td><td>${c.axle === 0 ? 'sin ruedas' : v(c.axle, 1)}</td></tr>`).join('') + '</tbody>';
+      C.map(c => `<tr><td>${c.t.name}</td><td>${c.t.year}</td><td style="text-align:left">${c.t.tractionLabel}</td><td>${v(c.vs)}</td><td>${v(c.vr, c.vr && c.vr % 1 ? 1 : 0)}</td><td>${v(c.P, c.P != null && c.P < 10 ? 1 : 0)}</td><td>${v(c.m, c.m != null && c.m < 10 ? 1 : 0)}</td><td>${v(c.kwt, 1)}</td><td>${c.axle === 0 ? 'sin ruedas' : v(c.axle, 1)}</td></tr>`).join('') + '</tbody>';
     function v(x, d = 0) { return x == null ? '<span class="nd">n/d</span>' : fmt(x, d); }
     $('#cmpTable').insertAdjacentHTML('beforeend', `<caption style="caption-side:bottom;text-align:left;padding:10px;color:var(--muted);font-size:12px">${window.CMP_NOTE}</caption>`);
   }
-  const LBL = { rocket: [0, -9, 'start'], krokodil: [-4, -9, 'end'], mallard: [-6, -4, 'end'], f7: [6, 14, 'start'], serie0: [8, 4, 'start'], tgv: [-8, 4, 'end'], transrapid: [-8, 4, 'end'] };
+  const LBL = { rocket: [0, -9, 'start'], siemens: [0, -10, 'middle'], krokodil: [-4, -9, 'end'], mallard: [-6, -4, 'end'], bigboy: [8, -10, 'start'], f7: [6, 14, 'start'], serie0: [8, 4, 'start'], tgv: [-8, 4, 'end'], transrapid: [-8, 4, 'end'], ilint: [-8, 4, 'end'] };
   function yearChart(C, a, b, ymax, unit) {
-    const W = 380, H = 230, ml = 40, mr = 14, mt = 14, mb = 28, x0 = 1820, x1 = 2012;
+    const W = 380, H = 230, ml = 40, mr = 14, mt = 14, mb = 28, x0 = 1820, x1 = 2025;
     const X = y => ml + (y - x0) / (x1 - x0) * (W - ml - mr), Y = v => H - mb - v / ymax * (H - mt - mb);
     let g = '';
     for (let v = 0; v <= ymax; v += 100) g += `<line class="gr" x1="${ml}" x2="${W - mr}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${ml - 6}" y="${Y(v) + 3.5}" text-anchor="end">${v}</text>`;
-    for (let y = 1840; y <= 2000; y += 40) g += `<text x="${X(y)}" y="${H - mb + 14}" text-anchor="middle">${y}</text>`;
+    for (let y = 1840; y <= 2020; y += 40) g += `<text x="${X(y)}" y="${H - mb + 14}" text-anchor="middle">${y}</text>`;
     g += `<line class="ax" x1="${ml}" x2="${W - mr}" y1="${H - mb}" y2="${H - mb}"/>`;
     const pts = C.filter(c => c[a] != null);
     g += `<path d="${pts.map((c, k) => `${k ? 'L' : 'M'}${X(c.t.year)},${Y(c[a])}`).join('')}" fill="none" stroke="#d6a54f" stroke-width="2"/>`;
     for (const c of C) {
-      const col = c.t.traction === 'vapor' ? '#e08a4b' : c.t.traction === 'electrica' ? '#4fb3d9' : c.t.traction === 'diesel' ? '#cdb54f' : '#a796f2';
+      const col = TCOL[c.t.traction] || '#a796f2';
       if (c[a] != null) g += `<circle cx="${X(c.t.year)}" cy="${Y(c[a])}" r="4.5" fill="${col}"/>`;
       if (c[b] != null) g += `<circle cx="${X(c.t.year)}" cy="${Y(c[b])}" r="4.5" fill="none" stroke="${col}" stroke-width="1.6"/><line x1="${X(c.t.year)}" x2="${X(c.t.year)}" y1="${Y(c[a] ?? 0)}" y2="${Y(c[b]) + 4}" stroke="${col}" stroke-width="1" stroke-dasharray="2 2"/>`;
       const yv = c[b] ?? c[a]; const L = LBL[c.t.id] || [0, -9, 'middle'];
       if (yv != null) g += `<text x="${X(c.t.year) + L[0]}" y="${Y(yv) + L[1]}" text-anchor="${L[2]}" style="fill:#c9c4b6">${c.t.short || c.t.name}</text>`;
-      else g += `<text x="${X(c.t.year) + 4}" y="${Y(0) - 8}" text-anchor="start">${c.t.short || c.t.name}: n/d</text>`;
     }
+    const nd = C.filter(c => c[a] == null && c[b] == null).map(c => c.t.short || c.t.name);
+    if (nd.length) g += `<text x="${ml + 6}" y="${mt + 6}" text-anchor="start">Sin dato: ${nd.join(', ')}</text>`;
     return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Velocidad por año">${g}</svg>`;
   }
   function barChart(C, key, unit) {
@@ -538,7 +546,7 @@
     let g = '';
     C.forEach((c, k) => {
       const y = 8 + k * rowH, val = c[key];
-      const col = c.t.traction === 'vapor' ? '#e08a4b' : c.t.traction === 'electrica' ? '#4fb3d9' : c.t.traction === 'diesel' ? '#cdb54f' : '#a796f2';
+      const col = TCOL[c.t.traction] || '#a796f2';
       g += `<text x="${ml - 8}" y="${y + 15}" text-anchor="end" style="fill:#c9c4b6">${c.t.short || c.t.name}</text>`;
       if (val === 0) g += `<text x="${ml}" y="${y + 15}" style="fill:#a796f2">sin ruedas</text>`;
       else if (val != null) { const w = (W - ml - mr) * val / max; g += `<rect x="${ml}" y="${y + 4}" width="${Math.max(2, w)}" height="${rowH - 9}" rx="3" fill="${col}"/><text x="${ml + w + 6}" y="${y + 15}">${fmt(val, val < 20 ? 1 : 0)}</text>`; }
@@ -636,25 +644,29 @@
     if (M.steam) h += '<button class="chipb" id="bPV" type="button" aria-pressed="false" title="Diagrama indicado presión–volumen en vivo">Diagrama p–V</button>';
     if (M.brakeType) h += `<button class="chipb" id="bBrake" type="button" aria-pressed="false" title="Los motores pasan a funcionar como generadores">${M.brakeType === 'regen' ? 'Freno regenerativo' : S.t.id === 'f7' ? 'Freno dinámico' : 'Freno reostático'}</button>`;
     if (M.modes.irregular) h += '<button class="chipb" id="bIrr" type="button" aria-pressed="false" title="Una junta de carril levantada: observa la suspensión compensada">Vía irregular</button>';
+    if (M.modes.curve) h += '<button class="chipb" id="bCurve" type="button" aria-pressed="false" title="La unidad delantera gira sobre el pivote como en la curva mínima">Curva cerrada</button>';
     h += '<span class="hstate" id="hState"></span>';
     x.innerHTML = h;
     const bp_ = $('#bPV'); bp_ && bp_.addEventListener('click', () => showPV(!S.pv));
     const bb = $('#bBrake'); bb && bb.addEventListener('click', () => { M.setBrake(!M.brake); if (M.brake) { toggleFlow(true); if (!S.play) togglePlay(true); } updateHudX(); needs = true; });
     const bi = $('#bIrr'); bi && bi.addEventListener('click', () => { M.irregular = !M.irregular; if (M.irregular && !S.play) togglePlay(true); updateHudX(); needs = true; });
+    const bc = $('#bCurve'); bc && bc.addEventListener('click', () => { M.curve = !M.curve; if (M.curve && !S.play) togglePlay(true); updateHudX(); needs = true; });
     updateHudX();
   }
   function updateHudX() {
     const M = S.M; if (!M) return;
-    setPressed('#bPV', S.pv); setPressed('#bBrake', !!M.brake); setPressed('#bIrr', !!M.irregular);
+    setPressed('#bPV', S.pv); setPressed('#bBrake', !!M.brake); setPressed('#bIrr', !!M.irregular); setPressed('#bCurve', !!M.curve);
     setHudState();
   }
   function setHudState() {
     const el = $('#hState'), M = S.M; if (!el || !M) return;
     let s = '';
-    if (M.brake) s = M.brakeType === 'regen' ? 'Motores → generadores · energía devuelta a la red' : 'Motores → generadores · calor en resistencias';
+    if (M.brake) s = M.brakeType === 'regen' ? `Motores → generadores · energía ${M.regenTo ? 'a la ' + M.regenTo : 'devuelta a la red'}` : 'Motores → generadores · calor en resistencias';
+    else if (M.curve) s = 'Curva de 288 ft (87,8 m): la unidad delantera gira sobre el pivote';
     else if (M.steam) s = `Corte ${Math.round(M.steam.cut * 100)} % · ${2 * M.steam.cyls.length} escapes por vuelta`;
     else if (M.rpm != null) s = M.notch ? `Punto ${M.notch} de 8 · motor ${fmt(M.rpm)} rpm` : `Ralentí · motor ${fmt(M.rpm)} rpm`;
     else if (M.notch != null) s = S.play ? `Toma ${M.notch} de 22 del transformador` : 'Toma 0 de 22';
+    else if (S.t && S.t.physics.tele.type === 'h2') s = S.play ? 'Pila en marcha · por el techo sale vapor de agua' : 'Pila en reposo';
     if (M.irregular) s = 'Junta levantada: el balancín reparte la carga';
     if (el.textContent !== s) el.textContent = s;
   }
@@ -758,6 +770,7 @@
     S.xray = !!st.xray; setPressed('#tX', S.xray);
     S.exp = !!st.exp; setPressed('#tExp', S.exp); $('#expCtl').hidden = true;
     if (M.modes.irregular) M.irregular = !!st.irregular;
+    if (M.modes.curve) M.curve = !!st.curve;
     if (M.brakeType) M.setBrake(!!st.brake);
     if (st.flows) { toggleFlow(true); if (!st.brake) M.flows.forEach((f, i) => (f.visible = st.flows === true || st.flows.includes(i))); }
     else { toggleFlow(false); M.flows.forEach(f => (f.visible = true)); }
@@ -807,7 +820,7 @@
     S.tour = null; S.tourHL = []; S.tourGhost = false;
     $('#tour').hidden = true; $('#hud').hidden = false; $('#btnTour').hidden = !TOURS()[S.t.id];
     const M = S.M;
-    if (M) { if (M.brakeType) M.setBrake(false); M.irregular = false; M.flows.forEach(f => (f.visible = true)); }
+    if (M) { if (M.brakeType) M.setBrake(false); M.irregular = false; M.curve = false; M.flows.forEach(f => (f.visible = true)); }
     S.xray = false; setPressed('#tX', false); S.exp = false; setPressed('#tExp', false);
     toggleFlow(false); setCut(false); showPV(false); viewOffset();
     setSpeed(TT.saved.vkmh); setTs(TT.saved.ts); togglePlay(TT.saved.play);
@@ -859,10 +872,11 @@
     const R = sd.r ? sd.r * 1.15 : Math.max(0.8, Math.hypot(size.x, size.z) * 0.62);
     // ajustes de escena propios de la pieza (corte, rayos X, modos)
     toggleFlow(false);
-    S.studySet = { cut: !!sd.cut, xray: !!sd.xray && !S.xray, brake: !!sd.brake && !!M.brakeType, irr: !!sd.irregular && !!M.modes.irregular };
+    S.studySet = { cut: !!sd.cut, xray: !!sd.xray && !S.xray, brake: !!sd.brake && !!M.brakeType, irr: !!sd.irregular && !!M.modes.irregular, curve: !!sd.curve && !!M.modes.curve };
     if (sd.xray) { S.xray = true; setPressed('#tX', true); }
     if (S.studySet.brake) M.setBrake(true);
     if (S.studySet.irr) M.irregular = true;
+    if (S.studySet.curve) M.curve = true;
     if (sd.cut) {
       if (!S.cut) setCut(true);
       S.cutMode = sd.cut; setPressed('#cutL', sd.cut === 'L'); setPressed('#cutT', sd.cut === 'T');
@@ -899,6 +913,7 @@
     if (ss.xray) { S.xray = false; setPressed('#tX', false); }
     if (ss.brake && M) M.setBrake(false);
     if (ss.irr && M) M.irregular = false;
+    if (ss.curve && M) M.curve = false;
     S.studySet = null; updateHudX();
     applyLook(); if (!silent) { renderTab(); focusPart(id); }
   }
@@ -984,7 +999,7 @@
     }
   }
 
-  window.__app = { S, goTrain, selectPart, setCut, setCutMode, togglePlay, toggleFlow, openCompare, get stage() { return stage; }, renderTab, render: () => { needs = true; },
+  window.__app = { S, TR, goTrain, selectPart, setCut, setCutMode, togglePlay, toggleFlow, openCompare, get stage() { return stage; }, renderTab, render: () => { needs = true; },
     startTour, tourGo, exitTour, enterStudy, exitStudy, showPV, setSpeed, setTs, setBrake: on => { if (S.M && S.M.brakeType) { S.M.setBrake(on); updateHudX(); } } };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -19,7 +19,7 @@ async def main():
             for st in steps:
                 if isinstance(st, int): await pg.wait_for_timeout(st)
                 else: await pg.evaluate(st)
-            await pg.screenshot(path=str(OUT / f'{name}.png'))
+            await pg.screenshot(path=str(OUT / f'{name}.png'), timeout=180000)   # SwiftShader compila los shaders despacio
             print('shot', name, flush=True)
         for l in logs:
             if any(k in l for k in ('GPU stall', 'net::', 'Failed to load resource')): continue

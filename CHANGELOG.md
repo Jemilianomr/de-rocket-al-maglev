@@ -1,5 +1,24 @@
 # Historial de cambios
 
+## v3.0.0 — 2026-10-26
+
+Tres trenes nuevos investigados en fuentes oficiales y técnicas: el inventario pasa de ocho a once hitos, de 1829 a 2018.
+
+### Nuevo
+- **Siemens & Halske, 1879** (Berlín): el primer tren eléctrico alimentado desde una central fija que llevó pasajeros. Ocho piezas: motor de corriente continua de 2,2 kW, engranajes cónicos con inversor de marcha, frotadores, riel central de 150 V, dínamo con máquina fija, bastidor, caja con el conductor a horcajadas y tres coches con 18 pasajeros. Cotas del Deutsches Museum (inv. 3720) y de Sperling (2023).
+- **Union Pacific 4000 «Big Boy», 1941**: 4-8-8-4 articulada con cuatro cilindros de expansión simple. Nueve piezas, con caldera de tubos de 22 ft, hogar con alimentador mecánico, doble chimenea, dos unidades motrices con Walschaerts y diagrama p–V de cuatro cilindros, articulación, bogies, cabina y ténder de 14 ruedas.
+- **Alstom Coradia iLint, 2018**: el primer tren de pasajeros con pila de combustible de hidrógeno. Ocho piezas: depósitos a 350 bar, pilas PEM, batería, convertidores, motor asíncrono con cardanes, bogies B′2′+2′B′, frenos y caja Lint 54. Vapor de agua por el techo y aerogeneradores en el escenario.
+- **Curva cerrada** (Big Boy): la unidad delantera gira sobre el pivote como en la curva mínima de 288 ft; disponible en el HUD, en el recorrido y en el modo estudio de la articulación.
+- **Tracción por hidrógeno** en la telemetría: consumo estimado de H₂ en kg/h; el freno regenerativo del iLint carga la batería y apaga los flujos de hidrógeno mientras frena.
+- 24 pasos nuevos de «Cómo funciona» y modo estudio para las 25 piezas nuevas, con componentes señalados y cotas.
+- Tres escenarios nuevos: Exposición Industrial de Berlín de 1879, llanuras de Wyoming y Baja Sajonia con aerogeneradores.
+- Comparativa con once hitos, nuevo color para el hidrógeno y nota sobre las definiciones de potencia.
+
+### Mejorado
+- Escenarios con campos y banderines: un material por color en lugar de uno por pieza, de unas 830 a 17 mallas en el TGV.
+- La cámara del corte transversal se adapta a modelos pequeños (Siemens) y grandes (Big Boy).
+- La línea de tiempo y la tabla comparativa admiten los once trenes.
+
 ## v2.0.0 — 2026-10-21
 
 Animaciones más detalladas y explicación del funcionamiento del tren completo y de cada pieza.

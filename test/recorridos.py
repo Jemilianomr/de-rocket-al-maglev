@@ -8,7 +8,7 @@ async () => {
   const A = window.__app, sleep = ms => new Promise(r => setTimeout(r, ms));
   const waitIdle = async () => { for (let i = 0; i < 150 && (A.S.busy || A.S.pending != null); i++) await sleep(200); await sleep(300); };
   const out = [];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < A.TR.length; i++) {
     A.goTrain(i); await sleep(100); await waitIdle();
     const t = A.S.t, M = A.S.M, r = { id: t.id, issues: [] };
     const tour = window.TOURS[t.id] || [];

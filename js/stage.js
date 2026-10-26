@@ -176,11 +176,11 @@
     const grp = new THREE.Group(); k.build(grp); g.add(grp);
   }
   function fields(g, R, zFrom, zTo, colors, rows, tall) {
-    const k = new TB.Kit();
+    const k = new TB.Kit(); const mats = colors.map(c => sm(c, { flat: true }));   // un material por color: una malla por color
     for (let z = zFrom; z < zTo; z += rows) {
       for (let x = -R * 0.85; x < R * 0.85; x += 1.3) {
         if (!TB.inHex(x, z, R * 0.94)) continue;
-        k.box(sm(colors[(Math.floor(z * 3) & 1)], { flat: true }), 1.2, tall ?? 0.35, rows * 0.45, x, (tall ?? 0.35) / 2, z);
+        k.box(mats[(Math.floor(z * 3) & 1)], 1.2, tall ?? 0.35, rows * 0.45, x, (tall ?? 0.35) / 2, z);
       }
     }
     const grp = new THREE.Group(); k.build(grp, { cast: false }); g.add(grp);
@@ -218,6 +218,53 @@
   P.tokaido = (g, R, h) => { paddies(g, R, h); trees(g, R, h, 8, 51, 'pine', ['#355e3b'], 13); mountain(g, -R * 0.42, -R * 0.68, R * 0.2, R * 0.26, '#6f7f93', true); };
   P.bourgogne = (g, R, h) => { fields(g, R, 6.5, R * 0.8, ['#5f7d33', '#7f8f3a'], 1.3, 0.3); trees(g, R, h, Math.round(R * 0.35), 61, 'poplar', ['#4f6e2f'], 5.5); fields(g, R, -R * 0.8, -5.5, ['#c8b46a', '#b9a65b'], 3, 0.1); };
   P.pudong = (g, R, h) => { buildings(g, R, -R * 0.82, -R * 0.6, 91); trees(g, R, h, 10, 93, 'round', ['#4b7040'], 7); };
+
+  // ---------- utilería de las eras añadidas en la v3 ----------
+  function lamps(g, R, z, spacing) { // farolas de gas de hierro fundido
+    const k = new TB.Kit(); const ir = sm('#2c2f33', { r: 0.5, m: 0.5 }); const gl = new THREE.MeshStandardMaterial({ color: '#f6e2a8', emissive: '#ffd27a', emissiveIntensity: 0.6, roughness: 0.3 });
+    for (let x = -R * 0.78; x <= R * 0.78; x += spacing) {
+      k.cyl(ir, 0.06, 2.6, 'y', x, 1.3, z, 8, 0.08); k.cyl(ir, 0.14, 0.12, 'y', x, 0.06, z, 10);
+      k.add(TB.G.cyl(0.13, 0.32, 6, 0.18), gl, [x, 2.78, z]); k.add(TB.G.cyl(0.2, 0.1, 6, 0.02), ir, [x, 3.0, z]);
+    }
+    const grp = new THREE.Group(); k.build(grp); g.add(grp);
+  }
+  function pavilion(g, x, z, w, d, h) { // pabellón de hierro y vidrio con cubierta en arco
+    const k = new TB.Kit(); const ir = sm('#3a4048', { r: 0.5, m: 0.5 }); const gl = sm('#9fb7c4', { r: 0.15, m: 0.3 }); const st = sm('#c9bfa8', { flat: true });
+    k.box(st, w, 0.5, d, x, 0.25, z);
+    for (let i = 0; i <= 8; i++) { const xx = x - w / 2 + i * w / 8; k.box(ir, 0.12, h, 0.12, xx, h / 2 + 0.5, z + d / 2); k.box(ir, 0.12, h, 0.12, xx, h / 2 + 0.5, z - d / 2); }
+    k.box(gl, w, h - 0.4, 0.04, x, h / 2 + 0.5, z + d / 2 - 0.02);
+    const roof = new THREE.CylinderGeometry(d / 2, d / 2, w, 24, 1, true, 0, Math.PI); roof.rotateZ(Math.PI / 2);
+    k.add(roof, gl, [x, h + 0.5, z], [0, 0, 0], [1, 0.55, 1]);
+    for (let i = 0; i <= 8; i++) k.add(TB.G.torus(d / 2, 0.05, 4, 20, Math.PI), ir, [x - w / 2 + i * w / 8, h + 0.5, z], [0, Math.PI / 2, 0], [1, 0.55, 1]);
+    const grp = new THREE.Group(); k.build(grp); g.add(grp);
+  }
+  function pennants(g, R, z, spacing, colors) {
+    const k = new TB.Kit(); const wd = sm('#e8e2d2'), br = sm('#c99a3c', { m: 0.8, r: 0.3 }), cm = colors.map(c => sm(c));
+    let i = 0;
+    for (let x = -R * 0.7; x <= R * 0.7; x += spacing, i++) {
+      k.cyl(wd, 0.05, 6, 'y', x, 3, z, 8); k.sph(br, 0.09, x, 6.05, z);
+      k.add(TB.G.extrude([[0, 0], [1.4, -0.25], [0, -0.5]], 0.02), cm[i % cm.length], [x + 0.05, 5.8, z]);
+    }
+    const grp = new THREE.Group(); k.build(grp); g.add(grp);
+  }
+  function sage(g, R, hAt, n, seed, color) { // artemisa de las altas llanuras
+    const pts = TB.randPts(R, n, seed, (x, z) => Math.abs(z) < 4.2, hAt);
+    const geo = new THREE.IcosahedronGeometry(0.38, 0); geo.scale(1, 0.6, 1); geo.translate(0, 0.2, 0);
+    TB.scatter(g, geo, sm(color, { flat: true }), pts, i => 0.6 + (i % 4) * 0.25);
+  }
+  function mesa(g, x, z, r, h, color) {
+    const geo = new THREE.CylinderGeometry(r * 0.72, r, h, 9, 1); geo.translate(0, h / 2 - 0.4, 0);
+    const m = new THREE.Mesh(geo, sm(color, { flat: true })); m.position.set(x, 0, z); m.castShadow = true; m.receiveShadow = true; g.add(m);
+  }
+  function birches(g, R, hAt, n, seed) {
+    const pts = TB.randPts(R, n, seed, (x, z) => z > -5.5, hAt);
+    const geo = new THREE.SphereGeometry(0.9, 7, 5); geo.scale(0.8, 1.6, 0.8); geo.translate(0, 3.2, 0);
+    TB.scatter(g, geo, sm('#7f9a45', { flat: true }), pts);
+    const tr = TB.G.cyl(0.09, 2.4, 6); tr.translate(0, 1.2, 0); TB.scatter(g, tr, sm('#e6e2d8'), pts);
+  }
+  P.berlin1879 = (g, R, h) => { lamps(g, R, -2.6, 4.2); pennants(g, R, -6.2, 3.4, ['#b8402e', '#e8e2d2', '#2f4a6a', '#c99a3c']); pavilion(g, -R * 0.15, -R * 0.7, R * 0.8, 3.0, 2.6); trees(g, R, h, Math.round(R * 0.5), 71, 'round', ['#4f6e33'], 7.5); };
+  P.wyoming = (g, R, h) => { sage(g, R, h, Math.round(R * 2.2), 83, '#8a9470'); rocks(g, R, h, 10, 13, '#9a8468', 4.6); poles(g, R, -4.1, 12, 6.2, '#6b5640', true); mesa(g, -R * 0.3, -R * 0.72, R * 0.22, R * 0.12, '#a5866a'); mesa(g, R * 0.45, -R * 0.62, R * 0.16, R * 0.09, '#9a7c62'); };
+  P.niedersachsen = (g, R, h) => { fields(g, R, 6.0, R * 0.8, ['#6f9a3c', '#9ab04a'], 1.6, 0.25); fields(g, R, -R * 0.8, -6.5, ['#c9b45a', '#8aa84a'], 2.4, 0.12); birches(g, R, h, Math.round(R * 0.35), 97); };
 
   window.STAGE = { Stage, PROPS: P };
 })();

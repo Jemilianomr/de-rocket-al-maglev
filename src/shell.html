@@ -10,7 +10,7 @@
   --ink: #0d1720; --panel: #111d27; --panel-2: #162531; --panel-3: #1c2e3c; --line: #253a49; --line-2: #31495b;
   --fg: #ebe5d6; --fg-2: #c9c4b6; --muted: #8fa2ad; --brass: #d6a54f; --brass-hi: #f0cd84; --brass-lo: #8a6a33;
   --cut: #d9573b; --ok: #79c28a;
-  --steam: #e08a4b; --elec: #4fb3d9; --diesel: #cdb54f; --maglev: #a796f2;
+  --steam: #e08a4b; --elec: #4fb3d9; --diesel: #cdb54f; --maglev: #a796f2; --h2: #5fd3a0;
   --f-display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
   --f-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -163,13 +163,13 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 
 /* ---------- Riel de eras ---------- */
 .rail { grid-area: rail; position: relative; background: var(--panel); border-top: 1px solid var(--line); overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
-.rail-in { position: relative; display: grid; grid-template-columns: repeat(8, minmax(120px, 1fr)); height: 100%; min-width: 960px; padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px)); }
+.rail-in { position: relative; display: grid; grid-template-columns: repeat(11, minmax(92px, 1fr)); height: 100%; min-width: 1012px; padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px)); }
 .rail-in::before { content: ""; position: absolute; left: 0; right: 0; top: 30px; height: 10px; background: repeating-linear-gradient(90deg, #3a2f25 0 6px, transparent 6px 22px); opacity: .9; }
 .rail-in::after { content: ""; position: absolute; left: 0; right: 0; top: 31px; height: 8px; border-top: 2px solid #6d757c; border-bottom: 2px solid #6d757c; }
 .stn { position: relative; z-index: 1; border: 0; background: transparent; text-align: left; padding: 8px 10px 10px 14px; display: grid; grid-template-rows: 22px 22px auto auto; align-content: start; color: var(--muted); min-width: 0; border-radius: 0; }
 .stn .yr { font: 600 13px var(--f-mono); color: var(--fg-2); letter-spacing: .04em; }
 .stn .dot { width: 16px; height: 16px; margin-top: 1px; border-radius: 50%; background: var(--panel); border: 3px solid var(--tc); justify-self: start; transition: transform .2s; }
-.stn .nm { font: 700 16px/1.1 var(--f-display); letter-spacing: .05em; text-transform: uppercase; color: var(--fg-2); margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.stn .nm { font: 700 15px/1.1 var(--f-display); letter-spacing: .05em; text-transform: uppercase; color: var(--fg-2); margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .stn .co { font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .stn:hover .nm { color: var(--fg); }
 .stn[aria-current="true"] .dot { background: var(--tc); transform: scale(1.25); box-shadow: 0 0 0 5px color-mix(in srgb, var(--tc) 22%, transparent); }
@@ -338,7 +338,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 
 <div class="app" id="app">
   <header class="top">
-    <div class="brand"><h1>De Rocket <span>al</span> Maglev</h1><p>Atlas de la tracción ferroviaria · 1829–2004</p></div>
+    <div class="brand"><h1>De Rocket <span>al</span> Maglev</h1><p>Atlas de la tracción ferroviaria · 1829–2018</p></div>
     <div class="spacer"></div>
     <button class="btn primary" id="btnCompare" type="button"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 16V9M8 16V4M13 16v-5M18 16V7"/></svg><span class="lb">Comparar eras</span></button>
   </header>
@@ -419,7 +419,7 @@ input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="cmpTitle">
   <div class="sheet-in">
     <div class="sheet-h">
-      <div><h2 id="cmpTitle">Ocho hitos, una curva</h2><p>Cómo cambiaron velocidad, potencia específica y carga por eje entre 1829 y 2004. Los puntos vacíos marcan datos de récord; “n/d” indica que la cifra no está documentada en las fuentes consultadas.</p></div>
+      <div><h2 id="cmpTitle">Once hitos, una curva</h2><p>Cómo cambiaron velocidad, potencia específica y carga por eje entre 1829 y 2018. Los puntos vacíos marcan datos de récord; “n/d” indica que la cifra no está documentada en las fuentes consultadas.</p></div>
       <div class="spacer"></div>
       <button class="btn" id="cmpClose" type="button">Cerrar</button>
     </div>
